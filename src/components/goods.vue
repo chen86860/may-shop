@@ -9,9 +9,6 @@
         <div class="goods-name textellipsis">
           {{item.names}}
         </div>
-        <div class="goods-oldprice">￥200</div>
-        <div class="goods-newprice">￥100</div>
-        <div class="goods-vip">vip专享</div>
       </router-link>
     </div>
   </div>
@@ -36,7 +33,7 @@
     position: relative;
     padding-left: .18rem;
     padding-top: .18rem;  
-    width: 2.006666rem;
+    width:100%;
     overflow: hidden;
   }
   

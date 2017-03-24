@@ -53,35 +53,35 @@
   </div>
 </template>
 <script>
-import navheader from '../components/navheader.vue'
-import cgoods from '../components/goods.vue'
-export default {
-  data() {
-  return {
-    showfilter: false,
-    indexnum: 0,
-    goodslist: ['全部', '潮流前线', '男包装', '女大衣', '男裤子']
-  }
-  },
-components: {
-  navheader,
-  cgoods
-},
-  methods: {
-    back () {
-      this.$router.go(-1)
+  import navheader from '../components/navheader.vue'
+  import cgoods from '../components/goods.vue'
+  export default {
+    data () {
+      return {
+        showfilter: false,
+        indexnum: 0,
+        goodslist: ['全部', '潮流前线', '男包装', '女大衣', '男裤子']
+      }
     },
-    test () {
-      console.dir(this.data)
+    components: {
+      navheader,
+      cgoods
     },
-    searchchange (num) {
-      console.log(num)
-    },
-    changeM () {
-      this.showfilter = !this.showfilter
+    methods: {
+      back () {
+        this.$router.go(-1)
+      },
+      test () {
+        console.dir(this.data)
+      },
+      searchchange (num) {
+        console.log(num)
+      },
+      changeM () {
+        this.showfilter = !this.showfilter
+      }
     }
   }
-}
 </script>
 <style>
 .search-input {

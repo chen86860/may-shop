@@ -2,21 +2,34 @@
   <div class="container" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="5">
     <!-- 头部 -->
     <div class="header">
-      <router-link class="nav" to="/search">
-        <div class="header-input"><span class="iconfont icon-search header-shousuo"></span></div>
-      </router-link>
+      <div class="header-input"> 
+        <input type="text" class="iconfont icon-search header-shousuo" placeholder="搜索">
+      </div>
+        <router-link to="/shopcar" class="shopcar"></router-link>
     </div>
     <!-- 轮播banner -->
     <swiper :options="swiperbanner" class="banner-swipe">
       <swiper-slide class="banner-swipe-item" v-for="banner in banners"><img :src="banner" /></swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
+    <!-- 热门商品 -->
+    <div class="hot-goods">
+    <div v-for="item in goods">
+        <a :href="item.to" >
+            <p>{{item.title}}</p>
+            <p>{{item.subTitle}}</p>
+            <div>
+                <img :src="item.img" alt="">
+            </div>
+        </a>
+        </div>
+    </div>
     <!--头条内容-->
     <div class="home-msg">
       <swiper :options="swipertitle" class="title-swipe">
-        <swiper-slide class="title-swipe-item" v-for="title in titles"><span>爆</span>{{title}}</swiper-slide>
+        <swiper-slide class="title-swipe-item" v-for="title in titles">{{title}}</swiper-slide>
       </swiper>
-      <div class="home-first">头条：</div>
+      <div class="home-first">HOT:</div>
     </div>
     <!--广告-->
     <div class="home-ad p-align-justy">
@@ -25,15 +38,50 @@
 
     <!--每日推荐-->
     <div class="home-goods">
-      <div class="home-goods-title">每日推荐</div>
-      <cgoods :product="goodslist"></cgoods>
+      <p class="home-goods-title">每日推荐</p>
+      <div class="home-day-goods">
+          <div class="daygoodslist_0">
+              <a :href="daygoodslist_1_0.to">
+                <p>{{daygoodslist_1_0.title}}</p>
+                <p>{{daygoodslist_1_0.subTitle}}</p>
+                <div><img :src="daygoodslist_1_0.pic" alt=""></div>
+              </a>
+          </div>
+          <div class="daygoodslist">
+            <div v-for="item in daygoodslist_1">
+                <a :href="item.to">
+                <div><p>{{item.title}}</p>
+                  <p>{{item.subTitle}}</p></div>
+                  
+                  <div><img :src="item.pic" alt=""></div>
+                </a>
+            </div>
+          </div>
+      </div>
+      <div class="home-day-goods">
+          <div class="daygoodslist_0">
+              <a :href="daygoodslist_2_0.to">
+                <p>{{daygoodslist_2_0.title}}</p>
+                <p>{{daygoodslist_2_0.subTitle}}</p>
+                <div><img :src="daygoodslist_2_0.pic" alt=""></div>
+              </a>
+          </div>
+          <div class="daygoodslist">
+            <div v-for="item in daygoodslist_2">
+                <a :href="item.to">
+                <div><p>{{item.title}}</p>
+                  <p>{{item.subTitle}}</p></div>
+                  
+                  <div><img :src="item.pic" alt=""></div>
+                </a>
+            </div>
+          </div>
+      </div>
+   
     </div>
     <!--精选商品-->
     <div class="home-goods">
       <div class="home-goods-title">精选商品</div>
-      <!--<div class="home-goods-list clearfix">
-        <cgoods v-for="item in goodslist" :product="item"></cgoods>
-      </div>-->
       <cgoods :product="goodslist"></cgoods>
     </div>
     <loadingmore :isshow="loading"></loadingmore>
@@ -45,101 +93,105 @@
   import cgoods from '../../components/goods.vue'
   import loadingmore from '../../components/loadingmore.vue'
   export default {
-    data() {
-        return {
-          banners: ['https://s10.mogucdn.com/mlcdn/c45406/170320_22026ebi4ji3ihil6h9e7ad9h5cg3_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170322_7jdajecai8j1jj4832h3lf1l5f09e_750x360.jpg_800x9999.v1c7E.70.webp'],
-          swiperbanner: {
-            autoplay: 3500,
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
-            loop: true,
-            observeParents: true,
-          },
-          titles: ['新加商品', '商品打折', '最新商品'],
-          swipertitle: {
-            direction: 'vertical',
-            loop: true,
-            autoplay: 5000,
-          },
-          adpic: 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg',
-          goodslist: [{
-            names: '三脚架上骄傲是计算机',
-            price: 123,
-            pic: '//m.360buyimg.com/n12/jfs/t2731/207/4076727633/290641/b152c398/57a99710N11a65f65.jpg!q70.jpg'
-          }, {
-            names: '三脚架上骄傲是计算机',
-            price: 123,
-            pic: '//m.360buyimg.com/n12/jfs/t2731/207/4076727633/290641/b152c398/57a99710N11a65f65.jpg!q70.jpg'
-          }, {
-            names: '三脚架上骄傲是计算机',
-            price: 123,
-            pic: '//m.360buyimg.com/n12/jfs/t2731/207/4076727633/290641/b152c398/57a99710N11a65f65.jpg!q70.jpg'
-          }],
-          loading: false,
-          pageload: false
-        }
-      },
-      components: {
-        cgoods,
-        loadingmore
-      },
-      methods: {
-        test() {
-          let self = this
-          self.$http.post(util.getUrl() + 'users/login', {
-            username: 'hsp',
-            pwd: 123
-          }).then(response => {
-            console.log('test1')
-            this.test2()
-            this.adpic = 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg'
-            this.goodslist = [{
-              names: '三脚架上骄傲是计算机',
-              price: 123,
-              pic: '//m.360buyimg.com/n12/jfs/t2731/207/4076727633/290641/b152c398/57a99710N11a65f65.jpg!q70.jpg'
-            }, {
-              names: '骄傲是计算机',
-              price: 123,
-              pic: 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg'
-            }, {
-              names: '三脚架上骄傲是计算机',
-              price: 123,
-              pic: 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg'
-            }, {
-              names: '骄傲是计算机',
-              price: 123,
-              pic: 'http://m.360buyimg.com/n12/jfs/t2077/300/1385395884/208954/d99a0c61/5657f9c7Nde346a09.jpg!q70.jpg'
-            }]
-            this.goodslist = this.goodslist.concat(this.goodslist)
-            this.titles = [1, 2, 3, 4, 5]
-          }, err => {
-            console.log(err)
-          })
+    data () {
+      return {
+        banners: ['https://s10.mogucdn.com/mlcdn/c45406/170320_22026ebi4ji3ihil6h9e7ad9h5cg3_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170322_7jdajecai8j1jj4832h3lf1l5f09e_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170323_7604eb29kc72b15gj5dk8fc18k212_750x360.jpg'],
+        swiperbanner: {
+          autoplay: 3500,
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          loop: true,
+          observeParents: true
         },
-        test2() {
-          this.$http.post(util.getUrl() + 'users/login', {
-            username: 'hsp',
-            pwd: 123
-          }).then(response => {
-            this.pageload = false
-            console.log('test2')
-          }, err => {
-            console.log(err)
-          })
+        titles: ['围观“帝君”领跑扬州+满600减50', '泰国茉莉香米松软甘甜，新品减5', '满150减10+  满79减5'],
+        swipertitle: {
+          direction: 'vertical',
+          loop: true,
+          autoplay: 5000
         },
-        loadMore() {
-          this.loading = true
-          setTimeout(() => {
-            this.goodslist.push({
-              names: '三脚架上骄傲是计算机',
-              price: 123,
-              pic: '//m.360buyimg.com/n12/jfs/t2731/207/4076727633/290641/b152c398/57a99710N11a65f65.jpg!q70.jpg'
-            })
-            this.loading = false
-          }, 1000)
+        adpic: 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg',
+        goodslist: [{
+          price: 123,
+          pic: 'https://s10.mogucdn.com/mlcdn/c45406/170322_3af3d77k9035j4jafk34k41888j70_750x376.jpg_640x999.jpg'
+        }, {
+          pic: 'https://s10.mogucdn.com/mlcdn/c45406/170322_1fkci5flej46kha9l7f9gfg1fd315_750x376.jpg_640x999.jpg'
+        }, {
+          price: 123,
+          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170321_0lc83e72l792d5j4331f3584fd98h_750x360.jpg_800x9999.v1c7E.70.webp'
+        }],
+        daygoodslist_1_0: {
+          title: ' 上衣 ',
+          subTitle: '领券直降100元 ',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/p2/170320/16681717_7i2fl9liea42kcdi6d22kk81h7ji0_320x360.jpg'
+        },
+        daygoodslist_2_0: {
+          title: ' 美鞋尝鲜 ',
+          subTitle: 'TOP单品 低至1折',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170323_0419ag6713j63fbfh56gc3ajae1ac_320x360'
+        },
+        daygoodslist_1: [{
+          title: '裤子',
+          subTitle: ' 5折抢新 ',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170323_8flcl1120jg89fcd08d5klf9b7a9l_180x180.jpg'
+        }, {
+          title: ' 裙子 ',
+          subTitle: ' 流行不撞衫 ',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/p2/170320/105897215_1f417i68dfjib1786hdcf1afkc60a_180x180.jpg'
+        }],
+        daygoodslist_2: [{
+          title: ' 人气美包 ',
+          subTitle: ' 高颜值美包盘点 ',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170322_32la577b09922kgelk8k1c2i2d1j9_180x180.jpg'
+        }, {
+          title: ' 热辣男友 ',
+          subTitle: ' 男友换新装 ',
+          price: 123,
+          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170322_03e3211e06k36lja4i2fdd93cfeil_180x180.jpg'
+        }],
+        goods: [{
+          to: '',
+          title: '团购',
+          subTitle: '量贩买就送',
+          img: 'https://s2.mogucdn.com/p2/170317/105897215_7fecl8jg88ige3lgbfbhb5i17079i_200x200.jpg'
+        },
+        {
+          to: '',
+          title: '优选',
+          subTitle: '最高满减50',
+          img: 'https://s10.mogucdn.com/p1/160518/upload_ie4dgojuga4dkojzhazdambqgiyde_120x120.png'
+        },
+        {
+          to: '',
+          title: '新人福利',
+          subTitle: '百款新人好礼',
+          img: 'https://s10.mogucdn.com/p1/160401/1ei_ie4dinbwmnsggntbg4zdambqgiyde_120x120.jpg'
         }
+        ],
+        loading: false,
+        pageload: false
       }
-  }
+    },
+    components: {
+      cgoods,
+      loadingmore
+    },
+    methods: {
+      loadMore () {
+        this.loading = true
+        setTimeout(() => {
+          this.goodslist.push({
+            pic: 'http://s2.mogucdn.com/p2/170325/arkmaster_3el2ebda377a75le6hlef58a0b0ac_690x400.png'
+          })
+          this.loading = false
+        }, 1000)
+      }
+    }
+}
 </script>
 
 <style>
@@ -179,6 +231,8 @@
     line-height: .6rem;
     color: #3c3c3c;
     font-size: .25rem;
+    margin: 10px 0 10px;
+    background-color: #fff;
   }
   
   .title-swipe {
@@ -199,11 +253,9 @@
   .home-first {
     position: absolute;
     left: .28rem;
-    font-family: "微软雅黑";
     top: 0;
-    font-size: .32rem;
+    font-size: .26rem;
     color: #ff5364;
-    font-weight: bold;
   }
   
   .home-ad {
@@ -215,10 +267,11 @@
   }
   
   .home-goods-title {
-    line-height: .62rem;
+    line-height: .72rem;
     font-size: .24rem;
     color: #3C3C3C;
-    background-color: #f5f5f5;
-    text-align: center;
+    background-color: #fff;
+    padding-left:20px;
+    margin-top:1em;
   }
 </style>

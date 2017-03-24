@@ -28,7 +28,7 @@ import {
 } from 'mint-ui'
 
 import Pageload from './components/pageLoad.vue'
-import '../src/assets/css/app.css'
+import './assets/css/app.css'
 
 // 引入插件
 Vue.use(Lazyload, {

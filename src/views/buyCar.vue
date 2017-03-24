@@ -68,15 +68,15 @@ export default {
       products: [{
         price: 120,
         selected: true,
-        num: 1,
+        num: 1
       }, {
         price: 130,
         selected: true,
-        num: 1,
+        num: 1
       }, {
         price: 150,
         selected: true,
-        num: 1,
+        num: 1
       }]
     }
   },
@@ -99,7 +99,7 @@ export default {
         }
       }
     },
-    //价格设置
+    // 价格设置
     allSum () {
       var toAmount = 0
       var products = this.products

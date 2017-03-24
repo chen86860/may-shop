@@ -74,19 +74,19 @@
 <script>
   import navheader from '../../components/navheader.vue'
   export default {
-    data() {
-        return {
-          titles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16,17,18,19,20],
-          activeId: 0
-        }
-      },
-      methods: {
-        changeClass(id) {
-          this.activeId = id
-        }
-      },
-      components: {
-        navheader
+    data () {
+      return {
+        titles: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        activeId: 0
       }
+    },
+    methods: {
+      changeClass (id) {
+        this.activeId = id
+      }
+    },
+    components: {
+      navheader
+    }
   }
 </script>

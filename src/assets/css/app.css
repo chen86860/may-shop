@@ -57,6 +57,7 @@ html {
   max-width: 640px;
   margin: 0 auto;
   -webkit-overflow-scrolling: touch;
+  background-color: rgb(246, 246, 246)
 }
 
 span {
@@ -288,7 +289,6 @@ html {
 
 .p-check:checked {
   -webkit-appearance: none;
-  appearance: none;
   user-select: none;
   outline: none;
   background: none;
@@ -306,10 +306,6 @@ html {
 
 .p-border-b {
   border-bottom: 1px solid #DFDFDF;
-}
-
-.p-border-t {
-  border-top: 1px solid #DFDFDF;
 }
 
 .p-text-c {
@@ -434,6 +430,9 @@ img {
   font-size: .34rem;
   color: #fff;
   overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between
 }
 
 .nav-left {
@@ -470,18 +469,31 @@ img {
 }
 
 .header-input {
-  line-height: .58rem;
-  height: .58rem;
-  background: #eee;
-  border-radius: .1rem;
-  -webkit-border-radius: .1rem;
-  margin: .1rem .25rem;
-  text-align: center;
+line-height: .58rem;
+    /* height: .58rem; */
+    /* background: #eee; */
+    /* border-radius: .1rem; */
+    -webkit-border-radius: .1rem;
+    /* margin: .1rem .25rem; */
+    text-align: center;
+    width: 100%;
+    /* border-radius: 3px; */
+    height: 100%;
+  display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-shousuo {
-  color: #ff1877;
-  z-index: 2;
+      color: #353535;
+    z-index: 2;
+    font-size: 0.7em !important;
+    height: 33px;
+    width: 100%;
+    margin: 10px;
+    border-radius: 6px;
+    background-color: #ececec;
+    padding: 10px;
 }
 
 .nav-address {
@@ -625,4 +637,110 @@ img {
   background: #ff1877;
   font-size: .26rem;
   border: 1px solid #dfdfdf;
+}
+.shopcar{
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAqCAMAAAD/A0kuAAAAe1BMVEUAAACZmZmampqZmZmampqZmZmampqampqbm5uenp6ampqampqampqcnJyampqZmZmampqZmZmZmZmampqbm5uampqbm5ubm5uampqampqurq7b29uampqampqampqZmZmampqampqZmZmfn5+ZmZmampqampqqqqqZmZmKvX5MAAAAKHRSTlMA9Lv8+R6F7EIU5decJyK4raiLfWReU002MQcE3crIpJBwbBoKzFEM1bcTtgAAAQFJREFUOMvNlNmSgjAQRROCRJZBXEdcR2c7//+FFlXRoKVNP3qemq5TTWgumCzF2WltVFg6vM7uJgN7o2UMdqu2C/hQyxNYqeUZZGp5Cc31cZ/j7PE7yC3swiJf44O9cbgfeTJwDKNLWBuRT/ChnMJClnNwoZzD1+CLO8SbJLJ8giqUNXhZruDcC18uynsYX+tDVwts+9MqOElyDcXt4gyVJK9g0t/MryTPYRZ3PpD/Bpbq/JfQavO/dqSbu/w7JMq7/Mv4/iFbJNImujH/SmL+ZWL+BxHyL31ku1wr/ztpG9mDvUDAmgf+CmnyWzJKbDLS9hPCn0bTt3FDYl8/WX/mC+pzPnfPOji8AAAAAElFTkSuQmCC');
+      width: 3em;
+    background-repeat: no-repeat;
+    background-size: 1.3em;
+    background-position: 34% 50%
+}
+.hot-goods{
+  display: flex;
+  font-size: 0.3em;
+      padding: 1em;
+          background-color: #fff;
+}
+.hot-goods > div{
+  width: 33%;
+  box-sizing: border-box;
+  border-left: 1px solid #eaeaea;
+  
+}
+.hot-goods > div:first-child{
+  border-left: none !important;
+  
+}
+.hot-goods>div>a>p:first-child{
+  font-size: 0.25em;
+  color: #5d5d5d;
+}
+.hot-goods>div>a>div{
+  padding:0 1.6em 0
+}
+.hot-goods>div>a>p{
+  font-size: 0.25em;
+  color: #a2a2a2;
+  text-align: center;
+  padding: 0 1.3em 0
+}
+.hot-goods>div>a>div>img{
+  width: 100%;
+  
+}
+.home-day-goods{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #fff;
+  font-size: 0.4em;
+      border-top: 1px solid #e4e4e4;
+}
+.home-day-goods>div{
+  width: 50% !important;
+}
+.home-day-goods>div{
+  height: 4em;
+}
+.home-day-goods>div:first-child{
+  height: 8em;
+}
+.home-day-goods>div>a{
+  height: 4em;
+  width: 100%;
+  display: inline-block
+}
+.home-day-goods>div>a>div{
+padding: 0 1.4em 0;
+}
+.home-day-goods>div>a>p{
+  font-size: 0.3em;
+}
+.daygoodslist>div{
+  font-size: .23em;
+  border-top: 1px solid #ddd;
+}
+.daygoodslist>div:first-child{
+  border-top:none
+}
+.daygoodslist>div>a{
+  display: flex;
+  position: relative;
+}
+.daygoodslist>div>a>div{
+  padding:1em 1em 0px 8.5em;
+}
+.daygoodslist>div>a>div>p:first-child{
+      font-size: 0.6em;
+    font-weight: bold;
+}
+.daygoodslist>div>a>div:first-child{
+     padding: 0;
+    width: 6em;
+    position: absolute;
+    top: 1em;
+    left: 2em;
+}
+.daygoodslist_0{
+  border-right: 1px solid #eee;
+  text-align: center;
+  padding: 10px;
+}
+.daygoodslist_0>a>p:first-child{
+  font-size: 0.6em;
+  font-weight: bold
+}
+.daygoodslist_0>div{
+  padding: 0 4em 0;
+  text-align: center
 }

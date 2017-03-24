@@ -57,17 +57,13 @@
 </template>
 <script>
   export default {
-    data() {
+    data () {
       return {
         url: '../src/assets/logo.png',
         title: '金卡会员',
         phone: '188***3822'
       }
-    },
-    computed() {
-
-    },
-    methods: {}
+    }
   }
 </script>
 <style>

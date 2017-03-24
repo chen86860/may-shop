@@ -32,13 +32,20 @@
       padding-bottom: 1.1rem;
     }
   .home-b {
-    position: fixed;
+       position: fixed;
     z-index: 4;
-    height: .98rem;
-    width: 100%;
-    left: 0;
-    bottom: 0;
+    /* height: 1.3rem; */
+    /* width: 100%; */
+    /* left: 0; */
+    /* bottom: 0; */
     font-size: .2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: inherit;
+    justify-content: center;
+    border-top: 1px solid #ddd;
+    padding-top: 0.4em;
   }
   
   .home-select {
@@ -53,6 +60,8 @@
     background: #fff;
     text-align: center;
     color: #757575;
+    display: flex;
+    justify-content: space-around;
   }
   
   .home-b-com>span {
@@ -61,8 +70,8 @@
   }
   
   .home-f-size {
-    font-size: .42rem;
-    line-height: .5rem;
+    font-size: .32rem;
+    line-height: .4rem;
   }
   
   .home-yao {
