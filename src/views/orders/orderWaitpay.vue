@@ -5,6 +5,7 @@
        infinite-scroll-distance="10">
     <orderitem v-for="list in lists"
                :orderitem="list"
+               :key="list.id"
                v-on:enter="penter(list)"
                v-on:test="ptest(list)"></orderitem>
   </div>

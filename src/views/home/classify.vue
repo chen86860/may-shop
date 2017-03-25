@@ -1,18 +1,23 @@
 <template>
   <div class="p-size">
-    <navheader :navleft="'common'" :title="'商品分类'"></navheader>
-
+    <!-- 头部 -->
+    <div class="header">
+      <div class="header-input"> 
+        <input type="text" class="iconfont icon-search header-shousuo" placeholder="搜索">
+      </div>
+        <router-link to="/shopcar" class="shopcar"></router-link>
+    </div>
     <div class="p-flex">
       <!--左侧分类导航-->
       <div class="classify-swipe">
-        <div class="classify-swipe-item" @click="changeClass(index)" :class="[activeId==index ? 'classify-swipe-itemactive':'']" v-for="(title,index) in titles">分类{{title}}</div>
+        <div class="classify-swipe-item" @click="changeClass(index)" :class="[activeId==index ? 'classify-swipe-itemactive':'']" v-for="(title,index) in titles" :key="(title,index) in titles">{{title}}</div>
       </div>
       <div class="classify-list p-flex-1 p-flex-float ">
-        <router-link to="/search" tag="div" class="classify-item textellipsisone" v-for="item in titles">
+        <router-link to="/search" tag="div" class="classify-item textellipsisone" v-for="item in titles" :key="item in titles">
           <div class="classify-item-img p-align-justy">
             <img src="../../../src/assets/img/dd.png" />
           </div>
-          洗衣机{{item}}
+          {{item}}
         </router-link>
       </div>
     </div>
@@ -32,7 +37,7 @@
     line-height: .9rem;
     text-align: center;
     background: #F5F5F5;
-    font-size: .26rem;
+    font-size: .20rem;
     border-bottom: 1px solid #fff;
   }
   
@@ -54,6 +59,7 @@
     height: 9.48rem;
     padding: .28rem .17rem;
     overflow-y: scroll;
+        background-color: #fff;
   }
   
   .classify-item {
@@ -76,7 +82,7 @@
   export default {
     data () {
       return {
-        titles: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        titles: [' 正在流行', ' 打底裤', ' 裙子', ' 内衣', '女鞋', ' 美妆', ' 男友', ' 包包', ' 母婴', ' 运动', ' 配饰'],
         activeId: 0
       }
     },

@@ -1,7 +1,7 @@
 /* eslint-disable *
 <template>
   <div class="home-goods-list clearfix p-flex-float">
-    <div v-for="item in product" class="goods">
+    <div v-for="item in product" :key="item.id" class="goods">
       <router-link :to="{name:'product'}">
         <div class="goods-img p-align-justy">
           <img v-lazy="item.pic" class="p-imgloay" />

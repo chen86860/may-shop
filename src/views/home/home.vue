@@ -3,31 +3,33 @@
     <!-- 头部 -->
     <div class="header">
       <div class="header-input"> 
+      <router-link class="nav" to="/search">
         <input type="text" class="iconfont icon-search header-shousuo" placeholder="搜索">
+			</router-link>
       </div>
-        <router-link to="/shopcar" class="shopcar"></router-link>
+        <router-link  :to="{name:'homebuycar'}" class="shopcar"></router-link>
     </div>
     <!-- 轮播banner -->
     <swiper :options="swiperbanner" class="banner-swipe">
-      <swiper-slide class="banner-swipe-item" v-for="banner in banners"><img :src="banner" /></swiper-slide>
+      <swiper-slide class="banner-swipe-item" v-for="banner in banners" :key="banner in banners" ><img :src="banner" /></swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
     <!-- 热门商品 -->
     <div class="hot-goods">
-    <div v-for="item in goods">
-        <a :href="item.to" >
+    <div v-for="item in goods" :key="item.id">
+        <router-link :to="{name:'product',query:{id:item.id}}">
             <p>{{item.title}}</p>
             <p>{{item.subTitle}}</p>
             <div>
                 <img :src="item.img" alt="">
             </div>
-        </a>
+        </router-link>
         </div>
     </div>
     <!--头条内容-->
     <div class="home-msg">
       <swiper :options="swipertitle" class="title-swipe">
-        <swiper-slide class="title-swipe-item" v-for="title in titles">{{title}}</swiper-slide>
+        <swiper-slide class="title-swipe-item" v-for="title in titles" :key="title.id">{{title}}</swiper-slide>
       </swiper>
       <div class="home-first">HOT:</div>
     </div>

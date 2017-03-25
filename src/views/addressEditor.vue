@@ -110,6 +110,9 @@ export default {
   height: .9rem;
   line-height: .9rem;
   border-bottom: 1px solid #dfdfdf;
+      background-color: #fff;
+    padding-left: 10px;
+    font-size: 0.2rem;
 }
 
 .adsEditor-content .edt-content-last {

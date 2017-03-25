@@ -32,20 +32,28 @@
       padding-bottom: 1.1rem;
     }
   .home-b {
-       position: fixed;
+         position: fixed;
     z-index: 4;
     /* height: 1.3rem; */
-    /* width: 100%; */
-    /* left: 0; */
-    /* bottom: 0; */
+    width: 100%;
+    left: 0;
+    bottom: 0;
     font-size: .2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -ms-grid-column-align: inherit;
     justify-items: inherit;
     justify-content: center;
     border-top: 1px solid #ddd;
     padding-top: 0.4em;
+        background-color: #fff;
   }
   
   .home-select {
@@ -71,7 +79,7 @@
   
   .home-f-size {
     font-size: .32rem;
-    line-height: .4rem;
+    line-height: .33rem;
   }
   
   .home-yao {

@@ -34,7 +34,9 @@
     <!--订单商品-->
     <div class="corder-list">
       <div class="carlist-item"
-           v-for="goods in ordergoods">
+           v-for="goods in ordergoods"
+           :key="goods in ordergoods"
+           >
         <productOrder :productOrder="goods"></productOrder>
         <div class="corder-listtotal">小计：￥12</div>
       </div>

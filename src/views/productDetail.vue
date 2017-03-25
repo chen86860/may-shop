@@ -8,7 +8,7 @@
     <swiper :options="swiperbanner"
             class="product-swipe">
       <swiper-slide class="product-swipe-item"
-                    v-for="ppic in productpics"><img :src="ppic" /></swiper-slide>
+                    v-for="ppic in productpics" :key="ppic.id"><img :src="ppic" /></swiper-slide>
       <div class="swiper-pagination"
            slot="pagination"></div>
     </swiper>
@@ -72,13 +72,13 @@
           <div class="product-mask-con p-flex">
             <div class="mask-con-title">颜色:</div>
             <div class="make-con-rigth p-flex-1">
-              <span class="mask-span-active">红色</span><span>红色</span><span>红色</span><span>红色</span>
+              <span class="mask-span-active">红色</span><span>红色</span>
             </div>
           </div>
           <div class="product-mask-con p-flex">
             <div class="mask-con-title">颜色:</div>
             <div class="make-con-rigth p-flex-1">
-              <span class="mask-span-active">红色</span><span>红色</span><span>红色</span><span>红色</span>
+              <span class="mask-span-active">红色</span><span>红色</span>
             </div>
           </div>
           <button class="p-full-btn">

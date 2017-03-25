@@ -12,7 +12,9 @@
   
     <div class="address-list p-size">
       <div class="address-list1 p-border p-rel"
-           v-for='item in users'>
+           v-for='item in users'
+           :key='item in users'
+           >
         <p> {{item.name}} </p>
         <p> {{item.phone}} </p>
         <p> {{item.address}} </p>
@@ -28,13 +30,13 @@ export default {
     return {
       title: '新增地址',
       users: [{
-        'name': '张先生',
-        'phone': '135**8345',
-        'address': '北京市西城区新街口外大街22号'
+        'name': '陈先生',
+        'phone': '188**3822',
+        'address': '广东省江门市五邑大学'
       }, {
-        'name': '张小三',
-        'phone': '135**8345',
-        'address': '北京市东城区新街口外大街22号'
+        'name': '陈小姐',
+        'phone': '188**3822',
+        'address': '广东省江门市五邑大学'
       }]
     }
   },
@@ -65,23 +67,31 @@ export default {
 </script>
 <style>
 .address-list {
-  margin: .2rem .2rem 0;
+  margin-top: 10px;
   color: #3c3c3c;
 }
 
 .address-list div {
-  width: 6rem;
-  padding-left: .2rem;
-  border: 1px solid #dfdfdf;
+        width: 6rem;
+    padding-left: .2rem;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 0 0.2rem 0;
+    border-bottom: 1px solid #ddd;
+        font-size: 0.2rem;
+        padding: 0.2rem;
 }
 
 .address-list div p {
   height: .5rem;
   line-height: .5rem;
 }
+.address-list div p:first-child{
+  font-size: 0.3rem;
+}
 
 .address-list1 {
-  margin-bottom: .2rem;
+  margin:0
 }
 
 .address-list1 span {

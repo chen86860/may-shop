@@ -3,9 +3,8 @@
     <navheader :navleft="'common'" :title="'卡卷包'"></navheader>  
     <div class="card-img p-rel">
       <div class="card-big p-abs">
-        <img class="card-big-img" src="../../src/assets/img/card.png" alt="卡卷包" />
       </div>
-      <p class="card-shop p-abs">赛特购物中心</p>
+      <p class="card-shop p-abs">益华购物中心</p>
       <p class="card-vip p-abs">VIP金卡</p>
       <p class="card-jif p-abs">
         <span>当前积分</span>
@@ -13,8 +12,7 @@
         <span>10030</span>
       </p>
       <hr class="card-hr p-abs">
-      <img class="card-qr p-abs" src="../../src/assets/img/fk.png" alt="二维码" />
-      <div class="card-date p-abs">2016.02.11-2016.03.11</div>
+      <div class="card-date p-abs">2017.02.11-2017.03.11</div>
     </div>
   </div>
 </template>
@@ -33,9 +31,14 @@
     color: #fc7945;
   }
   .card-img {
-    margin: .2rem .2rem 0 .2rem;
+        margin: .2rem .2rem 0 .2rem;
     width: 6rem;
     height: 2.4rem;
+    color: #fff;
+    border-radius: 6px;
+    background: #DA22FF; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #DA22FF , #9733EE); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #DA22FF , #9733EE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .card-big {
     left: 0;

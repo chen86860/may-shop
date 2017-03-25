@@ -43,7 +43,7 @@
       </div>
       <div class="search-pinpai">
       <div class="search-filter-t">商品品牌</div>
-      <span>阿迪达斯</span><span>阿迪达斯</span><span>阿迪达斯</span><span>阿迪达斯</span><span>阿迪达斯</span><span>阿迪达斯</span>
+      <span>阿迪达斯</span><span>阿迪达斯</span><span>阿迪达斯</span>
       </div>
     </div>
     <button class="p-full-btn"
@@ -79,6 +79,15 @@
       },
       changeM () {
         this.showfilter = !this.showfilter
+      },
+      loadMore () {
+        this.load = false
+        setTimeout(() => {
+          this.goodslist.push({
+            pic: 'http://s2.mogucdn.com/p2/170325/arkmaster_3el2ebda377a75le6hlef58a0b0ac_690x400.png'
+          })
+          this.loading = false
+        }, 1000)
       }
     }
   }

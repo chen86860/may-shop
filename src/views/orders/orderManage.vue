@@ -3,7 +3,7 @@
     <navheader :navleft="'common'" :title="'订单管理'"></navheader>
     <!--导航-->
     <div class="manager-nav p-border-b p-flex">
-      <router-link class="p-flex-1 p-text-c" replace v-for="item in routersname" :to="{name:item.rname}" :active-class="'search-swiper-active'">{{item.title}}</router-link>
+      <router-link class="p-flex-1 p-text-c" replace v-for="item in routersname" :key="item.id" :to="{name:item.rname}" :active-class="'search-swiper-active'">{{item.title}}</router-link>
     </div>
     <transition name='fade' mode='out-in'>
       <router-view></router-view>

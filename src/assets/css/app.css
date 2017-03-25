@@ -191,8 +191,6 @@ html {
 
 .textellipsis {
   display: -webkit-box;
-  必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。 -webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。 text-overflow: ellipsis;
-  ，可以用来多行文本的情况下，用省略号“…”隐藏超出范围的文本 。 overflow: hidden;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
@@ -239,15 +237,15 @@ html {
 /*底部fixed-btn 商品详情，购物车*/
 
 .p-bottom-btns {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 3;
-  font-size: .28rem;
-  line-height: .98rem;
-  border-top: 1px solid #F5F5F5;
-  background-color: #fff;
+     position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 3;
+    font-size: .23rem;
+    line-height: .68rem;
+    border-top: 1px solid #F5F5F5;
+    background-color: #fff;
 }
 
 .p-btn-width {
@@ -258,17 +256,26 @@ html {
 
 /*加减按钮*/
 
-.p-btnjian,
-.p-btnjia {
+.p-btnadd{
   background: #fff;
-  font-size: .4rem;
-  border: 1px solid #AAA9A9;
-  border-radius: 50%;
-  width: .5rem;
-  height: .5rem;
-  line-height: .5rem;
-  color: #AAA9A9;
+    font-size: .2rem;
+    border-left: 1px solid #e6e6e6;
+    /* border-radius: 50%; */
+    width: .3rem;
+    height: .3rem;
+    /* line-height: .5rem; */
+    color: #AAA9A9;
 }
+.p-btnsplice {
+ background: #fff;
+    font-size: .2rem;
+    border-right: 1px solid #e6e6e6;
+    /* border-radius: 50%; */
+    width: .3rem;
+    height: .3rem;
+    /* line-height: .5rem; */
+    color: #AAA9A9;
+  }
 
 .p-input {
   width: .6rem;
@@ -284,7 +291,7 @@ html {
   outline: none;
   position: relative;
   color: #ff1877;
-  font-size: .35rem;
+  font-size: .3rem;
 }
 
 .p-check:checked {
@@ -366,14 +373,14 @@ img {
 /*购物车商品展示被公用 购物车，创建订单**/
 
 .carlist {
-  background-color: #fff;
+  background-color: #f6f6f6;
 }
 
 .carlist-item {
   position: relative;
   padding: .14rem .2rem;
   font-size: .22rem;
-  background-color: #F5F5F5;
+  background-color: #ffffff;
   margin-bottom: .1rem;
 }
 
@@ -396,8 +403,10 @@ img {
 }
 
 .carlist-item-btn {
-  margin-top: .06rem;
-  padding-left: .4rem;
+      margin-top: .06rem;
+    /* padding-left: .4rem; */
+    display: flex;
+    justify-content: space-between;
 }
 
 .carlist-price {
@@ -457,15 +466,19 @@ img {
 }
 
 .header-title {
-  transform: translateY(-.78rem);
-  -webkit-transform: translateY(-.78rem);
-  font-size: inherit;
-  text-align: center;
-  padding: 0 .6rem;
-  line-height: .78rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+      transform: translateY(-.78rem);
+    -webkit-transform: translateY(-.78rem);
+    font-size: 1em;
+    text-align: center;
+    padding: 0 .6rem;
+    line-height: .78rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    color: #000;
+    top: 2.8em;
+    position: absolute;
 }
 
 .header-input {
@@ -539,7 +552,6 @@ line-height: .58rem;
 
 .icon-xuanzhong:before { content: "\e636"; }
 
-.icon-houtui:before { content: "\e654"; }
 
 .icon-jinlingyingcaiwangtubiao07:before { content: "\e790"; }
 
@@ -718,7 +730,7 @@ padding: 0 1.4em 0;
   position: relative;
 }
 .daygoodslist>div>a>div{
-  padding:1em 1em 0px 8.5em;
+  padding:0.3em 1em 0px 8.5em;
 }
 .daygoodslist>div>a>div>p:first-child{
       font-size: 0.6em;
@@ -743,4 +755,33 @@ padding: 0 1.4em 0;
 .daygoodslist_0>div{
   padding: 0 4em 0;
   text-align: center
+}
+.shop-car-title{
+  color: #000;
+  text-align: center
+}
+.header-tit>p,.shop-car-title>p{
+     color: #000;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+}
+.icon-houtui{
+  background:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNDkwNDA2MjY0MDQ5IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjM0OTQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNjg3LjczMjM2NCAxNzIuNDUwOTA5IDMxMy40NjAzNjQgNTExLjQ4OGwzNzQuMjk1MjczIDMzOS4wMTM4MThjMTMuMDc5MjczIDEyLjkzOTYzNiAxMy4wNzkyNzMgMzMuODg1MDkxIDAgNDYuODAxNDU1LTEzLjA3OTI3MyAxMi45Mzk2MzYtMzQuMjU3NDU1IDEyLjkzOTYzNi00Ny4zMzY3MjcgMEwyNDIuMTA2MTgyIDUzNi41NTI3MjdjLTYuOTU4NTQ1LTYuODg4NzI3LTkuOTM3NDU1LTE2LjAzNDkwOS05LjQ3Mi0yNS4wNjQ3MjctMC40NjU0NTUtOS4wMjk4MTggMi41MTM0NTUtMTguMTUyNzI3IDkuNDcyLTI1LjA2NDcyN0w2NDAuNDE4OTA5IDEyNS42NDk0NTVjMTMuMDc5MjczLTEyLjkxNjM2NCAzNC4yNTc0NTUtMTIuOTE2MzY0IDQ3LjMzNjcyNyAwQzcwMC44MTE2MzYgMTM4LjU4OTA5MSA3MDAuODExNjM2IDE1OS41MzQ1NDUgNjg3LjczMjM2NCAxNzIuNDUwOTA5eiIgcC1pZD0iMzQ5NSIgZmlsbD0iIzcwNzA3MCI+PC9wYXRoPjwvc3ZnPg==") 50% no-repeat;
+      width: 2em;
+    background-size: 1.3em;
+}
+.nav{
+      width: 100%;
+    font-size: 0.8em;
+    border-bottom: 1px solid #ddd;
+}
+.btn-plus{
+ display: flex;
+     border: 1px solid #d4d4d4;
+    align-items: center;
+    justify-content: center;
 }

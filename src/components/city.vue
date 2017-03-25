@@ -19,12 +19,15 @@
   <ul class="city-con-down">
     <li v-show='pro'
         v-for='(province,key) in provinces'
+        :key='(province,key) in provinces'
         @click='changeP(key)'> {{ province.name}} </li>
     <li v-show='tow'
         v-for='(town,key) in towns'
+        :key='(town,key) in towns'
         @click='changeS(key)'> {{ town.name}} </li>
     <li v-show='con'
         v-for='(county,key) in countys'
+        :key='(county,key) in countys'
         @click='changeQ(key)'> {{ county}} </li>
   </ul>
   </div>
