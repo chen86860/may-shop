@@ -2,7 +2,7 @@
 <template>
   <div class="p-flex">
   <div class="carlist-img p-align-justy">
-    <img src="../assets/logo.png" />
+    <img src="../assets/img/logo.png" />
   </div>
   <div class="carlist-content p-flex-1">
     <div class="carlist-name textellipsisone">

@@ -54,7 +54,7 @@
   export default {
     data () {
       return {
-        url: '../src/assets/logo.png',
+        url: '../src/assets/img/logo.png',
         title: '金卡会员',
         phone: '188***3822'
       }
