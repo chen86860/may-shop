@@ -15,7 +15,7 @@
     position: relative;
     line-height: .69rem;
     color: #3C3C3C;
-    font-size: .28rem;
+    font-size: .22rem;
     display: block;
   }
 </style>

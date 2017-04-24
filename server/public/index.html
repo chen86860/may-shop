@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><link href=favicon.ico rel=icon><meta content="telephone=no" name=format-detection><title>May's shop</title><script>(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) {
+							return
+						}
+						size = (100 * (clientWidth / 640) > 100) ? 100 : 100 * (clientWidth / 640)
+						docEl.style.fontSize = size+"px"
+					};
+				if(!doc.addEventListener) {
+					return
+				}
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener("DOMContentLoaded", recalc, false)
+			})(document, window);</script><link href=/static/css/app.c3d5368b1c8685d1e687eebffe1ed231.css rel=stylesheet></head><body><div id=app></div><script src=/dist/build.js></script><script type=text/javascript src=/static/js/manifest.4bbe4d0bc4e199145057.js></script><script type=text/javascript src=/static/js/vendor.f2f9334caad55e53234f.js></script><script type=text/javascript src=/static/js/app.5a1900b7a2f5e22be7f6.js></script></body></html>

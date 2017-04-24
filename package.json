@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "server": "node server/bin/www",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "express-vue": "^3.9.11",
     "mint-ui": "^2.0.5",
     "vue": "^2.0.2",
     "vue-awesome-swiper": "^2.2.3",

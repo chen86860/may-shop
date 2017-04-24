@@ -31,14 +31,14 @@
     color: #fc7945;
   }
   .card-img {
-        margin: .2rem .2rem 0 .2rem;
+    margin: .2rem .2rem 0 .2rem;
     width: 6rem;
     height: 2.4rem;
     color: #fff;
-    border-radius: 6px;
+    border-radius: 3px;
     background: #DA22FF; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #DA22FF , #9733EE); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #DA22FF , #9733EE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to left, #DA22FF , #9733EE); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #DA22FF , #9733EE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .card-big {
     left: 0;

@@ -32,7 +32,7 @@
       padding-bottom: 1.1rem;
     }
   .home-b {
-         position: fixed;
+        position: fixed;
     z-index: 4;
     /* height: 1.3rem; */
     width: 100%;
@@ -51,9 +51,10 @@
     -ms-grid-column-align: inherit;
     justify-items: inherit;
     justify-content: center;
-    border-top: 1px solid #ddd;
+    /* border-top: 1px solid #ddd; */
     padding-top: 0.4em;
-        background-color: #fff;
+    /* background-color: #fff; */
+    /* max-width: 640px; */
   }
   
   .home-select {
@@ -61,15 +62,20 @@
   }
   
   .home-b-com {
-    width: 6.4rem;
+  width: 6.4rem;
     padding: 0 .25rem;
     line-height: .98rem;
     margin: 0 auto;
     background: #fff;
+    border-top: 1px solid #eee;
     text-align: center;
     color: #757575;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
+    padding-top: .2rem;
   }
   
   .home-b-com>span {

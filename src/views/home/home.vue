@@ -94,10 +94,15 @@
 <script>
   import cgoods from '../../components/goods.vue'
   import loadingmore from '../../components/loadingmore.vue'
+  const img1 = require('../../assets/img/img1.png')
+  const img2 = require('../../assets/img/img2.png')
+  // const img3 = require('../../assets/img/img3.png')
+  // const img4 = require('../../assets/img/img4.png')
   export default {
     data () {
       return {
-        banners: ['https://s10.mogucdn.com/mlcdn/c45406/170321_2kia616jecgjk9dbli98ffg01hkl0_750x360.jpg_1300x9999.v1c7E.70.webp', 'https://s10.mogucdn.com/mlcdn/c45406/170320_22026ebi4ji3ihil6h9e7ad9h5cg3_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170322_7jdajecai8j1jj4832h3lf1l5f09e_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170323_7604eb29kc72b15gj5dk8fc18k212_750x360.jpg'],
+        // banners: [img1, 'https://s10.mogucdn.com/mlcdn/c45406/170320_22026ebi4ji3ihil6h9e7ad9h5cg3_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170322_7jdajecai8j1jj4832h3lf1l5f09e_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170323_7604eb29kc72b15gj5dk8fc18k212_750x360.jpg'],
+        banners: [img1, img2, 'https://s2.mogucdn.com/mlcdn/c45406/170322_7jdajecai8j1jj4832h3lf1l5f09e_750x360.jpg_800x9999.v1c7E.70.webp', 'https://s2.mogucdn.com/mlcdn/c45406/170323_7604eb29kc72b15gj5dk8fc18k212_750x360.jpg'],
         swiperbanner: {
           autoplay: 3500,
           pagination: '.swiper-pagination',

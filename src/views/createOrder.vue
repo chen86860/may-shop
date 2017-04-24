@@ -47,9 +47,7 @@
       <ul class="p-flex-1">
         <li>普通发票</li>
         <li>普通发票</li>
-        <li>普通发票</li>
       </ul>
-      <div style="color: #AAA9A9;"> >> </div>
     </div>
   
     <!--合计-->

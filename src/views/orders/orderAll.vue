@@ -4,16 +4,32 @@
   </div>
 </template>
 <script>
-  import orderitem from '../../components/orderItem.vue'
-  export default {
-    data () {
-      return {
-        loading: false,
-        lists: [1, 2]
-      }
-    },
-    components: {
-      orderitem
+import orderitem from '../../components/orderItem.vue'
+export default {
+  data () {
+    return {
+      loading: false,
+      lists: [{
+        name: 'test1',
+        price: 88
+      },
+      {
+        name: 'test2',
+        price: 188
+      },
+      {
+        name: 'test3',
+        price: 80
+      }]
+    }
+  },
+  components: {
+    orderitem
+  },
+  methods: {
+    loadMore () {
+      console.log('Hello')
     }
   }
+}
 </script>

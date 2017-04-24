@@ -212,6 +212,10 @@ export default {
 .car-home-bottom {
   bottom: .98rem;
 }
+
+.car-home-bottom .p-btn-width{
+  background-color: #fff;
+}
 .empty-shop{
   text-align:center
 }
