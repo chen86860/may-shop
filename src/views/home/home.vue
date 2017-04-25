@@ -96,12 +96,11 @@
   import loadingmore from '../../components/loadingmore.vue'
   const img1 = require('../../assets/img/img1.png')
   const img2 = require('../../assets/img/img2.png')
-  // const img3 = require('../../assets/img/img3.png')
-  // const img4 = require('../../assets/img/img4.png')
+  const img3 = require('../../assets/img/img3.png')
   export default {
     data () {
       return {
-        banners: [img1, img2, 'https://s2.mogucdn.com/mlcdn/c45406/170323_7604eb29kc72b15gj5dk8fc18k212_750x360.jpg'],
+        banners: [img1, img2, img3],
         swiperbanner: {
           autoplay: 3500,
           pagination: '.swiper-pagination',
