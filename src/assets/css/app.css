@@ -335,10 +335,10 @@ html {
     height: .7rem;
     color: #fff;
     margin: .1rem 0;
+    margin: 0;
+    border: none;
     font-size: .22rem;
     background: #ff1877;
-    border-radius: .1rem;
-    -webkit-border-radius: .1rem;
 }
 
 .p-full-btn:active {
@@ -501,8 +501,8 @@ img {
     justify-content: center;
 }
 
-.header-shousuo {
-    color: #353535;
+.header-search {
+     color: #353535;
     z-index: 2;
     font-size: 0.7em !important;
     height: 33px;
@@ -511,6 +511,7 @@ img {
     border-radius: 6px;
     background-color: #ececec;
     padding: 10px;
+    border: 1px solid #fbfbfb;
 }
 
 .nav-address {
@@ -853,10 +854,10 @@ img {
 }
 
 .nav {
-    width: 100%;
+      width: 100%;
     font-size: 0.8em;
-    border-bottom: 1px solid #ddd;
     position: relative;
+    display: flex;
 }
 
 .btn-plus {

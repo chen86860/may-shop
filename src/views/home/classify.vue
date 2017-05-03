@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <div class="header">
       <div class="header-input"> 
-        <input type="text" class="iconfont icon-search header-shousuo" placeholder="搜索">
+        <input type="text" class="iconfont icon-search header-search" placeholder="搜索">
       </div>
         <router-link to="/shopcar" class="shopcar"></router-link>
     </div>

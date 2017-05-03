@@ -4,10 +4,9 @@
     <div class="header">
       <div class="header-input"> 
       <router-link class="nav" to="/search">
-        <input type="text" class="iconfont icon-search header-shousuo" placeholder="搜索">
+        <input type="text" class="iconfont icon-search header-search" placeholder="搜索">
 			</router-link>
       </div>
-        <router-link  :to="{name:'homebuycar'}" class="shopcar"></router-link>
     </div>
     <!-- 轮播banner -->
     <swiper :options="swiperbanner" class="banner-swipe">
@@ -17,14 +16,14 @@
     <!-- 热门商品 -->
     <div class="hot-goods">
     <div v-for="item in goods" :key="item.id">
-        <router-link :to="{name:'product',query:{id:item.id}}">
-            <p>{{item.title}}</p>
-            <p>{{item.subTitle}}</p>
+        <router-link :to="{name:'product',query:{id:item._id}}">
+            <p>{{item.name | substr}}</p>
+            <p>{{item.subName | substr}}</p>
             <div>
-                <img :src="item.img" alt="">
+                <img :src="item.img[0]" alt="">
             </div>
         </router-link>
-        </div>
+    </div>
     </div>
     <!--头条内容-->
     <div class="home-msg">
@@ -43,38 +42,38 @@
       <p class="home-goods-title">每日推荐</p>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-              <a :href="daygoodslist_1_0.to">
-                <p>{{daygoodslist_1_0.title}}</p>
-                <p>{{daygoodslist_1_0.subTitle}}</p>
-                <div><img :src="daygoodslist_1_0.pic" alt=""></div>
+              <a :href="daygoodslist_1_0._id">
+                <p>{{daygoodslist_1_0.subName}}</p>
+                <p>{{daygoodslist_1_0.name}}</p>
+                <div><img :src="daygoodslist_1_0.img[0]" alt=""></div>
               </a>
           </div>
           <div class="daygoodslist">
             <div v-for="item in daygoodslist_1">
-                <a :href="item.to">
-                <div><p>{{item.title}}</p>
-                  <p>{{item.subTitle}}</p></div>
+                <a :href="item._id">
+                <div><p>{{item.subNmae}}</p>
+                  <p>{{item.name}}</p></div>
                   
-                  <div><img :src="item.pic" alt=""></div>
+                  <div><img :src="item.img[0]" alt=""></div>
                 </a>
             </div>
           </div>
       </div>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-              <a :href="daygoodslist_2_0.to">
-                <p>{{daygoodslist_2_0.title}}</p>
-                <p>{{daygoodslist_2_0.subTitle}}</p>
-                <div><img :src="daygoodslist_2_0.pic" alt=""></div>
+              <a :href="daygoodslist_2_0._id">
+                <p>{{daygoodslist_2_0.subName}}</p>
+                <p>{{daygoodslist_2_0.name}}</p>
+                <div><img :src="daygoodslist_2_0.img[0]" alt=""></div>
               </a>
           </div>
           <div class="daygoodslist">
             <div v-for="item in daygoodslist_2">
-                <a :href="item.to">
-                <div><p>{{item.title}}</p>
-                  <p>{{item.subTitle}}</p></div>
+                <a :href="item.id">
+                <div><p>{{item.subName}}</p>
+                  <p>{{item.name}}</p></div>
                   
-                  <div><img :src="item.pic" alt=""></div>
+                  <div><img :src="item.img[0]" alt=""></div>
                 </a>
             </div>
           </div>
@@ -124,59 +123,6 @@
           price: 123,
           pic: 'https://s2.mogucdn.com/mlcdn/c45406/170321_0lc83e72l792d5j4331f3584fd98h_750x360.jpg_800x9999.v1c7E.70.webp'
         }],
-        daygoodslist_1_0: {
-          title: ' 上衣 ',
-          subTitle: '领券直降100元 ',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/p2/170320/16681717_7i2fl9liea42kcdi6d22kk81h7ji0_320x360.jpg'
-        },
-        daygoodslist_2_0: {
-          title: ' 美鞋尝鲜 ',
-          subTitle: 'TOP单品 低至1折',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170323_0419ag6713j63fbfh56gc3ajae1ac_320x360'
-        },
-        daygoodslist_1: [{
-          title: '裤子',
-          subTitle: ' 5折抢新 ',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170323_8flcl1120jg89fcd08d5klf9b7a9l_180x180.jpg'
-        }, {
-          title: ' 裙子 ',
-          subTitle: ' 流行不撞衫 ',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/p2/170320/105897215_1f417i68dfjib1786hdcf1afkc60a_180x180.jpg'
-        }],
-        daygoodslist_2: [{
-          title: ' 人气美包 ',
-          subTitle: ' 高颜值美包盘点 ',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170322_32la577b09922kgelk8k1c2i2d1j9_180x180.jpg'
-        }, {
-          title: ' 热辣男友 ',
-          subTitle: ' 男友换新装 ',
-          price: 123,
-          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170322_03e3211e06k36lja4i2fdd93cfeil_180x180.jpg'
-        }],
-        goods: [{
-          to: '',
-          title: '团购',
-          subTitle: '量贩买就送',
-          img: 'https://s2.mogucdn.com/p2/170317/105897215_7fecl8jg88ige3lgbfbhb5i17079i_200x200.jpg'
-        },
-        {
-          to: '',
-          title: '优选',
-          subTitle: '最高满减50',
-          img: 'https://s10.mogucdn.com/p1/160518/upload_ie4dgojuga4dkojzhazdambqgiyde_120x120.png'
-        },
-        {
-          to: '',
-          title: '新人福利',
-          subTitle: '百款新人好礼',
-          img: 'https://s10.mogucdn.com/p1/160401/1ei_ie4dinbwmnsggntbg4zdambqgiyde_120x120.jpg'
-        }
-        ],
         loading: false,
         pageload: false
       }
@@ -197,14 +143,34 @@
       }
     },
     computed: {
+      results () {
+        return this.$store.state.page.goods || []
+      },
       goods () {
-        return this.$store.page.good_1 || ''
+        return ([].concat(this.$store.state.page.goods)).slice(0, 3)
+      },
+      daygoodslist_1_0 () {
+        return ([].concat(this.$store.state.page.goods))[3]
+      },
+      daygoodslist_1 () {
+        return ([].concat(this.$store.state.page.goods)).slice(4, 6)
+      },
+      daygoodslist_2 () {
+        return ([].concat(this.$store.state.page.goods)).slice(7, 9)
+      },
+      daygoodslist_2_0 () {
+        return ([].concat(this.$store.state.page.goods))[6]
       }
     },
-    activated () {
+    mounted () {
       this.$store.dispatch('goods').then((res) => {
         console.log(res)
       })
+    },
+    filters: {
+      substr (value) {
+        return value.slice(0, 5)
+      }
     }
 }
 </script>
@@ -288,5 +254,11 @@
     background-color: #fff;
     padding-left:20px;
     margin-top:1em;
+  }
+  .daygoodslist{
+    height:8em !important;
+  }
+  .daygoodslist>div{
+    height:4em !important;
   }
 </style>

@@ -7,31 +7,42 @@ export const types = {
 
 export default {
   state: {
-    detail: {},
     cart: {},
-    goods: {}
+    goods: {},
+    detail: {}
   },
   mutations: {
-    index: (state, payload) => {
-      if (payload === undefined) return
-      console.log(payload)
-    },
     setCart: (state, payload) => {
       if (payload === undefined) return
       state.cart = payload
     },
     setGoods: (state, payload) => {
       if (payload === undefined) return
-      state.goods = payload
+      state.goods = payload.msg
+    },
+    setDetails: (state, payload) => {
+      if (payload === undefined) return
+      state.detail = payload.msg[0]
     }
   },
   actions: {
     goods ({commit, state, getters}, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['goods'], payload).then((res) => {
-          console.log('login', res.code, res)
+          console.log('goods', res.code, res)
           if (res.data.code === 0) {
             commit('setGoods', res.data)
+          }
+          resolve(res)
+        })
+      })
+    },
+    detail ({commit, state, getters}, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['detail'], payload).then((res) => {
+          console.log('detail', res.code, res)
+          if (res.data.code === 0) {
+            commit('setDetails', res.data)
           }
           resolve(res)
         })

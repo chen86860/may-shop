@@ -8,22 +8,18 @@
     <swiper :options="swiperbanner"
             class="product-swipe">
       <swiper-slide class="product-swipe-item"
-                    v-for="ppic in productpics" :key="ppic.id"><img :src="ppic" /></swiper-slide>
+                    v-for="ppic in product.img" :key="ppic.id"><img :src="ppic" /></swiper-slide>
       <div class="swiper-pagination"
            slot="pagination"></div>
     </swiper>
     <!--商品介绍-->
     <div class="product-container">
-      <div class="product-name">2016年新款大衣，流行上市皮质有保证。赶紧来买吧</div>
+      <div class="product-name">{{this.product.name}}</div>
       <div class="product-price">
-        <span class="product-newprice">
-                ￥120.0
-              </span>
-        <span class="product-oldprice">
-                ￥120.0
-              </span>
+        <span class="product-newprice">￥{{this.product.price}}.00</span>
+        <span class="product-oldprice">￥{{this.product.price|randomPrice}}.00</span>
       </div>
-      <div class="product-note">此商品不参加</div>
+      <div class="product-note">{{this.product.subName}}</div>
     </div>
     <!--参数-->
     <div class="product-container product-select"
@@ -40,45 +36,23 @@
       <div class="mask-con">
         <div class="product-mask-con p-flex">
           <div class="mask-con-title">数量:</div>
-          <div class="make-con-rigth p-flex-1">
-            <button class="p-btnjian">-</button>
-            <input class="p-input"
+          <div class="make-con-rigth p-flex-1 ali-center">
+            <button class="p-count" @click="subNum">-</button>
+            <input class="p-input-num"
                    type="text"
-                   value="1" />
-            <button class="p-btnjia">+</button>
+                   v-model:value="count"/>
+            <button class="p-count" @click="addNum">+</button>
           </div>
         </div>
-        <div class="product-mask-canshu">
-          <div v-if="colors.length>0"
-               class="product-mask-con p-flex">
-            <div class="mask-con-title">颜色:</div>
-            <div class="make-con-rigth p-flex-1"
-                 @click="changecolor">
-              <span v-for="(item,index) in colors"
-                    :data-id="index"
-                    :class="[index==colorId?'mask-span-active':'']">{{item}}</span>
-            </div>
-          </div>
+        <div class="product-mask-data">
           <div v-if="sizes.length>0"
                class="product-mask-con p-flex">
-            <div class="mask-con-title">尺码:</div>
+            <div class="mask-con-title">容量:</div>
             <div class="make-con-rigth p-flex-1"
                  @click="changesize">
               <span v-for="(item,index) in sizes"
                     :data-id="index"
                     :class="[index==sizeId?'mask-span-active':'']">{{item}}</span>
-            </div>
-          </div>
-          <div class="product-mask-con p-flex">
-            <div class="mask-con-title">颜色:</div>
-            <div class="make-con-rigth p-flex-1">
-              <span class="mask-span-active">红色</span><span>红色</span>
-            </div>
-          </div>
-          <div class="product-mask-con p-flex">
-            <div class="mask-con-title">颜色:</div>
-            <div class="make-con-rigth p-flex-1">
-              <span class="mask-span-active">红色</span><span>红色</span>
             </div>
           </div>
           <button class="p-full-btn">
@@ -112,7 +86,6 @@ import navheader from '../components/navheader.vue'
 export default {
   data () {
     return {
-      productpics: ['https://img.alicdn.com/imgextra/i2/134363478/TB2mHIUb89J.eBjy0FoXXXyvpXa_!!134363478.jpg_430x430q90.jpg', 'https://img.alicdn.com/imgextra/i2/134363478/TB2ZIZ3bp6AQeBjSZFIXXctXpXa_!!134363478.jpg_430x430q90.jpg'],
       swiperbanner: {
         autoplay: 3500,
         pagination: '.swiper-pagination',
@@ -121,10 +94,10 @@ export default {
         observeParents: true
       },
       maskactive: false,
-      colors: ['红色', '黄色', '蓝色', '橘黄色'],
       colorId: 0,
-      sizes: ['12', '13', '14', '15'],
-      sizeId: 0
+      sizes: ['300', '500', '1000'],
+      sizeId: 0,
+      count: 1
     }
   },
   methods: {
@@ -140,10 +113,39 @@ export default {
       if (event.target.tagName === 'SPAN') {
         this.sizeId = event.target.getAttribute('data-id')
       }
+    },
+    addNum () {
+      this.count++
+    },
+    subNum () {
+      if (this.count > 1) {
+        this.count--
+      }
     }
   },
   components: {
     navheader
+  },
+  computed: {
+    product () {
+      return this.$store.state.page.detail || ''
+    }
+  },
+  mounted () {
+    let goodId = this.$route.query.id
+    // console.log(goodId)
+    this.$store.dispatch('detail', {
+      id: goodId
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.err(err)
+    })
+  },
+  filters: {
+    randomPrice (value) {
+      return parseInt((parseInt(value, 10) * (Math.random() + 6) / 10)) || value
+    }
   }
 }
 </script>
@@ -165,6 +167,17 @@ export default {
 
 .product-swipe-item img {
   width: 100%;
+}
+.p-count{
+      border: 1px solid #adadad;
+    background-color: #fff;
+    padding: .03rem;
+    margin: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    /* border-radius: 3px; */
+    font-size: .32rem;
+    color: #6f6f6f;
 }
 
 .product-container {
@@ -215,7 +228,15 @@ export default {
   color: #3C3C3C;
   font-size: .24rem;
 }
-
+.p-input-num{
+      margin: 0;
+    border-color: #ddd;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    width: .6rem;
+    padding: .1rem 0;
+}
 .product-select .product-tan {
   position: absolute;
   right: .2rem;
@@ -246,7 +267,6 @@ export default {
 }
 
 
-
 /*弹出*/
 
 .product-mask.product-mask-active {
@@ -268,20 +288,21 @@ export default {
 }
 
 .mask-con {
-  position: absolute;
-  left: 50%;
-  margin-left: -3.2rem;
-  bottom: 0;
-  width: 6.4rem;
-  height: 5.4rem;
-  font-size: .24rem;
-  background: #DFDFDF;
+       position: absolute;
+    left: 50%;
+    margin-left: -3.2rem;
+    bottom: 0;
+    width: 100%;
+    font-size: .22rem;
+    background: #ffffff;
 }
 
 .product-mask-con {
-  padding: .3rem .2rem;
-  background: #fff;
-  margin-bottom: .1rem;
+    padding: .3rem .2rem;
+    background: #fff;
+    margin-bottom: .1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .mask-con-title {
@@ -315,10 +336,9 @@ export default {
   bottom: 0;
 }
 
-.product-mask-canshu {
-  height: 4.2375rem;
+.product-mask-data {
   overflow-y: scroll;
-  padding-bottom: .2rem;
+  padding:0;
 }
 
 .mask-close {
@@ -333,5 +353,8 @@ export default {
   line-height: .66rem;
   border: 1px solid #F5F5F5;
   text-align: center;
+}
+.ali-center{
+    align-items: center;
 }
 </style>

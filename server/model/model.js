@@ -1,13 +1,19 @@
 var mongoose = require('mongoose');
 var md5 = require('md5');
-mongoose.connect('mongodb://localhost/may_cake', { server: { poolSoze: 10 } });
+mongoose.connect('mongodb://localhost/may_shop', { server: { poolSoze: 10 } });
 
 /**
  * sessionModel
  */
 var userSession = mongoose.model('session', new mongoose.Schema({
-    username: String,
-    initTime: Date
+    username: {
+        type: String
+    },
+    initTime: {
+        type: Date,
+        default: Date.now,
+        expires: 10 * 60
+    }
 }))
 
 /**
@@ -23,7 +29,8 @@ var userInfo = mongoose.model('userinfo', new mongoose.Schema({
         type: String
     },
     regTime: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     address: {
         type: Array
@@ -32,11 +39,12 @@ var userInfo = mongoose.model('userinfo', new mongoose.Schema({
         type: String
     },
     lever: {
-        type: Number
+        type: Number,
+        default: 1
     }
-},{
-    collection: 'userinfo'
-}));
+}, {
+        collection: 'userinfo'
+    }));
 
 /**
  * 商品Model
@@ -67,10 +75,10 @@ var goodModel = mongoose.model('goods', new mongoose.Schema({
     group: {
         type: Number
     }
-},{
+}, {
 
-     collection: 'goods'
-}))
+        collection: 'goods'
+    }))
 
 /**
  * 购物车model
@@ -141,7 +149,7 @@ exports.userlog = function (logbody, callback) {
         else {
             if (result.length > 0) {
                 // 登录成功后，新增session记录
-                userSession.findOneAndUpdate({ username: logbody.username }, { username: logbody.username, initTime: new Date() }, { upsert: true }, (err, result) => {
+                userSession.findOneAndUpdate({ username: logbody.username }, { username: logbody.username }, { upsert: true }, (err, result) => {
                     if (err) {
                         console.log('session add err')
                     } else {
@@ -163,7 +171,6 @@ exports.userlog = function (logbody, callback) {
  */
 exports.session = (username, callback) => {
     if (username.length > 0) {
-        console.log('session', username)
         userSession.find({ username: username }, (err, res) => {
             if (err) {
                 return false
@@ -181,12 +188,33 @@ exports.getGoods = (data, callback) => {
     if (data) {
         condition = { group: data }
     }
-    console.log('GET_______________')
     goodModel.find(condition, (err, res) => {
-        console.log('______',res)
         if (err) {
             callback({
                 code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback({
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+exports.getDetail = (id, callback) => {
+    if (!id) {
+        callback({
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    goodModel.find({ _id: id }, (err, res) => {
+        if (err) {
+            callback({
+                code: 100,
                 msg: 'network err'
             })
         } else {

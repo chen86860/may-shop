@@ -48,6 +48,7 @@
   width: 1.5rem;
   text-align: center;
   color: #3C3C3C;
+     font-size: .22rem !important;
 }
 </style>
 <script>

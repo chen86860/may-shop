@@ -43,9 +43,6 @@ const router = new VueRouter({
     // 商品详情
     path: '/product',
     name: 'product',
-    meta: {
-
-    },
     component: () => System.import('./views/productDetail.vue')
   },
   {

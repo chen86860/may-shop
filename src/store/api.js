@@ -14,6 +14,9 @@ export default {
     },
     goods: (state, getters) => {
       return HOST['DEV'] + '/api/goods'
+    },
+    detail: (state, getters) => {
+      return HOST['DEV'] + '/api/detail'
     }
   }
 }
