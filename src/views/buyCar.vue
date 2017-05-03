@@ -154,6 +154,15 @@ export default {
   },
   components: {
     navheader
+  },
+  activated () {
+    this.$store.dispatch('cart', {
+      username: 'jack8'
+    }).then((res) => {
+      console.log(res)
+    }).catch((res) => {
+      console.log(res)
+    })
   }
 }
 </script>

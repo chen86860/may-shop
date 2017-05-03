@@ -16,7 +16,11 @@
 
 
 import Vue from 'vue'
-import vueResource from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.withCredentials = true
 
 import util from './util.js'
 import router from './router.js'
@@ -28,6 +32,7 @@ import {
 } from 'mint-ui'
 
 import Pageload from './components/pageLoad.vue'
+import store from './store/index'
 import './assets/css/app.css'
 
 // 引入插件
@@ -37,13 +42,12 @@ Vue.use(Lazyload, {
 }) // 延迟加载 需要进一步处理
 Vue.use(AwesomeSwiper) // 轮播
 Vue.use(InfiniteScroll) // 无限滚动
-Vue.use(vueResource) // ajax插件
 Vue.component(Pageload.name, Pageload)
-
 window.util = util
 
 new Vue({
   el: '#app',
   router,
+  store,
   template: `<transition name='fade' mode='out-in'><router-view></router-view></transition>`
 })

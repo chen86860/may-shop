@@ -195,6 +195,16 @@
           this.loading = false
         }, 1000)
       }
+    },
+    computed: {
+      goods () {
+        return this.$store.page.good_1 || ''
+      }
+    },
+    activated () {
+      this.$store.dispatch('goods').then((res) => {
+        console.log(res)
+      })
     }
 }
 </script>

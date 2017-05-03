@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session')
+var cors = require('cors')
 var index = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./api/user');
+var api = require('./api/index')
 
 var app = express();
 
@@ -17,23 +19,50 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('secret-key'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 加入Session支持
+app.use(session({
+  name: 'nodejs & vue.js',
+  cookie: {
+    maxAge: 60000,
+    secure: false
+  },
+  secret: 'secret-key',
+  resave: true,
+  saveUninitialized: true
+}))
+// 跨域
+app.use(cors({
+  origin: ['http://localhost:8088'],
+  method: ['Get', 'POST']
+}))
+
+app.all('*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,Access-Control-Allow-Headers,Authorization");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1')
+    res.header("Content-Type", "application/x-www-form-urlencoded");
+    next();
+})
 app.use('/', index);
-app.use('/users', users);
+app.use('/api', api)
+app.use('/user', user);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

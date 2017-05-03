@@ -3,7 +3,7 @@ SPA(Single Page Application)
 
 API
 
-### Fround
+### Frount
 - Vue.Js
   - vuex
   - vue-router
