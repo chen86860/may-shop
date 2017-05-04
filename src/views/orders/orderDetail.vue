@@ -82,7 +82,7 @@
   }
   
   .order-fastinfo {
-    font-size: .24rem;
+    font-size: .22rem;
   }
   
   .order-fastinfo-c>div {

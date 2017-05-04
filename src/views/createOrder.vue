@@ -67,7 +67,7 @@
 </template>
 <style>
 .createcorder {
-  font-size: .24rem;
+  font-size: .22rem;
   background: #F5F5F5;
 }
 

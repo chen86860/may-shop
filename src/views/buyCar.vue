@@ -157,7 +157,7 @@ export default {
   },
   activated () {
     this.$store.dispatch('cart', {
-      username: 'jack8'
+      username: this.$store.state.page.userinfo.username || ''
     }).then((res) => {
       console.log(res)
     }).catch((res) => {

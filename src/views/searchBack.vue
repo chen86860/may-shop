@@ -22,9 +22,11 @@
         {{item}}
       </router-link>
     </swiper>
+    <transition>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    </transition>
   </div>
 </template>
 <style>
@@ -39,7 +41,7 @@
 
 .search-swiper {
   line-height: .69rem;
-  font-size: .24rem;
+  font-size: .22rem;
   border-bottom: 2px solid #F5F5F5;
 }
 

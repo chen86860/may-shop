@@ -9,15 +9,13 @@ router.route('/login')
         if (err) {
           return res.json(result)
         } else {
-          res.json({
-            result: result
-          })
+          res.json(result)
         }
       })
     } else {
       res.json({
+        code:100,
         result: 'bad',
-        session: 'da'
       })
     }
   })
@@ -30,9 +28,7 @@ router.route('/signup')
           return res.json(result)
         } else {
           req.session.username = req.body.username;
-          res.json({
-            result: result
-          })
+          res.json(result)
         }
       })
     } else {

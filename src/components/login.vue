@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui'
 export default {
   name: 'login',
   data () {
@@ -52,14 +53,23 @@ export default {
     },
     login () {
       this.$store.dispatch('login', {
-        username: this.username || 'Jack_Chen',
-        password: this.password || '123456'
+        username: this.username || '',
+        password: this.password || ''
       }).then((res) => {
-        console.log('succeed', res)
+        if (res.code === 0) {
+          this.$router.push({name: 'home'})
+          console.log('succeed', this.$store.state.page.userinfo.username)
+        }
       }).catch((res) => {
-        console.log(res)
+        Toast({
+          message: '用户名或密码不正确~~',
+          position: 'bottom'})
       })
     }
+  },
+  beforeEnter: (to, from, next) => {
+    console.log('From', from)
+    next()
   }
 }
 

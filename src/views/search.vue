@@ -105,7 +105,7 @@
 .search-if {
   line-height: .7rem;
   height: .7rem;
-  font-size: .24rem;
+  font-size: .22rem;
   padding: 0 .2rem;
   text-align: center;
 }

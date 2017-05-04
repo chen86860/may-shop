@@ -793,6 +793,7 @@ img {
 .daygoodslist>div>a {
     display: flex;
     position: relative;
+    height: 100%;
 }
 
 .daygoodslist>div>a>div {
@@ -810,6 +811,20 @@ img {
     position: absolute;
     top: 1em;
     left: 2em;
+    height: 100%;
+}
+.daygoodslist>div>a>div:last-child {
+  right: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.daygoodslist>div>a>div img {
+      height: 80%;
+    width: initial;
+    position: absolute;
+    right: .2rem;
 }
 
 .daygoodslist_0 {

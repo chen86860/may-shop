@@ -6,7 +6,10 @@
       <router-link class="p-flex-1 p-text-c" replace v-for="item in routersname" :key="item.id" :to="{name:item.rname}" :active-class="'search-swiper-active'">{{item.title}}</router-link>
     </div>
     <transition name='fade' mode='out-in'>
+    <keep-alive>
+    
       <router-view></router-view>
+    </keep-alive>
     </transition>
   </div>
 </template>

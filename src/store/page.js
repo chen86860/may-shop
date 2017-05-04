@@ -9,7 +9,13 @@ export default {
   state: {
     cart: {},
     goods: {},
-    detail: {}
+    detail: {},
+    userinfo: {
+      username: '',
+      mobile: '',
+      address: [],
+      lever: 1
+    }
   },
   mutations: {
     setCart: (state, payload) => {
@@ -23,6 +29,13 @@ export default {
     setDetails: (state, payload) => {
       if (payload === undefined) return
       state.detail = payload.msg[0]
+    },
+    setUser: (state, payload) => {
+      if (payload === undefined) return
+      state.userinfo.id = payload.msg.id
+      state.userinfo.username = payload.msg.username
+      state.userinfo.lever = payload.msg.lever
+      state.userinfo.address = payload.msg.address
     }
   },
   actions: {
@@ -51,8 +64,13 @@ export default {
     login ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['login'], payload).then((res) => {
-          console.log('login', res.code, res)
-          resolve(res)
+          console.log('login', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('setUser', res.data)
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
         })
       })
     },
@@ -60,8 +78,12 @@ export default {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['signup'], payload).then((res) => {
           console.log('signup', res.data.code, res)
-          commit('setSession', res.data)
-          resolve(res)
+          if (res.data.code === 0 || res.data.code === 202) {
+            commit('setUser', res.data)
+            resolve(res.data)
+          } else {
+            resolve(res.data)
+          }
         })
       })
     },

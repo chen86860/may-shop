@@ -30,6 +30,12 @@
     <div class="product-container">
       <div class="product-title">图文详情</div>
     </div>
+    <div class="product-detail">
+     <p>{{this.product.desc}}</p>
+     <div class="product-imgs" >
+     <img :src="img" alt="" v-for="img in product.img.slice(1)" ::key="img.id">
+     </div>
+     </div>
     <!--弹出-->
     <div class="product-mask"
          v-bind:class="[maskactive ? 'product-mask-active':'']">
@@ -179,13 +185,21 @@ export default {
     font-size: .32rem;
     color: #6f6f6f;
 }
-
+.product-imgs img {
+  display:flex
+}
 .product-container {
   padding: .2rem;
   letter-spacing: 1px;
   border-bottom: 1px solid #DFDFDF;
   margin-bottom: .2rem;
   background-color: #fff;
+}
+.product-detail{
+  margin:0 14px auto;
+}
+.product-detail p {
+  font-size:.22rem;
 }
 
 .product-name {
@@ -210,7 +224,7 @@ export default {
   right: 0;
   color: #aaa9a9;
   text-decoration: line-through;
-  font-size: .24rem;
+  font-size: .22rem;
 }
 
 .product-note {
@@ -221,12 +235,12 @@ export default {
 .product-select {
   position: relative;
   border-top: 1px solid #DFDFDF;
-  font-size: .24rem;
+  font-size: .22rem;
 }
 
 .product-title {
   color: #3C3C3C;
-  font-size: .24rem;
+  font-size: .22rem;
 }
 .p-input-num{
       margin: 0;
@@ -244,6 +258,7 @@ export default {
 
 .product-btncar {
   text-align: center;
+  background-color:#fff;
 }
 
 .product-btncar.icon-gouwuche:before {

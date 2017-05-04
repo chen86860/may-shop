@@ -63,7 +63,7 @@
 </script>
 <style scoped>
   .ads-main {
-    font-size: 0.24rem;
+    font-size: 0.22rem;
     color: #3c3c3c;
   }
   

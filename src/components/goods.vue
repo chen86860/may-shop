@@ -65,7 +65,7 @@
   
   .goods-newprice {
     color: #FF3b3b;
-    font-size: .24rem;
+    font-size: .22rem;
   }
   
   .goods-vip {

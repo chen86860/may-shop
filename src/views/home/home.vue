@@ -17,8 +17,8 @@
     <div class="hot-goods">
     <div v-for="item in goods" :key="item.id">
         <router-link :to="{name:'product',query:{id:item._id}}">
-            <p>{{item.name | substr}}</p>
-            <p>{{item.subName | substr}}</p>
+            <p>{{item.name.slice(0,5)}}</p>
+            <p>{{item.subName.slice(0,5)}}</p>
             <div>
                 <img :src="item.img[0]" alt="">
             </div>
@@ -42,39 +42,37 @@
       <p class="home-goods-title">每日推荐</p>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-              <a :href="daygoodslist_1_0._id">
+          <router-link :to="{name:'product',query:{id:daygoodslist_1_0._id}}">
                 <p>{{daygoodslist_1_0.subName}}</p>
                 <p>{{daygoodslist_1_0.name}}</p>
                 <div><img :src="daygoodslist_1_0.img[0]" alt=""></div>
-              </a>
+              </router-link>
           </div>
           <div class="daygoodslist">
             <div v-for="item in daygoodslist_1">
-                <a :href="item._id">
-                <div><p>{{item.subNmae}}</p>
+             <router-link :to="{name:'product',query:{id:item._id}}">
+                <div><p>{{item.subName}}</p>
                   <p>{{item.name}}</p></div>
-                  
                   <div><img :src="item.img[0]" alt=""></div>
-                </a>
+              </router-link>
             </div>
           </div>
       </div>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-              <a :href="daygoodslist_2_0._id">
+          <router-link :to="{name:'product',query:{id:daygoodslist_2_0._id}}">
                 <p>{{daygoodslist_2_0.subName}}</p>
                 <p>{{daygoodslist_2_0.name}}</p>
                 <div><img :src="daygoodslist_2_0.img[0]" alt=""></div>
-              </a>
+          </router-link>
           </div>
           <div class="daygoodslist">
             <div v-for="item in daygoodslist_2">
-                <a :href="item.id">
+            <router-link :to="{name:'product',query:{id:item._id}}">
                 <div><p>{{item.subName}}</p>
                   <p>{{item.name}}</p></div>
-                  
                   <div><img :src="item.img[0]" alt=""></div>
-                </a>
+            </router-link>
             </div>
           </div>
       </div>
@@ -169,7 +167,7 @@
     },
     filters: {
       substr (value) {
-        return value.slice(0, 5)
+        return value ? value.toString().slice(0, 5) : ''
       }
     }
 }
@@ -211,7 +209,7 @@
     height: .6rem;
     line-height: .6rem;
     color: #3c3c3c;
-    font-size: .25rem;
+    font-size: .22rem;
     margin: 10px 0 10px;
     background-color: #fff;
   }
@@ -249,7 +247,7 @@
   
   .home-goods-title {
     line-height: .72rem;
-    font-size: .24rem;
+    font-size: .22rem;
     color: #3C3C3C;
     background-color: #fff;
     padding-left:20px;
@@ -259,6 +257,9 @@
     height:8em !important;
   }
   .daygoodslist>div{
-    height:4em !important;
+    height:50% !important;
+  }
+  .home-goods a {
+    color:#353535;
   }
 </style>

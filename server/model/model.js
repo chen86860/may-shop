@@ -117,7 +117,8 @@ exports.userreg = function (regbody, callback) {
             if (result.length > 0) {
                 callback(true, { code: 202, msg: "username is exist" })
             } else {
-                newuser.password = md5(regbody.password);
+                var salt = "-2.1']125.z"
+                newuser.password = md5(md5(regbody.username + regbody.password + salt));
                 newuser.email = regbody.email;
                 newuser.time = time;
                 newuser = new userInfo(newuser);
@@ -126,7 +127,14 @@ exports.userreg = function (regbody, callback) {
                     if (err) {
                         callback(true, { code: 201, msg: "connect err" });
                     } else {
-                        callback(false, { code: 200, msg: "success" });
+                        callback(false, {
+                            code: 0, msg: {
+                                username: result.username,
+                                address: result.address,
+                                id: result._id,
+                                lever: result.lever
+                            }
+                        })
                     }
                 })
             }
@@ -139,9 +147,10 @@ exports.userreg = function (regbody, callback) {
  * @param{username,password}
  */
 exports.userlog = function (logbody, callback) {
+    var salt = "-2.1']125.z"
     userInfo.find({
         username: logbody.username,
-        password: md5(logbody.password)
+        password: md5(md5(logbody.username + logbody.password + salt))
     }, function (err, result) {
         if (err) {
             callback(true, { code: 201, msg: "login failed" });
@@ -156,7 +165,14 @@ exports.userlog = function (logbody, callback) {
                         console.log('session added!')
                     }
                 })
-                callback(false, { code: 200, msg: "success" })
+                callback(false, {
+                    code: 0, msg: {
+                        username: result[0].username,
+                        address: result[0].address,
+                        id: result[0]._id,
+                        lever: result[0].lever
+                    }
+                })
             } else {
                 callback(true, { code: 202, msg: "username or passwords is not match" })
             }
@@ -173,11 +189,13 @@ exports.session = (username, callback) => {
     if (username.length > 0) {
         userSession.find({ username: username }, (err, res) => {
             if (err) {
-                return false
-            } else if (new Date() - new Date(res[0].initTime) < 10 * 60 * 1000) {
-                return true
+                callback({
+                    code: 0
+                })
             } else {
-                return false
+                callback({
+                    code: 100
+                })
             }
         })
     }

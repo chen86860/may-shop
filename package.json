@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "express-vue": "^3.9.11",
-    "mint-ui": "^2.0.5",
+    "mint-ui": "^2.2.5",
     "vue": "^2.0.2",
     "vue-awesome-swiper": "^2.2.3",
     "vue-axios": "^2.0.2",

@@ -26,7 +26,7 @@
         </li>
         <li>
           <p>
-            <input class="login-btn" type="button" value="注册" @click="reg" @keyup.enter="reg">
+            <input class="login-btn" type="submit" value="注册" @click="reg" @keyup.enter="reg">
           </p>
         </li>
         <li>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui'
 export default {
   name: 'signup',
   data () {
@@ -55,15 +56,57 @@ export default {
     close () {
       this.$router.back()
     },
+    nameOK () {
+      return ((/^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){3,13}$/).test(this.username))
+    },
+    passwordOK () {
+      return ((/^([a-zA-Z0-9]|[_]){5,17}$/).test(this.password))
+    },
+    emailOK () {
+      return (/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test(this.email)
+    },
     reg () {
+      if (!this.nameOK()) {
+        Toast({
+          message: '4~12个字符,可使用字母、数字.字母开头',
+          postion: 'bottom'
+        })
+        return false
+      }
+      if (!this.passwordOK()) {
+        Toast({
+          message: '6~16个字符，区分大小写',
+          postion: 'bottom'
+        })
+        return false
+      }
+      if (!this.emailOK()) {
+        Toast({
+          message: '邮箱格式不正确',
+          postion: 'bottom'
+        })
+        return
+      }
       this.$store.dispatch('signup', {
         username: this.username,
         password: this.password,
         email: this.email
       }).then((res) => {
         console.log('succeed', res)
+        if (res.code === 0) {
+          // console.log(this.$store.state.page.userinfo)
+          this.$router.push({name: 'home'})
+        } else if (res.code === 202) {
+          Toast({
+            message: '用户名已存在~~换个吧~',
+            position: 'bottom'
+          })
+        }
       }).catch((res) => {
-        console.log(res)
+        Toast({
+          message: '网络错误',
+          position: 'bottom'
+        })
       })
     }
   }
