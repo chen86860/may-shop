@@ -266,26 +266,23 @@ html {
 
 /*加减按钮*/
 
+.p-btnsplice,
 .p-btnadd {
     background: #fff;
     font-size: .2rem;
-    border-left: 1px solid #e6e6e6;
-    /* border-radius: 50%; */
     width: .3rem;
+    outline: none;
+    cursor: pointer;
     height: .3rem;
-    /* line-height: .5rem; */
     color: #AAA9A9;
 }
 
+.p-btnadd {
+    border-left: 1px solid #e6e6e6 !important;
+}
+
 .p-btnsplice {
-    background: #fff;
-    font-size: .22rem;
-    border-right: 1px solid #e6e6e6;
-    /* border-radius: 50%; */
-    width: .3rem;
-    height: .3rem;
-    /* line-height: .5rem; */
-    color: #AAA9A9;
+    border-right: 1px solid #e6e6e6 !important;
 }
 
 .p-input {
@@ -502,7 +499,7 @@ img {
 }
 
 .header-search {
-     color: #353535;
+    color: #353535;
     z-index: 2;
     font-size: 0.7em !important;
     height: 33px;
@@ -813,15 +810,17 @@ img {
     left: 2em;
     height: 100%;
 }
+
 .daygoodslist>div>a>div:last-child {
-  right: 0;
+    right: 0;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
 }
+
 .daygoodslist>div>a>div img {
-      height: 80%;
+    height: 80%;
     width: initial;
     position: absolute;
     right: .2rem;
@@ -869,7 +868,7 @@ img {
 }
 
 .nav {
-      width: 100%;
+    width: 100%;
     font-size: 0.8em;
     position: relative;
     display: flex;
@@ -881,11 +880,13 @@ img {
     align-items: center;
     justify-content: center;
 }
-.is-danger{
+
+.is-danger {
     border: 1px solid #F44336 !important;
     background-color: #fdd;
 }
-.fa{
+
+.fa {
     position: absolute;
     top: 0;
     right: 12px;

@@ -14,7 +14,7 @@ router.route('/login')
       })
     } else {
       res.json({
-        code:100,
+        code: 100,
         result: 'bad',
       })
     }
@@ -38,4 +38,78 @@ router.route('/signup')
     }
   });
 
+router.route('/session').post((req, res, next) => {
+  if (req.body && req.body.username) {
+    Model.session(req.body.username, (err, result) => {
+      if (err) {
+        res.json({
+          code: -2,
+          msg: 'network bad'
+        })
+      } else if (result.code === 0) {
+        res.json({
+          code: 0,
+          msg: 'user is login'
+        })
+      } else {
+        res.json({
+          code: -1,
+          msg: 'user no login'
+        })
+      }
+    })
+  } else {
+    res.json({
+      code: -1,
+      msg: 'user no login'
+    })
+  }
+})
+
+router.route('/addCart').post((req, res, next) => {
+  if (req.body && req.body.goodId) {
+    Model.addCart(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: -2,
+          msg: 'network bad'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result
+        })
+      }
+    })
+  } else {
+    res.json({
+      code: -1,
+      msg: 'user no login'
+    })
+  }
+})
+
+router.route('/cart').post(function (req, res, next) {
+  if (req.body.username) {
+    // 判断用户权限
+    Model.ge(req.body.username, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
 module.exports = router;

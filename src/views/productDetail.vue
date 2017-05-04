@@ -77,10 +77,10 @@
                      tag="div">
   
         </router-link>
-        <div class="product-btnjiacar">
+        <div class="product-btnjiacar" @click="addCart">
           加入购物车
         </div>
-        <div class="product-once">
+        <div class="product-once" @click="addCart">
           立即购买
         </div>
       </div>
@@ -89,6 +89,7 @@
 </template>
 <script>
 import navheader from '../components/navheader.vue'
+import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
@@ -126,6 +127,29 @@ export default {
     subNum () {
       if (this.count > 1) {
         this.count--
+      }
+    },
+    addCart () {
+      if (this.$store.state.page.userinfo.log) {
+        this.$store.dispatch('addCart', {
+          goodId: this.$route.query.id,
+          count: this.count,
+          userId: this.$store.state.page.userinfo.id
+        }).then((res) => {
+          console.log(res)
+          if (res.code === 0) {
+            this.$router.push({name: 'buycar'})
+          } else {
+            Toast({
+              message: 'something was wrong...',
+              position: 'bottom'
+            })
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      } else {
+        this.$router.push({name: 'login'})
       }
     }
   },

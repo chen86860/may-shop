@@ -7,14 +7,16 @@ mongoose.connect('mongodb://localhost/may_shop', { server: { poolSoze: 10 } });
  */
 var userSession = mongoose.model('session', new mongoose.Schema({
     username: {
-        type: String
+        type: String,
     },
     initTime: {
         type: Date,
         default: Date.now,
         expires: 10 * 60
     }
-}))
+}, {
+        collection: 'session'
+    }))
 
 /**
  * 用户Model
@@ -84,23 +86,35 @@ var goodModel = mongoose.model('goods', new mongoose.Schema({
  * 购物车model
  */
 var cartModel = mongoose.model('cart', new mongoose.Schema({
-    title: {
-        type: String
+    userId: {
+        type: String,
+    },
+    goodId: {
+        type: String,
+    },
+    name: {
+        type: String,
+        default: ''
     },
     img: {
-        type: String
-    }, price: {
-        type: Number
-    }, count: {
+        type: String,
+        default: ''
+    },
+    price: {
+        type: Number,
+        default: 0
+    },
+    count: {
         type: Number,
         default: 1
-    }, userID: {
-        type: String
     },
     checked: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
-}))
+}, {
+        collection: 'cart'
+    }))
 /**
  * 用户注册
  * @param{username,password,email}
@@ -127,6 +141,15 @@ exports.userreg = function (regbody, callback) {
                     if (err) {
                         callback(true, { code: 201, msg: "connect err" });
                     } else {
+                        // 登录成功后，新增session记录
+                        var session = new userSession({ username: regbody.username })
+                        session.save((err, result) => {
+                            if (err) {
+                                console.log('session add err')
+                            } else {
+                                console.log('session added!')
+                            }
+                        })
                         callback(false, {
                             code: 0, msg: {
                                 username: result.username,
@@ -158,7 +181,8 @@ exports.userlog = function (logbody, callback) {
         else {
             if (result.length > 0) {
                 // 登录成功后，新增session记录
-                userSession.findOneAndUpdate({ username: logbody.username }, { username: logbody.username }, { upsert: true }, (err, result) => {
+                var session = new userSession({ username: logbody.username })
+                session.save((err, result) => {
                     if (err) {
                         console.log('session add err')
                     } else {
@@ -189,18 +213,24 @@ exports.session = (username, callback) => {
     if (username.length > 0) {
         userSession.find({ username: username }, (err, res) => {
             if (err) {
-                callback({
-                    code: 0
+                callback(true, {
+                    code: -1
                 })
             } else {
-                callback({
-                    code: 100
+                callback(false, {
+                    code: 0
                 })
             }
         })
+    } else {
+        callback(true, {
+            code: -1
+        })
     }
 }
-
+/**
+ * 获取全部商品
+ */
 exports.getGoods = (data, callback) => {
     let condition = {}
     if (data) {
@@ -221,6 +251,10 @@ exports.getGoods = (data, callback) => {
     })
 }
 
+/**
+ * 获取商品详情
+ * @param{goodId}
+ */
 exports.getDetail = (id, callback) => {
     if (!id) {
         callback({
@@ -239,6 +273,111 @@ exports.getDetail = (id, callback) => {
             callback({
                 code: 0,
                 msg: res
+            })
+        }
+    })
+}
+
+/**
+ * 获取购物车详情
+ * @param{userId}
+ */
+exports.getDetail = (id, callback) => {
+    if (!id) {
+        callback({
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    cartModel.find({ userId: id }, (err, res) => {
+        if (err) {
+            callback({
+                code: 100,
+                msg: 'network err'
+            })
+        } else {
+            callback({
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+
+
+/**
+ * 加入物品到购物车
+ * @param{goodId,userId,count}
+ */
+exports.addCart = (data, callback) => {
+    if (!data.goodId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    let query = {
+        goodId: data.goodId,
+        userId: data.userId
+    }
+    cartModel.find(query, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 100,
+                msg: 'network err'
+            })
+        } else if (res.length == 0) {
+
+            goodModel.findOne({ goodId: data.goodId }, (err, res) => {
+                if (err) {
+                    callback(true, {
+                        code: 100,
+                        msg: 'network err'
+                    })
+                } else {
+                    let cart = {
+                        goodId: data.goodId,
+                        userId: data.userId,
+                        count: data.count,
+                        img: res.img[0],
+                        name: res.name,
+                        price: res.price
+                    }
+                    cart = new cartModel(cart)
+                    cart.save((err, res) => {
+                        console.log('new add cart')
+                        if (err) {
+                            callback(true, {
+                                code: 100,
+                                msg: 'network err'
+                            })
+                        } else {
+                            callback(false, {
+                                code: 0,
+                                msg: 'new add cart succeed!'
+                            })
+                        }
+                    })
+                }
+            })
+
+        } else {
+            cartModel.update(query, { $set: { count: parseInt(res[0].count, 10) + data.count } }, (err, result) => {
+                console.log('new add cart')
+                if (err) {
+                    callback(true, {
+                        code: 100,
+                        msg: 'network err'
+                    })
+                } else {
+                    callback(false, {
+                        code: 0,
+                        msg: 'count add cart succeed!'
+                    })
+                }
             })
         }
     })

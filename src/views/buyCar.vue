@@ -37,14 +37,14 @@
                 <div class="carlist-price">￥{{product.price}}</div>
                 
                 <div class="btn-plus">
-          <button class="p-btnsplice"
+          <button class="p-btnsplice p-shop-car-btn"
                   @click="splice(product)">-</button>
           <input readonly
-                 class="p-input car-input"
+                 class="p-input car-input p-shop-car-btn"
                  type="text"
                  :value="product.num" />
           <button @click="add(product)"
-                  class="p-btnadd">+</button></div>
+                  class="p-btnadd p-shop-car-btn">+</button></div>
         </div>
           </div>
           
@@ -52,7 +52,7 @@
       
       </div>
     </div>
-    <div class="p-bottom-btns"
+    <div class="p-bottom-btns back-white"
          :class="{'car-home-bottom':$route.query.type}">
       <div class="p-flex p-btn-width">
         <div class="car-all">
@@ -240,5 +240,11 @@ font-size: 0.24em;
     padding: 4px 11px;
     color: #fff;
     border-radius: 5px;
+}
+.p-shop-car-btn{
+  border:none;
+}
+.back-white{
+  background-color:#fff;
 }
 </style>

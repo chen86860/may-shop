@@ -25,29 +25,7 @@ router.route('/detail').post((req, res, next) => {
   }
 
 })
-router.route('/cart').post(function (req, res, next) {
-  if (req.body.username) {
-    // 判断用户权限
-    Model.session(req.body.username, (result) => {
-      if (result.code == 0) {
-        res.json({
-          code: 0,
-          msg: 'user login'
-        })
-      } else {
-        res.json({
-          code: 100,
-          msg: 'user no login'
-        })
-      }
-    })
-  } else {
-    res.json({
-      code: 100,
-      msg: 'user no login'
-    })
-  }
-});
+
 
 router.route('/goods').post(function (req, res, next) {
   Model.getGoods(null, (result) => {

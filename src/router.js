@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store/index'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -20,10 +21,16 @@ const router = new VueRouter({
       // 购物车
       path: '/hbuycar',
       name: 'homebuycar',
+      meta: {
+        auth: true
+      },
       component: () => System.import('./views/buyCar.vue')
     }, {
       path: '/personal', // 个人中心
       name: 'personal',
+      meta:{
+        auth:true
+      },
       component: () => System.import('./views/home/personal.vue')
     }]
   },
@@ -49,21 +56,33 @@ const router = new VueRouter({
     // 购物车
     path: '/buycar',
     name: 'buycar',
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/buyCar.vue')
   },
   {
     path: '/createOrder', // 创建订单
     name: 'createOrder',
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/createOrder.vue')
   },
   {
     path: '/orderpay', // 订单支付
     name: 'orderpay',
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/orderPay.vue')
   },
   {
     path: '/ordermanage', // 订单管理
     name: 'ordermanage',
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/orders/orderManage.vue'),
     children: [{
       path: 'orderall', // 全部订单
@@ -85,27 +104,52 @@ const router = new VueRouter({
   },
   {
     path: '/orderdetail', // 订单详情
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/orders/orderDetail.vue'),
   },
   {
     path: '/goodsRejected', // 退货
+    meta:{
+        auth:true
+    },
     component: () => System.import('./views/goodsRejected.vue'),
   },
   {
     path: '/card', // 购物券
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/card.vue')
   },
   {
     path: '/addresslist', // 地址列表
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/addressList.vue')
   },
   {
     path: '/addressEditor', // 地址编辑
+    meta: {
+      auth: true
+    },
     component: () => System.import('./views/addressEditor.vue')
   }]
 })
 router.beforeEach((to, from, next) => {
   document.documentElement.scrollTop = document.body.scrollTop = 0
-  next()
+  if (to.matched.some(m => m.meta.auth)) {
+    // 对路由进行验证
+    if (store.state.page.userinfo.log) { // 已经登陆
+      next()
+    } else {
+      // 未登录,跳转到登陆页面，并且带上 将要去的地址，方便登陆后跳转
+      next({ name: 'login', query: { referrer: to.fullPath } })
+    }
+  } else {
+    next()
+  }
 })
 export default router
