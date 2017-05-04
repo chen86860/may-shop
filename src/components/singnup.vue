@@ -13,12 +13,13 @@
         </li>
         <li>
           <p>
-            <input type="password" placeholder="密码" v-model="password">
+          <input type="password" name="password" v-model="password" placeholder="密码">
           </p>
         </li>
         <li>
           <p>
-            <input type="email" placeholder="邮箱" v-model="email">
+          <input v-validate="'required|email'" type="email" name="email" v-model="email" :class="{'input': true, 'is-danger': errors.has('email') }" placeholder="邮箱">
+            <i v-show="errors.has('email')" class="fa fa-warning">邮箱格式不正确</i>
           </p>
         </li>
         <li>
@@ -68,22 +69,22 @@ export default {
     reg () {
       if (!this.nameOK()) {
         Toast({
-          message: '4~12个字符,可使用字母、数字.字母开头',
-          postion: 'bottom'
+          message: '用户名格式不正确！4~12个字符,可使用字母、数字.字母开头',
+          position: 'bottom'
         })
         return false
       }
       if (!this.passwordOK()) {
         Toast({
-          message: '6~16个字符，区分大小写',
-          postion: 'bottom'
+          message: '密码格式不正确！6~16个字符，区分大小写',
+          position: 'bottom'
         })
         return false
       }
       if (!this.emailOK()) {
         Toast({
           message: '邮箱格式不正确',
-          postion: 'bottom'
+          position: 'bottom'
         })
         return
       }
@@ -202,6 +203,7 @@ export default {
 .login-form>ul>li>p {
   width: 100%;
   height: 100%;
+  position:relative
 }
 
 .login-form input {

@@ -881,3 +881,22 @@ img {
     align-items: center;
     justify-content: center;
 }
+.is-danger{
+    border: 1px solid #F44336 !important;
+    background-color: #fdd;
+}
+.fa{
+    position: absolute;
+    top: 0;
+    right: 12px;
+    font-style: inherit;
+    font-size: .22rem;
+    color: #f00;
+    /* line-height: 100%; */
+    display: inline-block;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 600ms;
+}
