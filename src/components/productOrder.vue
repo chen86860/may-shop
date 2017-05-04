@@ -1,16 +1,17 @@
 <template>
   <div class="p-flex">
   <div class="carlist-img p-align-justy">
-    <img src="../assets/img/logo.png" />
+    <img :src="productOrder.img" />
   </div>
   <div class="carlist-content p-flex-1">
     <div class="carlist-name textellipsisone">
-    210年新款大衣
+    {{productOrder.name}}
     </div>
     <div class="carlist-canshu">
-    <span>颜色：红色；</span>
+    <span>颜色：红色</span>
+    <span>x{{productOrder.count}}</span>
     </div>
-    <div class="carlist-price">￥230</div>
+    <div class="carlist-price">￥{{productOrder.price}}</div>
   </div>
   </div>
 </template>

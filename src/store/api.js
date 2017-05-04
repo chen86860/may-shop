@@ -23,6 +23,18 @@ export default {
     },
     addCart: (state, getters) => {
       return HOST['DEV'] + '/user/addCart'
+    },
+    changeChecked: (state, getters) => {
+      return HOST['DEV'] + '/user/changeChecked'
+    },
+    cartGoodAdd: (state, getters) => {
+      return HOST['DEV'] + '/user/cartGoodAdd'
+    },
+    cartGoodSub: (state, getters) => {
+      return HOST['DEV'] + '/user/cartGoodSub'
+    },
+    createOrder: (state, getters) => {
+      return HOST['DEV'] + '/user/createOrder'
     }
   }
 }

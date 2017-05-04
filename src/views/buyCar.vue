@@ -1,75 +1,60 @@
 <template>
   <div>
-      <!-- 头部 -->
-       <navheader :navleft="'common'"
-               :title="'购物车'"></navheader>
+    <!-- 头部 -->
+    <navheader :navleft="'common'" :title="'购物车'"></navheader>
     <!--购物车-->
-    <div v-if="products.length==0" class="empty-shop">
-       <p>购物车为空哟~</p>
-       <router-link :to="{name:'home'}">
-            去逛逛
-       </router-link>
+    <div v-if="goods.length==0" class="empty-shop">
+      <p>购物车为空哟~</p>
+      <router-link :to="{name:'home'}">
+        去逛逛
+      </router-link>
     </div>
     <div v-else>
-    <div class="carlist">
-      <!--单个购物车-->
-      <div class="carlist-item"
-           v-for="product in products"
-           :key="product in products"
-           >
-        <div class="p-flex">
-          <div class="carlist-select">
-            <input type="checkbox"
-                   class="p-check carcheck"
-                   v-model="product.selected" />
-          </div>
-          <div class="carlist-img p-align-justy">
-            <img :src="product.img" />
-          </div>
-          <div class="carlist-content p-flex-1">
-            <div class="carlist-name textellipsisone">
-              {{product.name}}
+      <div class="carlist">
+        <!--单个购物车-->
+        <div class="carlist-item" v-for="(product,index) in goods" :key="product in goods">
+          <div class="p-flex">
+            <div class="carlist-select">
+              <input type="checkbox" class="p-check carcheck" v-model="product.checked" @click="checked(product,index)" />
             </div>
-            <div class="carlist-canshu">
-              <span>款号:{{product.size}}</span>
+            <div class="carlist-img p-align-justy">
+              <img :src="product.img" />
             </div>
+            <div class="carlist-content p-flex-1">
+              <div class="carlist-name textellipsisone">
+                {{product.name}}
+              </div>
+              <div class="carlist-canshu">
+                <span>容量:{{product.size|| '100ml'}}</span>
+              </div>
               <div class="carlist-item-btn">
                 <div class="carlist-price">￥{{product.price}}</div>
-                
+  
                 <div class="btn-plus">
-          <button class="p-btnsplice p-shop-car-btn"
-                  @click="splice(product)">-</button>
-          <input readonly
-                 class="p-input car-input p-shop-car-btn"
-                 type="text"
-                 :value="product.num" />
-          <button @click="add(product)"
-                  class="p-btnadd p-shop-car-btn">+</button></div>
-        </div>
+                  <button class="p-btnsplice p-shop-car-btn" @click="splice(product)">-</button>
+                  <input readonly class="p-input car-input p-shop-car-btn" type="text" :value="product.count" />
+                  <button @click="add(product)" class="p-btnadd p-shop-car-btn">+</button>
+                </div>
+              </div>
+            </div>
+  
           </div>
-          
+  
         </div>
-      
+      </div>
+      <div class="p-bottom-btns back-white" :class="{'car-home-bottom':$route.query.type}">
+        <div class="p-flex p-btn-width">
+          <div class="car-all">
+            <input type="checkbox" class="p-check" id="carall" v-model="allSelect" />
+            <label for="carall">全选</label>
+          </div>
+          <div class="car-total p-flex-1">
+            <span>合计：</span>￥{{allSum}}
+          </div>
+          <router-link tag="div" to="/createOrder" class="car-btn">结算</router-link>
+        </div>
       </div>
     </div>
-    <div class="p-bottom-btns back-white"
-         :class="{'car-home-bottom':$route.query.type}">
-      <div class="p-flex p-btn-width">
-        <div class="car-all">
-          <input type="checkbox"
-                 class="p-check"
-                 id="carall"
-                 v-model="allSelect" />
-          <label for="carall">全选</label>
-        </div>
-        <div class="car-total p-flex-1">
-          <span>合计：</span>￥{{allSum}}
-        </div>
-        <router-link tag="div"
-                     to="/createOrder"
-                     class="car-btn">结算</router-link>
-      </div>
-    </div></div>
   </div>
 </template>
 <script>
@@ -77,59 +62,38 @@ import navheader from '../components/navheader.vue'
 export default {
   data () {
     return {
-      products: [{
-        id: 1,
-        price: 120,
-        selected: true,
-        name: '2017春上新韩版宽松显瘦高腰裤BF风大码牛仔裤女小脚哈伦裤',
-        img: 'http://s2.mogucdn.com/p2/170205/2654_1eg08037ek8di094f081ahk3fa9c6_640x960.jpg_360x360.v1cAC.70.webp',
-        num: 1,
-        size: 'S'
-      }, {
-        id: 2,
-        price: 78,
-        selected: true,
-        name: '2017春秋季外穿破洞打底裤女高腰弹力小脚铅笔裤显瘦长裤潮',
-        img: 'http://s2.mogucdn.com/p1/160122/21q5ew_ifrdozlbgbrwgzjtgyzdambqmeyde_640x960.jpg_360x360.v1cAC.70.webp',
-        num: 1,
-        size: 'M'
-      }, {
-        id: 3,
-        price: 150,
-        selected: true,
-        name: '斜挎包女包新款斜跨单肩小包迷你包韩版时尚休闲百搭链条包小方包',
-        img: 'http://s2.mogucdn.com/p1/160710/76759693_ie4tam3bgvrtmytbhezdambqgqyde_640x960.jpg_360x360.v1cAC.70.webp',
-        num: 1,
-        size: 'S'
-      }]
     }
   },
   computed: {
+    // 购物车物品
+    goods () {
+      return this.$store.state.page.cart_goods
+    },
     // 全选按钮设置
     allSelect: {
       get () {
-        var products = this.products
-        for (var i = 0, len = products.length; i < len; i++) {
-          if (!products[i].selected) {
+        var goods = this.goods
+        for (var i = 0, len = goods.length; i < len; i++) {
+          if (!goods[i].checked) {
             return false
           }
         }
         return true
       },
       set (val) {
-        var products = this.products
-        for (var i = 0, len = products.length; i < len; i++) {
-          products[i].selected = val
+        var goods = this.goods
+        for (var i = 0, len = goods.length; i < len; i++) {
+          goods[i].checked = val
         }
       }
     },
     // 价格设置
     allSum () {
       var toAmount = 0
-      var products = this.products
-      for (var i = 0, len = products.length; i < len; i++) {
-        if (products[i].selected) {
-          toAmount += products[i].price * products[i].num
+      var goods = this.goods
+      for (var i = 0, len = goods.length; i < len; i++) {
+        if (goods[i].checked) {
+          toAmount += goods[i].price * goods[i].count
         }
       }
       return toAmount
@@ -137,17 +101,42 @@ export default {
   },
   methods: {
     splice (product) {
-      if (product.num > 1) {
-        product.num--
+      if (product.count > 1) {
+        product.count--
+        this.$store.dispatch('cartGoodSub', {
+          goodId: product.goodId,
+          userId: this.$store.state.page.userinfo.id
+        })
       }
     },
     add (product) {
-      product.num++
+      this.$store.dispatch('cartGoodAdd', {
+        goodId: product.goodId,
+        userId: this.$store.state.page.userinfo.id
+      }).then((res) => {
+        if (res.code === 0) {
+          product.count++
+        }
+      })
     },
     del (index) {
-      this.products.forEach((e, i) => {
+      this.goods.forEach((e, i) => {
         if (e.id === index) {
-          this.products.splice(i, 1)
+          this.goods.splice(i, 1)
+        }
+      })
+    },
+    checked (product) {
+      this.$store.dispatch('changeChecked', {
+        goodId: product.goodId,
+        userId: this.$store.state.page.userinfo.id
+      }).then((res) => {
+        if (res.code === 0) {
+          if (product.checked) {
+            product.checked = true
+          } else {
+            product.checked = false
+          }
         }
       })
     }
@@ -157,7 +146,7 @@ export default {
   },
   activated () {
     this.$store.dispatch('cart', {
-      username: this.$store.state.page.userinfo.username || ''
+      username: this.$store.state.page.userinfo.id || ''
     }).then((res) => {
       console.log(res)
     }).catch((res) => {
@@ -222,29 +211,35 @@ export default {
   bottom: .98rem;
 }
 
-.car-home-bottom .p-btn-width{
+.car-home-bottom .p-btn-width {
   background-color: #fff;
 }
-.empty-shop{
-  text-align:center
+
+.empty-shop {
+  text-align: center
 }
-.empty-shop>p,.empty-shop>a{
-font-size: 0.24em;
-    text-align: center;
-    color: inter;
-    color: inherit;
+
+.empty-shop>p,
+.empty-shop>a {
+  font-size: 0.24em;
+  text-align: center;
+  color: inter;
+  color: inherit;
 }
-.empty-shop>a{
-    text-align: center;
-    background-color: #ff1877;
-    padding: 4px 11px;
-    color: #fff;
-    border-radius: 5px;
+
+.empty-shop>a {
+  text-align: center;
+  background-color: #ff1877;
+  padding: 4px 11px;
+  color: #fff;
+  border-radius: 5px;
 }
-.p-shop-car-btn{
-  border:none;
+
+.p-shop-car-btn {
+  border: none;
 }
-.back-white{
-  background-color:#fff;
+
+.back-white {
+  background-color: #fff;
 }
 </style>

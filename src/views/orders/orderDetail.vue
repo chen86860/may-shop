@@ -38,9 +38,9 @@
       <div class="order-d-all"><span>订单总额：</span>￥120</div>
     </div>
     <div style="text-align: right;padding: 0 .2rem;background: #fff;" class="p-border-b"><button class="order-btn">支付</button></div>
-    <!--发票信息-->
+    <!--支付方式-->
     <div class="order-d-fapiao order-padding p-flex ">
-      <div>发票信息</div>
+      <div>支付方式</div>
       <ul class="p-flex-1">
         <li>电子信息</li>
         <li>电子信息</li>

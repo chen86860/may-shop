@@ -33,7 +33,7 @@
     <div class="product-detail">
      <p>{{this.product.desc}}</p>
      <div class="product-imgs" >
-     <img :src="img" alt="" v-for="img in product.img.slice(1)" ::key="img.id">
+     <img :src="img" alt="" v-for="img in product.img" :key="img.id">
      </div>
      </div>
     <!--弹出-->

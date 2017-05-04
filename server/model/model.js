@@ -282,7 +282,7 @@ exports.getDetail = (id, callback) => {
  * 获取购物车详情
  * @param{userId}
  */
-exports.getDetail = (id, callback) => {
+exports.getCart = (id, callback) => {
     if (!id) {
         callback({
             code: 100,
@@ -292,20 +292,44 @@ exports.getDetail = (id, callback) => {
     }
     cartModel.find({ userId: id }, (err, res) => {
         if (err) {
-            callback({
+            callback(true, {
                 code: 100,
                 msg: 'network err'
             })
         } else {
-            callback({
+            callback(false, {
                 code: 0,
                 msg: res
             })
         }
     })
 }
-
-
+/**
+ * 创建订单
+ * @param{userId}
+ */
+exports.createOrder = (id, callback) => {
+    if (!id) {
+        callback({
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    cartModel.find({ userId: id, checked: true }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 100,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
 
 /**
  * 加入物品到购物车
@@ -330,8 +354,7 @@ exports.addCart = (data, callback) => {
                 msg: 'network err'
             })
         } else if (res.length == 0) {
-
-            goodModel.findOne({ goodId: data.goodId }, (err, res) => {
+            goodModel.findOne({ _id: data.goodId }, (err, ress) => {
                 if (err) {
                     callback(true, {
                         code: 100,
@@ -342,12 +365,12 @@ exports.addCart = (data, callback) => {
                         goodId: data.goodId,
                         userId: data.userId,
                         count: data.count,
-                        img: res.img[0],
-                        name: res.name,
-                        price: res.price
+                        img: ress.img[0],
+                        name: ress.name,
+                        price: ress.price
                     }
                     cart = new cartModel(cart)
-                    cart.save((err, res) => {
+                    cart.save((err, resss) => {
                         console.log('new add cart')
                         if (err) {
                             callback(true, {
@@ -381,4 +404,96 @@ exports.addCart = (data, callback) => {
             })
         }
     })
+}
+/**
+ * 更新物品选中状态
+ */
+exports.changeChecked = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    var query = {
+        userId: data.userId,
+        goodId: data.goodId
+    }
+    cartModel.find(query, (err, result) => {
+        cartModel.update(query, { $set: { "checked": !result[0].checked } }, (err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 100,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    })
+
+}
+/**
+ * 增加物品数量
+ */
+exports.cartGoodAdd = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    var query = {
+        userId: data.userId,
+        goodId: data.goodId
+    }
+    cartModel.update(query, { $inc: { "count": 1 } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 100,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+
+}
+/**
+ * 减少物品数量
+ */
+exports.cartGoodSub = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    var query = {
+        userId: data.userId,
+        goodId: data.goodId
+    }
+    cartModel.update(query, { $inc: { "count": -1 } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 100,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+
 }

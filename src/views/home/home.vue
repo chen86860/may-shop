@@ -15,12 +15,12 @@
     </swiper>
     <!-- 热门商品 -->
     <div class="hot-goods">
-    <div v-for="item in goods" :key="item.id">
+    <div v-for="item in goods_1" :key="item.id">
         <router-link :to="{name:'product',query:{id:item._id}}">
-            <p>{{item.name.slice(0,5)}}</p>
-            <p>{{item.subName.slice(0,5)}}</p>
+            <p>{{item.name ? item.name.slice(0,5) :''}}</p>
+            <p>{{item.subName ? item.subName.slice(0,5):''}}</p>
             <div>
-                <img :src="item.img[0]" alt="">
+                <img :src="item.img ? item.img[0] : ''" alt="">
             </div>
         </router-link>
     </div>
@@ -42,36 +42,36 @@
       <p class="home-goods-title">每日推荐</p>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-          <router-link :to="{name:'product',query:{id:daygoodslist_1_0._id}}">
-                <p>{{daygoodslist_1_0.subName}}</p>
-                <p>{{daygoodslist_1_0.name}}</p>
-                <div><img :src="daygoodslist_1_0.img[0]" alt=""></div>
+          <router-link :to="{name:'product',query:{id:goods_2_1._id}}">
+                <p>{{goods_2_1.subName}}</p>
+                <p>{{goods_2_1.name}}</p>
+                <div><img :src="goods_2_1.img?goods_2_1.img[0]:''" alt=""></div>
               </router-link>
           </div>
           <div class="daygoodslist">
-            <div v-for="item in daygoodslist_1">
+            <div v-for="item in goods_2">
              <router-link :to="{name:'product',query:{id:item._id}}">
                 <div><p>{{item.subName}}</p>
                   <p>{{item.name}}</p></div>
-                  <div><img :src="item.img[0]" alt=""></div>
+                  <div><img :src="item.img?item.img[0]:''" alt=""></div>
               </router-link>
             </div>
           </div>
       </div>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-          <router-link :to="{name:'product',query:{id:daygoodslist_2_0._id}}">
-                <p>{{daygoodslist_2_0.subName}}</p>
-                <p>{{daygoodslist_2_0.name}}</p>
-                <div><img :src="daygoodslist_2_0.img[0]" alt=""></div>
+          <router-link :to="{name:'product',query:{id:goods_3_1._id}}">
+                <p>{{goods_3_1.subName}}</p>
+                <p>{{goods_3_1.name}}</p>
+                <div><img :src="goods_3_1.img?goods_3_1.img[0]:''" alt=""></div>
           </router-link>
           </div>
           <div class="daygoodslist">
-            <div v-for="item in daygoodslist_2">
+            <div v-for="item in goods_3">
             <router-link :to="{name:'product',query:{id:item._id}}">
                 <div><p>{{item.subName}}</p>
                   <p>{{item.name}}</p></div>
-                  <div><img :src="item.img[0]" alt=""></div>
+                  <div><img :src="item.img?item.img[0]:''" alt=""></div>
             </router-link>
             </div>
           </div>
@@ -141,31 +141,26 @@
       }
     },
     computed: {
-      results () {
-        return this.$store.state.page.goods || []
+      goods_1 () {
+        return this.$store.state.page.goods_1
       },
-      goods () {
-        return ([].concat(this.$store.state.page.goods)).slice(0, 3)
+      goods_2_1 () {
+        return this.$store.state.page.goods_2_1
       },
-      daygoodslist_1_0 () {
-        return ([].concat(this.$store.state.page.goods))[3]
+      goods_2 () {
+        return this.$store.state.page.goods_2
       },
-      daygoodslist_1 () {
-        return ([].concat(this.$store.state.page.goods)).slice(4, 6)
+      goods_3_1 () {
+        return this.$store.state.page.goods_3_1
       },
-      daygoodslist_2 () {
-        return ([].concat(this.$store.state.page.goods)).slice(7, 9)
-      },
-      daygoodslist_2_0 () {
-        return ([].concat(this.$store.state.page.goods))[6]
+      goods_3 () {
+        return this.$store.state.page.goods_3
       }
     },
     mounted () {
       this.$store.dispatch('goods').then((res) => {
         console.log(res)
       })
-    },
-    filters: {
     }
 }
 </script>

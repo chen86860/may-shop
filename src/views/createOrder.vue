@@ -1,30 +1,14 @@
 <template>
   <div class="createcorder p-container">
-    <navheader :navleft="'common'"
-               :title="'创建订单'"></navheader>
+    <navheader :navleft="'common'" :title="'创建订单'"></navheader>
     <!--快递-->
     <div class="corder-way">
-      <div class="corder-way-con">
-        <input class="p-check"
-               type="radio"
-               id="nofast"
-               value="nofast"
-               v-model="picked">
-        <label for="nofast">自提</label>
-        <input class="p-check"
-               type="radio"
-               id="fast"
-               value="fast"
-               v-model="picked">
-        <label for="fast">物流</label>
-      </div>
       <!--基本信息-->
-      <div class="corder-fast p-flex"
-           v-if="fastisshow">
+      <div class="corder-fast p-flex" v-if="fastisshow">
         <div class="corder-info p-flex-1">
-          <div><span>收件人</span>张新生</div>
-          <div class="corder-info-tel"><span>联系电话</span>1581131232</div>
-          <div class="corder-address"><span>收货地址</span>是卡卡是抗生素开始开始收看电视看</div>
+          <div><span>收件人</span><span>{{userinfo.username}}</span></div>
+          <div class="corder-info-tel"><span>联系电话</span><span> {{userinfo.mobile || 18814182596}}</span></div>
+          <div class="corder-address"><span>收货地址</span><span>{{'广东省江门市五邑大学'}}</span></div>
         </div>
         <div class="corder-select">
           <div class="corder-change">修改地址</div>
@@ -33,29 +17,18 @@
     </div>
     <!--订单商品-->
     <div class="corder-list">
-      <div class="carlist-item"
-           v-for="goods in ordergoods"
-           :key="goods in ordergoods"
-           >
+      <div class="carlist-item" v-for="goods in order" :key="goods in order">
         <productOrder :productOrder="goods"></productOrder>
-        <div class="corder-listtotal">小计：￥12</div>
+       
       </div>
-    </div>
-    <!--发票信息-->
-    <div class="corder-fapiao p-flex">
-      <div>发票信息</div>
-      <ul class="p-flex-1">
-        <li>普通发票</li>
-        <li>普通发票</li>
-      </ul>
     </div>
   
     <!--合计-->
     <div class="corder-heji p-border-b p-border-t">
-      <div><span>共1件商品合计：</span>￥120</div>
-      <div class="p-border-b"><span>运费：</span>￥120</div>
-      <div><span>订单总额：</span>￥120</div>
-      <div><span>应付金额：</span>￥120</div>
+      <div><span>共{{allCount}}件商品合计：</span>￥{{allSum}}</div>
+      <div class="p-border-b"><span>运费：</span>￥10</div>
+      <div><span>订单总额：</span>￥{{allSum+10}}</div>
+      <div><span>应付金额：</span>￥{{allSum+10}}</div>
     </div>
     <!--提交按钮-->
     <div class="corder-btn">
@@ -65,10 +38,68 @@
     </div>
   </div>
 </template>
+<script>
+import navheader from '../components/navheader.vue'
+import productOrder from '../components/productOrder.vue'
+export default {
+  data () {
+    return {
+      picked: 'fast',
+      ordergoods: [1, 2]
+    }
+  },
+  computed: {
+    fastisshow () {
+      if (this.picked === 'fast') {
+        return true
+      }
+    },
+    order () {
+      return this.$store.state.page.order
+    },
+    userinfo () {
+      return this.$store.state.page.userinfo
+    },
+    allSum () {
+      var toAmount = 0
+      var goods = this.order
+      for (var i = 0, len = goods.length; i < len; i++) {
+        if (goods[i].checked) {
+          toAmount += goods[i].price * goods[i].count
+        }
+      }
+      return toAmount
+    },
+    allCount () {
+      var toAmount = 0
+      var goods = this.order
+      for (var i = 0, len = goods.length; i < len; i++) {
+        toAmount++
+      }
+      return toAmount
+    }
+  },
+  components: {
+    navheader,
+    productOrder
+  },
+  mounted () {
+    this.$store.dispatch('createOrder', {
+      username: this.$store.state.page.userinfo.id || ''
+    }).then((res) => {
+      console.log(this.$store.state.page.order)
+    }).catch((res) => {
+      console.log(res)
+    })
+  }
+}
+</script>
+
 <style>
 .createcorder {
   font-size: .22rem;
   background: #F5F5F5;
+      padding-bottom: 1rem;
 }
 
 .corder-fapiao,
@@ -162,29 +193,24 @@ label[for="one"] {
 }
 
 .corder-btn {
-  padding: .1rem .2rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+}
+.corder-info>div{
+  display: flex;
+}
+.corder-info>div>span:first-child{
+      width: 1rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    text-align-last: justify;
+    padding-right: .3rem;
+    color: #000000;
+}
+.corder-info>div>span:last-child{
+      flex:1
 }
 </style>
-<script>
-import navheader from '../components/navheader.vue'
-import productOrder from '../components/productOrder.vue'
-export default {
-  data () {
-    return {
-      picked: 'nofast',
-      ordergoods: [1, 2]
-    }
-  },
-  computed: {
-    fastisshow () {
-      if (this.picked === 'fast') {
-        return true
-      }
-    }
-  },
-  components: {
-    navheader,
-    productOrder
-  }
-}
-</script>
