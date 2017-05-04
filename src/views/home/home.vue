@@ -166,9 +166,6 @@
       })
     },
     filters: {
-      substr (value) {
-        return value ? value.toString().slice(0, 5) : ''
-      }
     }
 }
 </script>
