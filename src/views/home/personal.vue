@@ -11,11 +11,11 @@
       <ul class="p-size">
         <li>
           <span class="person-member iconfont icon-membershipcard"></span>
-          <span> {{title}} </span>
+          <span> {{userinfo.username}} </span>
         </li>
         <li>
           <span class="person-member iconfont icon-shouji"></span>
-          <span> {{phone}} </span>
+          <span> {{userinfo.email}} </span>
         </li>
       </ul>
     </div>
@@ -52,11 +52,9 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        url: '../src/assets/img/logo.png',
-        title: '金卡会员',
-        phone: '188***3822'
+    computed: {
+      userinfo () {
+        return this.$store.state.page.userinfo
       }
     }
   }

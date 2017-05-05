@@ -155,7 +155,8 @@ exports.userreg = function (regbody, callback) {
                                 username: result.username,
                                 address: result.address,
                                 id: result._id,
-                                lever: result.lever
+                                lever: result.lever,
+                                email: result.email
                             }
                         })
                     }
@@ -194,7 +195,8 @@ exports.userlog = function (logbody, callback) {
                         username: result[0].username,
                         address: result[0].address,
                         id: result[0]._id,
-                        lever: result[0].lever
+                        lever: result[0].lever,
+                        email: result[0].email
                     }
                 })
             } else {

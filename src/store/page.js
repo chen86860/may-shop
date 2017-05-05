@@ -21,7 +21,7 @@ export default {
       id: '',
       username: '',
       lever: 1,
-      mobile: '',
+      email: '',
       address: []
     },
     order: {}
@@ -55,7 +55,7 @@ export default {
       state.userinfo.id = payload.msg.id
       state.userinfo.username = payload.msg.username
       state.userinfo.lever = payload.msg.lever
-      state.userinfo.mobile = payload.msg.mobile
+      state.userinfo.email = payload.msg.email
       state.userinfo.address = payload.msg.address
     }
   },
@@ -123,7 +123,7 @@ export default {
     },
     prevCreateOrder ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['createOrder'], payload).then((res) => {
+        Vue.axios.post(getters['prevCreateOrder'], payload).then((res) => {
           console.log('createOrder', res.data.code, res)
           if (res.data.code === 0) {
             commit('setOrder', res.data.msg)
