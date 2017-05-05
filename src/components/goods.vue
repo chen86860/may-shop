@@ -20,7 +20,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .home-goods-list {
     padding: 0rem .28rem .18rem .1rem;
     border-top: 1px solid #DFDFDF;
@@ -36,7 +36,7 @@
   }
   
   .goods-img {
-    height: 2rem;
+    height: 3rem;
     border: 1px solid #dfdfdf;
     overflow: hidden;
     display: flex;

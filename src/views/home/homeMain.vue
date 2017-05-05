@@ -27,7 +27,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
     .home-bottom-pading{
       padding-bottom: 1.1rem;
     }

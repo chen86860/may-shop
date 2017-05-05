@@ -90,7 +90,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .citys {
 left: 0;
 top: 0;

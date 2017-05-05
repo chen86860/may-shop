@@ -22,7 +22,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .classify-swipe {
   margin-left: 0;
   width: 1.86rem;

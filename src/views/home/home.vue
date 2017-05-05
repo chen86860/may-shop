@@ -30,7 +30,7 @@
       <swiper :options="swipertitle" class="title-swipe">
         <swiper-slide class="title-swipe-item" v-for="title in titles" :key="title.id">{{title}}</swiper-slide>
       </swiper>
-      <div class="home-first">HOT:</div>
+      <div class="home-first">HOT</div>
     </div>
     <!--广告-->
     <div class="home-ad p-align-justy">
@@ -105,7 +105,7 @@
           loop: true,
           observeParents: true
         },
-        titles: ['围观“帝君”领跑扬州+满600减50', '泰国茉莉香米松软甘甜，新品减5', '满150减10+  满79减5'],
+        titles: ['Dior迪奥真我[心悦]香水全新上市', '尊享官网独家定制刻字服务', '母亲节挚爱礼赞', '奢华好礼献心意'],
         swipertitle: {
           direction: 'vertical',
           loop: true,
@@ -165,34 +165,10 @@
 }
 </script>
 
-<style>
-  .banner-swipe {
-    height: 2.6rem;
-  }
-  .container{
-    height: 10.42rem;
-    overflow-y: scroll;
-  }
-  .banner-swipe-item {
-    height: 100%;
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-    justify-content: center;
-  }
+<style scoped>
+
   
-  .banner-swipe-item img {
-    width: 100%;
-  }
   
-  .swiper-pagination-bullet {
-    width: 5px;
-    height: 5px;
-  }
-  
-  .swiper-pagination-bullet-active {
-    background-color: #ff1877;
-  }
   
   .home-msg,
   .title-swipe {
@@ -222,11 +198,14 @@
   }
   
   .home-first {
-    position: absolute;
-    left: .28rem;
+   position: absolute;
+    left: .38rem;
     top: 0;
     font-size: .26rem;
     color: #ff5364;
+    width: 1rem;
+    display: flex;
+    font-size: .22rem;
   }
   .header-search{
     outline: none;
@@ -258,3 +237,31 @@
     color:#353535;
   }
 </style>
+<style>
+.swiper-pagination-bullet-active {
+    background-color: #ff5364 !important;
+  }
+    .banner-swipe {
+    height: 2.6rem;
+  }
+  .container{
+    height: 10.42rem;
+    overflow-y: scroll;
+  }
+  .banner-swipe-item {
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .banner-swipe-item img {
+    width: 100%;
+  }
+  
+  .swiper-pagination-bullet {
+    width: 5px;
+    height: 5px;
+  }
+  </style>

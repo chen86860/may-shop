@@ -5,7 +5,7 @@
     <div v-else>已经到底了</div>
   </div>
 </template>
-<style>
+<style scoped>
   .loadingmore {
     text-align: center;
     font-size: .22rem;

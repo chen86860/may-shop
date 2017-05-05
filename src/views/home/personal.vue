@@ -59,7 +59,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .header-tit {
     line-height: .78rem;
     text-align: center;  

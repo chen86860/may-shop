@@ -37,7 +37,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .order-item {
   position: relative;
   margin-top: .12rem;

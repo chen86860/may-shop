@@ -12,7 +12,7 @@
     </transition>
   </div>
 </template>
-<style>
+<style scoped>
   .manager-nav a {
     position: relative;
     line-height: .69rem;

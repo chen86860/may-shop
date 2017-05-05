@@ -52,7 +52,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
   .p-bg {
     background: #F5F5F5;
   }
