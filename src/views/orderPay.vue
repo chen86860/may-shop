@@ -28,7 +28,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .order-info {
 
   padding: .15rem .2rem;

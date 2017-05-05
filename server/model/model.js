@@ -305,6 +305,32 @@ exports.getCart = (id, callback) => {
     })
 }
 /**
+ * 预创建订单
+ * @param{userId}
+ */
+exports.prevCreateOrder = (id, callback) => {
+    if (!id) {
+        callback({
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    cartModel.find({ userId: id, checked: true }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 100,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+/**
  * 创建订单
  * @param{userId}
  */

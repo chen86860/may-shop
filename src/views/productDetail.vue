@@ -179,7 +179,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .product {
   background-color: #F5F5F5;
   margin-bottom: .98rem;

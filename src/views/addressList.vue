@@ -65,7 +65,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .address-list {
   margin-top: 10px;
   color: #3c3c3c;

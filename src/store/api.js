@@ -33,8 +33,8 @@ export default {
     cartGoodSub: (state, getters) => {
       return HOST['DEV'] + '/user/cartGoodSub'
     },
-    createOrder: (state, getters) => {
-      return HOST['DEV'] + '/user/createOrder'
+    prevCreateOrder: (state, getters) => {
+      return HOST['DEV'] + '/user/prevCreateOrder'
     }
   }
 }

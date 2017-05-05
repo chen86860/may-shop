@@ -83,7 +83,7 @@ export default {
     productOrder
   },
   mounted () {
-    this.$store.dispatch('createOrder', {
+    this.$store.dispatch('prevCreateOrder', {
       username: this.$store.state.page.userinfo.id || ''
     }).then((res) => {
       console.log(this.$store.state.page.order)
@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .createcorder {
   font-size: .22rem;
   background: #F5F5F5;

@@ -24,13 +24,14 @@
 
 .btn-wrap {
   position: absolute;
-  width: 100%;
-  bottom: 2rem;
-  margin: 0 auto;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 100%;
+    bottom: 2rem;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        padding: 0 .6rem 0;
 }
 
 .btn-wrap button {
@@ -118,6 +119,7 @@ height: 100%;
 }
 .p-select2{
   color: #888;
+  font-size: .22rem;
 }
 .p-select{
   background-color: #fff !important;

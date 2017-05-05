@@ -121,7 +121,7 @@ export default {
         })
       })
     },
-    createOrder ({ commit, state, getters }, payload) {
+    prevCreateOrder ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['createOrder'], payload).then((res) => {
           console.log('createOrder', res.data.code, res)

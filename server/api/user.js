@@ -113,10 +113,10 @@ router.route('/cart').post(function (req, res, next) {
     })
   }
 });
-router.route('/createOrder').post(function (req, res, next) {
+router.route('/prevCreateOrder').post(function (req, res, next) {
   if (req.body.username) {
     // 判断用户权限
-    Model.createOrder(req.body.username, (err, result) => {
+    Model.prevCreateOrder(req.body.username, (err, result) => {
       if (err) {
         res.json({
           code: 100,

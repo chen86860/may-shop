@@ -152,10 +152,19 @@ export default {
     }).catch((res) => {
       console.log(res)
     })
+  },
+  mounted () {
+    this.$store.dispatch('cart', {
+      username: this.$store.state.page.userinfo.id || ''
+    }).then((res) => {
+      console.log(res)
+    }).catch((res) => {
+      console.log(res)
+    })
   }
 }
 </script>
-<style>
+<style scoped>
 .car-input {
   background: #Fff;
   width: .6rem;

@@ -24,7 +24,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .card {
     width: 6.4rem;
     font-size: .3rem;

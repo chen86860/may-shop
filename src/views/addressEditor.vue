@@ -84,7 +84,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .adsDditor-p-btn {
   font-size: .28rem;
   line-height: .3rem;

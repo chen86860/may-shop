@@ -42,7 +42,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .p-padding {
   padding: .1rem .2rem;
 }
