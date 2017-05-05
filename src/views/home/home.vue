@@ -3,9 +3,9 @@
     <!-- 头部 -->
     <div class="header">
       <div class="header-input"> 
-      <router-link class="nav" to="/search">
+      <a class="nav">
         <input type="text" class="iconfont icon-search header-search" placeholder="搜索">
-			</router-link>
+			</a>
       </div>
     </div>
     <!-- 轮播banner -->
@@ -44,7 +44,7 @@
           <div class="daygoodslist_0">
           <router-link :to="{name:'product',query:{id:goods_2_1._id}}">
                 <p>{{goods_2_1.subName}}</p>
-                <p>{{goods_2_1.name}}</p>
+                <p>{{goods_2_1.name?goods_2_1.name.slice(0,4):''}}</p>
                 <div><img :src="goods_2_1.img?goods_2_1.img[0]:''" alt=""></div>
               </router-link>
           </div>
@@ -52,7 +52,7 @@
             <div v-for="item in goods_2">
              <router-link :to="{name:'product',query:{id:item._id}}">
                 <div><p>{{item.subName}}</p>
-                  <p>{{item.name}}</p></div>
+                  <p>{{item.name?item.name.slice(0,4):''}}</p></div>
                   <div><img :src="item.img?item.img[0]:''" alt=""></div>
               </router-link>
             </div>
@@ -62,7 +62,7 @@
           <div class="daygoodslist_0">
           <router-link :to="{name:'product',query:{id:goods_3_1._id}}">
                 <p>{{goods_3_1.subName}}</p>
-                <p>{{goods_3_1.name}}</p>
+                <p>{{goods_3_1.name?goods_3_1.name.slice(0,4):''}}</p>
                 <div><img :src="goods_3_1.img?goods_3_1.img[0]:''" alt=""></div>
           </router-link>
           </div>
@@ -70,7 +70,7 @@
             <div v-for="item in goods_3">
             <router-link :to="{name:'product',query:{id:item._id}}">
                 <div><p>{{item.subName}}</p>
-                  <p>{{item.name}}</p></div>
+                  <p>{{item.name?item.name.slice(0,4):''}}</p></div>
                   <div><img :src="item.img?item.img[0]:''" alt=""></div>
             </router-link>
             </div>
@@ -111,15 +111,15 @@
           loop: true,
           autoplay: 5000
         },
-        adpic: 'https://img.alicdn.com/imgextra/i3/99/TB2e.QJdp5N.eBjSZFvXXbvMFXa_!!99-0-yamato.jpg_1152x1920q30s0.jpg',
+        adpic: 'http://i1.piimg.com/585075/930b9ff987165de9.png',
         goodslist: [{
           price: 123,
-          pic: 'https://s10.mogucdn.com/mlcdn/c45406/170322_3af3d77k9035j4jafk34k41888j70_750x376.jpg_640x999.jpg'
+          pic: 'http://i1.piimg.com/585075/283daea495953d49.png'
         }, {
-          pic: 'https://s10.mogucdn.com/mlcdn/c45406/170322_1fkci5flej46kha9l7f9gfg1fd315_750x376.jpg_640x999.jpg'
+          pic: 'http://i1.piimg.com/585075/6e099a4009b6133b.png'
         }, {
           price: 123,
-          pic: 'https://s2.mogucdn.com/mlcdn/c45406/170321_0lc83e72l792d5j4331f3584fd98h_750x360.jpg_800x9999.v1c7E.70.webp'
+          pic: 'http://i1.piimg.com/585075/9f5feb4d75793b99.png'
         }],
         loading: false,
         pageload: false
@@ -134,10 +134,10 @@
         this.loading = true
         setTimeout(() => {
           this.goodslist.push({
-            pic: 'http://s2.mogucdn.com/p2/170325/arkmaster_3el2ebda377a75le6hlef58a0b0ac_690x400.png'
+            pic: this.goodslist[Math.floor(Math.random() * 3)].pic
           })
           this.loading = false
-        }, 1000)
+        }, 1)
       }
     },
     computed: {
@@ -227,6 +227,9 @@
     top: 0;
     font-size: .26rem;
     color: #ff5364;
+  }
+  .header-search{
+    outline: none;
   }
   
   .home-ad {

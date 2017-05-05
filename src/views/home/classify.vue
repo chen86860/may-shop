@@ -5,7 +5,6 @@
       <div class="header-input">
         <input type="text" class="iconfont icon-search header-search" placeholder="搜索">
       </div>
-      <router-link to="/shopcar" class="shopcar"></router-link>
     </div>
     <div class="p-flex">
       <!--左侧分类导航-->
@@ -84,39 +83,39 @@ export default {
     return {
       titles: [{
         name: ' 护肤',
-        img: ''
+        img: 'http://i2.muimg.com/585075/f24839e3f5c301bc.jpg'
       },
       {
         name: '彩妆',
-        img: ''
+        img: 'http://i2.muimg.com/585075/564420c29c68279e.jpg'
       },
       {
         name: '香水',
-        img: ''
-      },
-      {
-        name: '彩妆',
-        img: ''
+        img: 'http://i2.muimg.com/585075/7f17e2ec4c12dfe2.jpg'
       },
       {
         name: '男士',
-        img: ''
+        img: 'http://i2.muimg.com/585075/b57e2abfbd8c6940.jpg'
       },
       {
         name: '工具',
-        img: ''
+        img: 'http://i2.muimg.com/585075/1612bcda74faa46f.jpg'
+      },
+      {
+        name: '洗浴护体',
+        img: 'http://i2.muimg.com/585075/846e330d49273eaf.jpg'
       },
       {
         name: '美发护肤',
-        img: ''
+        img: 'http://i2.muimg.com/585075/da71cb0a21c6fa6c.jpg'
       },
       {
         name: '热卖套装',
-        img: ''
+        img: 'http://i2.muimg.com/585075/271d0988ff4e9e16.jpg'
       },
       {
         name: '独家发售',
-        img: ''
+        img: 'http://i2.muimg.com/585075/ffd6204fed035c72.jpg'
       }
       ],
       activeId: 0
