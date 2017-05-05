@@ -161,7 +161,16 @@ export default {
   width: .6rem;
   margin: 0;
 }
+.carlist{
+  background-color: #f6f6f6;
+    padding-bottom: .7rem;
+}
 
+.carlist-price {
+    font-size: .2rem;
+    color: #e23131;
+    font-weight: 700;
+}
 .carlist-select {
   margin-right: .12rem;
 }

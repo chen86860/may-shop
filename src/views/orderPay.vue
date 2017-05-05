@@ -1,6 +1,6 @@
 <template>
   <div class="p-size">
-    <navheader :navleft="'common'" :title="'订单支付'" :navright="'orderpay'"></navheader>
+    <navheader :navleft="'common'" :title="'订单支付'"></navheader>
     <!--订单支付-->
     <div class="pay">
       <div class="order-info">
@@ -21,7 +21,10 @@
         </div>
       </div>
       <div class="btn-wrap">
-      <button class="p-full-btn">立即支付</button></div>
+        <router-link :to="{name:'orderpaysucceed'}" class="p-full-btn">
+          立即支付
+      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+        padding: 0 .6rem 0;
 }
 .btn-wrap button{
       margin: 0 20px 0 !important;
@@ -162,13 +166,13 @@ export default {
       }, {
         id: 1,
         name: '支付宝',
-        subName: '亿万用户的选择，更快更安全',
+        subName: '支付宝知托付！',
         img: img2,
         checked: false
       }, {
         id: 1,
-        name: '微信支付',
-        subName: '亿万用户的选择，更快更安全',
+        name: '银联支付',
+        subName: '银联钱包，优惠省心',
         img: img3,
         checked: false
       }]

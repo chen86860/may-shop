@@ -16,6 +16,12 @@ var pool = poolModule.Pool({
 });
 
 //捡到一个瓶子
+/**
+ * 
+ * 
+ * @param {any} info 
+ * @param {any} callback 
+ */
 function pickOneBottle(info, callback) {
   var type = { all: Math.round(Math.random()), male: 0, female: 1 };
   info.type = info.type || 'all';

@@ -78,6 +78,14 @@ const router = new VueRouter({
     component: () => System.import('./views/orderPay.vue')
   },
   {
+    path: '/ordersucceed', // 订单支付
+    name: 'orderpaysucceed',
+    meta: {
+      auth: true
+    },
+    component: () => System.import('./views/orderPaySucceed.vue')
+  },
+  {
     path: '/ordermanage', // 订单管理
     name: 'ordermanage',
     meta: {

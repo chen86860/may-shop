@@ -37,7 +37,7 @@ router.route('/goods').post(function (req, res, next) {
     } else {
       res.json({
         code: 100,
-        msg: 'network errr'
+        msg: 'network err'
       })
     }
   })

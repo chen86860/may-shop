@@ -19,7 +19,6 @@
     <div class="corder-list">
       <div class="carlist-item" v-for="goods in order" :key="goods in order">
         <productOrder :productOrder="goods"></productOrder>
-       
       </div>
     </div>
   
@@ -33,7 +32,7 @@
     <!--提交按钮-->
     <div class="corder-btn">
       <router-link to="/orderpay">
-        <button class="p-full-btn">提交订单</button>
+        <button class="p-full-btn posss">提交订单</button>
       </router-link>
     </div>
   </div>
@@ -212,5 +211,8 @@ label[for="one"] {
 }
 .corder-info>div>span:last-child{
       flex:1
+}
+.posss{
+  border-radius: 0 !important;
 }
 </style>

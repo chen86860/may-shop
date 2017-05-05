@@ -17,8 +17,8 @@
     <div class="hot-goods">
     <div v-for="item in goods_1" :key="item.id">
         <router-link :to="{name:'product',query:{id:item._id}}">
-            <p>{{item.name ? item.name.slice(0,5) :''}}</p>
-            <p>{{item.subName ? item.subName.slice(0,5):''}}</p>
+            <p>{{item.name ? item.name.slice(0,6) :''}}</p>
+            <p>{{item.subName ? item.subName.slice(0,6):''}}</p>
             <div>
                 <img :src="item.img ? item.img[0] : ''" alt="">
             </div>

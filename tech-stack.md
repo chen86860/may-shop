@@ -7,11 +7,10 @@ API
 - Vue.Js
   - vuex
   - vue-router
-  - vue-awesome-swiper
 
 
-### Background Fround
-- Express Web FrameWork
+### Background Fround   提供API
+- Express Web FrameWork(Node.js)
 
 ### Database
 - Mongo DB
