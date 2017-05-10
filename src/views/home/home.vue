@@ -137,7 +137,7 @@
             pic: this.goodslist[Math.floor(Math.random() * 3)].pic
           })
           this.loading = false
-        }, 1)
+        }, 2000)
       }
     },
     computed: {

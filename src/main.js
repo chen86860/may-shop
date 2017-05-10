@@ -1,40 +1,22 @@
-// // The Vue build version to load with the `import` command
-// // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-// import Vue from 'vue'
-// import App from './App'
-// import router from './router'
-
-// Vue.config.productionTip = false
-
-// /* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   template: '<App/>',
-//   components: { App }
-// })
-
-
 import Vue from 'vue'
 
+import App from './App.vue'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import App from './App.vue'
-import VeeValidate from 'vee-validate';
 
-Vue.use(VeeValidate);
-Vue.use(MintUI)
-
+// 导入axios库
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import AwesomeSwiper from 'vue-awesome-swiper'
+
+Vue.use(MintUI)
 Vue.use(VueAxios, axios)
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // axios.defaults.withCredentials = true
-
+// 引入功能与路由
 import util from './util.js'
 import router from './router.js'
 
-import AwesomeSwiper from 'vue-awesome-swiper'
 import {
   InfiniteScroll,
   Lazyload
