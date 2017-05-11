@@ -1,5 +1,5 @@
 <template>
-  <div class="p-flex">
+  <div class="p-flex container-wrap">
     <div class="carlist-img p-align-justy">
       <img :src="productOrder.img" />
     </div>

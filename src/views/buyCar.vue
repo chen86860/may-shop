@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-wrap">
     <!-- 头部 -->
     <navheader :navleft="'common'" :title="'购物车'"></navheader>
     <!--购物车-->

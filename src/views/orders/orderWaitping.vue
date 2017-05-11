@@ -1,5 +1,5 @@
 <template>
-  <div class="p-order-con"
+  <div class="p-order-con container-wrap"
        v-infinite-scroll="loadMore"
        infinite-scroll-disabled="loading"
        infinite-scroll-distance="10">

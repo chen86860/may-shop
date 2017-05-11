@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size">
+  <div class="p-size container-wrap">
     <!-- 头部 -->
     <div class="header">
       <div class="header-input">

@@ -144,6 +144,35 @@ const router = new VueRouter({
       auth: true
     },
     component: () => System.import('./views/addressEditor.vue')
+  },
+  {
+    path: '/admin/signup', // 管理员注册
+    component: () => System.import('./views/admin/signup.vue')
+  },
+  {
+    path: '/admin/login', // 管理员登录
+    component: () => System.import('./views/admin/login.vue')
+  },
+  {
+    path: '/admin/index', // 管理后台首页
+    component: () => System.import('./views/admin/index.vue'),
+    children:[
+      {
+          path: '/goods/index',
+          name: 'goodsIndex',
+          component: ()=>System.import('./views/admin/goods/index.vue')
+      },
+      {
+          path: '/goods/add',
+          name: 'goodsAdd',
+          component: ()=>System.import('./views/admin/goods/add.vue')
+      },
+      {
+          path: '/goods/class',
+          name: 'goodsClass',
+          component: ()=>System.import('./views/admin/goods/add.vue')
+      }
+    ]
   }]
 })
 router.beforeEach((to, from, next) => {

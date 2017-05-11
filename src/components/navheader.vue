@@ -1,6 +1,6 @@
 /* eslint-disable *
 <template>
-  <div class="header">
+  <div class="header container-wrap">
     <div class="nav">
       <!--左标后退-->
       <span class="nav-left iconfont icon-houtui" v-if="navleft=='common'" @click="back"></span>

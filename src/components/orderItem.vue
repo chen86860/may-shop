@@ -1,5 +1,5 @@
 <template>
-  <div class="order-item p-border-t">
+  <div class="order-item p-border-t container-wrap">
     <div class="order-crate p-border-b">
       <div class="order-status">
         <p><span>状&nbsp;&nbsp;&nbsp;&nbsp;态:</span><span class="order-status-info">完成</span></p>

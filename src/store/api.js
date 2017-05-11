@@ -35,6 +35,15 @@ export default {
     },
     prevCreateOrder: (state, getters) => {
       return HOST['DEV'] + '/user/prevCreateOrder'
+    },
+    adminSignup: (state, getters) => {
+      return HOST['DEV'] + '/admin/signup'
+    },
+    adminLogin: (state, getters) => {
+      return HOST['DEV'] + '/admin/login'
+    },
+    goodsIndex: (state, getters) => {
+      return HOST['DEV'] + '/admin/goods/index'
     }
   }
 }

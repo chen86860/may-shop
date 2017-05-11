@@ -1,5 +1,5 @@
 <template>
-  <div class="addressEditor p-size">
+  <div class="addressEditor p-size container-wrap">
     <div class="header">
       <div class="nav">
         <span class="nav-left iconfont icon-houtui"

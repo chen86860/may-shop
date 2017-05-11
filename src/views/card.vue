@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card container-wrap">
     <navheader :navleft="'common'" :title="'卡卷包'"></navheader>  
     <div class="card-img p-rel">
       <div class="card-big p-abs">

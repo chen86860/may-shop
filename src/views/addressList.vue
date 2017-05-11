@@ -1,5 +1,5 @@
 <template>
-  <div class="addressList">
+  <div class="addressList container-wrap">
     <div class="header">
       <div class="nav">
         <span class="nav-left iconfont icon-houtui"

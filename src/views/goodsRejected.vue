@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size">
+  <div class="p-size container-wrap">
     <navheader :navleft="'common'"
                :title="'申请退货'"></navheader>
     <div class="reject-num">

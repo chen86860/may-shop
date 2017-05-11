@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size">
+  <div class="p-size container-wrap">
     <navheader :navleft="'common'" :title="'订单管理'"></navheader>
     <!--导航-->
     <div class="manager-nav p-border-b p-flex">

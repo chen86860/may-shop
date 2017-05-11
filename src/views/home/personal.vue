@@ -1,6 +1,6 @@
 <template>
   <!--个人中心-->
-  <div class="personal">
+  <div class="personal container-wrap">
     <div class="header header-tit">
       <p>个人中心</p>
     </div>  

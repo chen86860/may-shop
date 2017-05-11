@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size-s">
+  <div class="p-size-s container-wrap">
     <navheader :title="'成功支付'"></navheader>
     <!--订单支付-->
     <div class="pay">

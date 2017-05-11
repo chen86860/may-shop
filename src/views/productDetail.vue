@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div class="produc container-wrap">
     <!--导航-->
     <navheader :navleft="'common'"
                :title="'商品详情'"

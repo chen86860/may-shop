@@ -1,5 +1,5 @@
 <template>
-  <div class="login-wrap" transition="fadeOutRight">
+  <div class="login-wrap container-wrap" transition="fadeOutRight">
     <div class="login-header">
       <span @click="close" class="close"></span>
       <p>注册</p>

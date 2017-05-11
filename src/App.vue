@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <transition name="move">
+    <transition name="move">
     <keep-alive>
         <router-view></router-view>
     </keep-alive>
@@ -15,8 +15,9 @@ export default {
 </script>
 
 <style>
-html{
-  width:100%;
+.container-wrap{
+  max-width: 640px;
+  margin: 0 auto
 }
 .move-enter-active, .move-leave-active {
     transition: opacity .5s

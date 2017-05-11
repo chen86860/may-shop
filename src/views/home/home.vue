@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="5">
+  <div class="container container-wrap" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="5">
     <!-- 头部 -->
     <div class="header">
       <div class="header-input"> 

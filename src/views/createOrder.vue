@@ -1,5 +1,5 @@
 <template>
-  <div class="createcorder p-container">
+  <div class="createcorder p-container container-wrap">
     <navheader :navleft="'common'" :title="'创建订单'"></navheader>
     <!--快递-->
     <div class="corder-way">

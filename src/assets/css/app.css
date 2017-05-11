@@ -52,13 +52,12 @@ div {
 
 body,
 html {
-    font-family: "微软雅黑", Helvetica, "Droid Sans", Arial, sans-serif;
     /* 用 ascii 字符表示，使得在任何编码下都无问题 */
-    max-width: 640px;
+    font-family: "微软雅黑", Helvetica, "Droid Sans", Arial, sans-serif;
     margin: 0 auto;
     -webkit-overflow-scrolling: touch;
     background-color: rgb(246, 246, 246);
-    /*font-size: 0.22rem*/
+    /*max-width: 640px;*/
     position: relative;
     width: 100%;
     min-height: 100%;

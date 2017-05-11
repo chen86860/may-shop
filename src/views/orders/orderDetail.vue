@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size p-bg">
+  <div class="p-size p-bg container-wrap">
     <navheader :navleft="'common'" :title="'订单详情'"></navheader>
     <!--订单自提 ,物流信息-->
     <div class="order-fast">

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-size">
+  <div class="p-size container-wrap">
     <navheader :navleft="'common'" :title="'订单支付'"></navheader>
     <!--订单支付-->
     <div class="pay">
