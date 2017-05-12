@@ -366,22 +366,46 @@ exports.getGoods = (data, callback) => {
     let limit = null, skip = null
     console.log(data)
     if (data) {
-        limit = data.count - 1
-        skip = parseInt(limit * data.count, 10)
+        limit = data.count
+        skip = parseInt((data.page - 1) * data.count, 10)
     }
-    goodModel.find({}, (err, res) => {
+    goodModel.find().limit(limit).skip(skip).exec((err, res) => {
         if (err) {
-            callback({
+            callback(true, {
                 code: 101,
                 msg: 'network err'
             })
         } else {
-            callback({
+            callback(false, {
                 code: 0,
                 msg: res
             })
         }
-    }).limit(limit).skip(skip)
+    })
+}
+/**
+ * 删除商品
+ */
+exports.delGood = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    goodModel.remove({ _id: data.id }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
 }
 
 /**

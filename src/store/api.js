@@ -44,6 +44,9 @@ export default {
     },
     goodsIndex: (state, getters) => {
       return HOST['DEV'] + '/admin/goods/index'
+    },
+    delGood: (state, getters) => {
+      return HOST['DEV'] + '/admin/goods/del'
     }
   }
 }

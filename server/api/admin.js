@@ -53,5 +53,21 @@ router.route('/goods/index')
       })
     }
   });
+router.route('/goods/del')
+  .post(function (req, res, next) {
+    if (req.body.id) {
+      Model.delGood(req.body, function (err, result) {
+        if (err) {
+          return res.json(result)
+        } else {
+          res.json(result)
+        }
+      })
+    } else {
+      res.json({
+        code: -1
+      })
+    }
+  });
 
 module.exports = router;

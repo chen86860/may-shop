@@ -44,7 +44,7 @@ export default {
           this.$router.push({name: 'goodsIndex'})
           break
         case 12:
-          this.$router.push({name: 'goodsAdd'})
+          this.$router.push({name: 'goodsNew'})
           break
         case 13:
           this.$router.push({name: 'goodsClass'})
@@ -65,6 +65,14 @@ export default {
     font-size: .27rem;
     color: #fff;
     overflow: hidden;
+}
+.content{
+         width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding:30px;
+position: relative;
 }
 .content-wrap {
   width: 100%;

@@ -28,8 +28,8 @@ const router = new VueRouter({
     }, {
       path: '/personal', // 个人中心
       name: 'personal',
-      meta:{
-        auth:true
+      meta: {
+        auth: true
       },
       component: () => System.import('./views/home/personal.vue')
     }]
@@ -119,8 +119,8 @@ const router = new VueRouter({
   },
   {
     path: '/goodsRejected', // 退货
-    meta:{
-        auth:true
+    meta: {
+      auth: true
     },
     component: () => System.import('./views/goodsRejected.vue'),
   },
@@ -156,21 +156,21 @@ const router = new VueRouter({
   {
     path: '/admin/index', // 管理后台首页
     component: () => System.import('./views/admin/index.vue'),
-    children:[
+    children: [
       {
-          path: '/goods/index',
-          name: 'goodsIndex',
-          component: ()=>System.import('./views/admin/goods/index.vue')
+        path: '/goods/index',
+        name: 'goodsIndex',
+        component: () => System.import('./views/admin/goods/index.vue')
       },
       {
-          path: '/goods/add',
-          name: 'goodsAdd',
-          component: ()=>System.import('./views/admin/goods/add.vue')
+        path: '/goods/add',
+        name: 'goodsAdd',
+        component: () => System.import('./views/admin/goods/add.vue')
       },
       {
-          path: '/goods/class',
-          name: 'goodsClass',
-          component: ()=>System.import('./views/admin/goods/add.vue')
+        path: '/goods/new',
+        name: 'goodsNew',
+        component: () => System.import('./views/admin/goods/new.vue')
       }
     ]
   }]

@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export default {
   state: {
-    goods: {},
+    goods: [],
     userinfo: {
       log: false,
       id: '',
@@ -10,16 +10,21 @@ export default {
       lever: 1,
       email: '',
       address: []
-    }
+    },
+    good: {}
   },
   mutations: {
-    setGoods: (state, payload) => {
+    setGoodsIndex: (state, payload) => {
       if (payload === undefined) return
-      state.goods_1 = payload.msg.slice(0, 3)
+      state.goods = payload.msg
     },
     setDetails: (state, payload) => {
       if (payload === undefined) return
       state.detail = payload.msg[0]
+    },
+    setGood: (state, payload) => {
+      if (payload === undefined) return
+      state.good = payload
     },
     setUser: (state, payload) => {
       if (payload === undefined) return
@@ -37,7 +42,7 @@ export default {
         Vue.axios.post(getters['goodsIndex'], payload).then((res) => {
           console.log('goodsIndex', res.code, res)
           if (res.data.code === 0) {
-            commit('setGoods', res.data)
+            commit('setGoodsIndex', res.data)
           }
           resolve(res)
         })
@@ -59,6 +64,18 @@ export default {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['adminLogin'], payload).then((res) => {
           console.log('adminLogin', res.data.code)
+          if (res.data.code === 0) {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    delGood ({commit, state, getters}, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['delGood'], payload).then((res) => {
+          console.log('delGood', res.data.code)
           if (res.data.code === 0) {
             resolve(res.data)
           } else {
