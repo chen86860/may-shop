@@ -163,9 +163,9 @@ const router = new VueRouter({
         component: () => System.import('./views/admin/goods/index.vue')
       },
       {
-        path: '/goods/add',
-        name: 'goodsAdd',
-        component: () => System.import('./views/admin/goods/add.vue')
+        path: '/goods/edit',
+        name: 'goodsEdit',
+        component: () => System.import('./views/admin/goods/edit.vue')
       },
       {
         path: '/goods/new',

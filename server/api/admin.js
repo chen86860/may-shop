@@ -56,7 +56,7 @@ router.route('/goods/index')
 router.route('/goods/del')
   .post(function (req, res, next) {
     if (req.body.id) {
-      Model.delGood(req.body, function (err, result) {
+      Model.delGood(req.body.id, function (err, result) {
         if (err) {
           return res.json(result)
         } else {
@@ -68,6 +68,36 @@ router.route('/goods/del')
         code: -1
       })
     }
+  });
+router.route('/goods/count')
+  .post(function (req, res, next) {
+    Model.getGoodsCount(null, function (err, result) {
+      if (err) {
+        return res.json(result)
+      } else {
+        res.json(result)
+      }
+    })
+  });
+router.route('/goods/update')
+  .post(function (req, res, next) {
+    Model.updateGood(req.body, function (err, result) {
+      if (err) {
+        return res.json(result)
+      } else {
+        res.json(result)
+      }
+    })
+  });
+router.route('/goods/add')
+  .post(function (req, res, next) {
+    Model.addGood(req.body, function (err, result) {
+      if (err) {
+        return res.json(result)
+      } else {
+        res.json(result)
+      }
+    })
   });
 
 module.exports = router;

@@ -11,7 +11,8 @@ export default {
       email: '',
       address: []
     },
-    good: {}
+    good: {},
+    total: 0
   },
   mutations: {
     setGoodsIndex: (state, payload) => {
@@ -34,6 +35,14 @@ export default {
       state.userinfo.lever = payload.msg.lever
       state.userinfo.email = payload.msg.email
       state.userinfo.address = payload.msg.address
+    },
+    setCount: (state, payload) => {
+      if (payload === undefined) return
+      state.total = payload.msg
+    },
+    delIndexGood: (state, payload) => {
+      if (payload === undefined) return
+      state.goods.splice(payload, 1)
     }
   },
   actions: {
@@ -76,6 +85,40 @@ export default {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['delGood'], payload).then((res) => {
           console.log('delGood', res.data.code)
+          if (res.data.code === 0) {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    goodsCount ({commit, state, getters}, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['goodsCount'], payload).then((res) => {
+          if (res.data.code === 0) {
+            resolve(res.data)
+            commit('setCount', res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    editGood ({commit, state, getters}, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['editGood'], payload).then((res) => {
+          if (res.data.code === 0) {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    addGood ({commit, state, getters}, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['addGood'], payload).then((res) => {
           if (res.data.code === 0) {
             resolve(res.data)
           } else {

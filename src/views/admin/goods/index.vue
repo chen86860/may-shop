@@ -15,6 +15,8 @@
         </el-table-column>
         <el-table-column prop="price" label="价格" width="80">
         </el-table-column>
+        <el-table-column prop="group" label="商品分类" width="100">
+        </el-table-column>
         <el-table-column prop="count" label="库存量" width="80">
         </el-table-column>
         <el-table-column prop="desc" label="商品描述">
@@ -22,11 +24,13 @@
         <el-table-column label="操作" width="200" header-align="center" align="center">
           <template scope="goods">
             <el-button size="small" @click="handleEdit(goods.row,goods.row._id)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(null,goods.row,goods.row._id)">删除</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(null,goods.row,goods.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -41,12 +45,15 @@ export default {
   computed: {
     goods () {
       return this.$store.state.admin.goods || ''
+    },
+    total () {
+      return this.$store.state.admin.total || 0
     }
   },
   activated () {
     this.$store.dispatch('goodsIndex', {
       page: 1,
-      count: 3
+      count: 5
     }).then((res) => {
       if (res.code === 0) {
         console.log(res)
@@ -54,18 +61,23 @@ export default {
     }).catch((err) => {
       console.error(err)
     })
+    this.$store.dispatch('goodsCount').then((res) => {
+    }).catch((err) => {
+      console.error(err)
+    })
   },
   methods: {
     handleEdit (good, row) {
       this.$store.commit('setGood', good)
-      this.$router.push({name: 'goodsNew'})
+      this.$router.push({ name: 'goodsEdit' })
     },
-    handleDelete (done, goods, row) {
+    handleDelete (done, goods, index) {
       this.$confirm('确定删除商品【' + goods.name + '】', '删除商品')
         .then(_ => {
           this.$store.dispatch('delGood', {
             id: goods._id
           }).then((res) => {
+            this.$store.commit('delIndexGood', index)
             if (res.code === 0) {
               this.$message({
                 type: 'success',
@@ -101,6 +113,35 @@ export default {
     },
     handleIconClick () {
       this.$message('搜索按钮')
+    },
+    handleCurrentChange (val) {
+      this.$store.dispatch('goodsIndex', {
+        page: val,
+        count: 5
+      }).then((res) => {
+        if (res.code === 0) {
+          console.log(res)
+        }
+      }).catch((err) => {
+        console.error(err)
+      })
+    },
+    handleSizeChange (val) {
+      // this.$store.dispatch('goodsIndex', {
+      //   page: val,
+      //   count: 4
+      // }).then((res) => {
+      //   if (res.code === 0) {
+      //     console.log(res)
+      //   }
+      // }).catch((err) => {
+      //   console.error(err)
+      // })
+    }
+  },
+  filters: {
+    groupBy (val) {
+      return val + '1111'
     }
   }
 }
@@ -122,5 +163,14 @@ export default {
   margin: 0;
   border-bottom: 1px solid #ddd;
   padding-bottom: 20px;
+}
+
+.pagination {
+  height: 30px;
+  display: flex;
+  margin: 20px 0 20px 0;
+  padding-right: 0;
+  justify-content: flex-start;
+  padding-left: 0;
 }
 </style>

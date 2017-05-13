@@ -80,6 +80,10 @@ var goodModel = mongoose.model('goods', new mongoose.Schema({
     },
     group: {
         type: Number
+    },
+    initTime: {
+        type: Date,
+        default: Date.now
     }
 }, {
 
@@ -363,13 +367,44 @@ exports.session = (username, callback) => {
  * 获取全部商品
  */
 exports.getGoods = (data, callback) => {
-    let limit = null, skip = null
-    console.log(data)
+    let limit = {}, skip = {}
     if (data) {
         limit = data.count
         skip = parseInt((data.page - 1) * data.count, 10)
+        goodModel.find().sort({ initTime: 1 }).limit(limit).skip(skip).exec((err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    } else {
+        goodModel.find({}, (err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                console.log('!!!!!!!!sfind___________', res)
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
     }
-    goodModel.find().limit(limit).skip(skip).exec((err, res) => {
+
+}
+
+exports.getGoodsCount = (data, callback) => {
+    goodModel.find().count((err, res) => {
         if (err) {
             callback(true, {
                 code: 101,
@@ -386,14 +421,14 @@ exports.getGoods = (data, callback) => {
 /**
  * 删除商品
  */
-exports.delGood = (data, callback) => {
-    if (!data) {
+exports.delGood = (id, callback) => {
+    if (!id) {
         callback(true, {
             code: 101,
             msg: 'id is must params'
         })
     }
-    goodModel.remove({ _id: data.id }, (err, res) => {
+    goodModel.remove({ _id: id }, (err, res) => {
         if (err) {
             callback(true, {
                 code: 101,
@@ -405,6 +440,74 @@ exports.delGood = (data, callback) => {
                 msg: res
             })
         }
+    })
+}
+/**
+ * 新增商品
+ */
+exports.addGood = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    var newGood = {}
+    newGood.name = data.name
+    newGood.subName = data.subName
+    newGood.price = data.price
+    newGood.count = data.count
+    newGood.desc = data.desc
+    newGood.group = data.group
+    newGood.img = data.img
+    newGood = new goodModel(newGood)
+    newGood.save((err, result) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: result
+            })
+        }
+    })
+}
+/**
+ * 更新商品
+ */
+exports.updateGood = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    goodModel.remove({ _id: data._id }, (err, res) => {
+        var newGood = {}
+        newGood.name = data.name
+        newGood.subName = data.subName
+        newGood.price = data.price
+        newGood.count = data.count
+        newGood.desc = data.desc
+        newGood.img = data.img
+        newGood.initTime = data.initTime
+        newGood = new goodModel(newGood)
+        newGood.save((err, result) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: result
+                })
+            }
+        })
     })
 }
 

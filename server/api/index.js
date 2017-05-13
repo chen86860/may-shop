@@ -28,16 +28,16 @@ router.route('/detail').post((req, res, next) => {
 
 
 router.route('/goods').post(function (req, res, next) {
-  Model.getGoods(null, (result) => {
-    if (result.code === 0) {
-      res.json({
-        code: 0,
-        msg: result.msg
-      })
-    } else {
+  Model.getGoods(null, (err, result) => {
+    if (err) {
       res.json({
         code: 100,
         msg: 'network err'
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: result.msg
       })
     }
   })

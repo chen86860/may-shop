@@ -3,7 +3,7 @@
     <div class="header"></div>
     <div class="content-wrap">
     <div class="menu">
-      <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @select="handleSelect" @close="handleClose">
+      <el-menu :default-active="defaultActive" class="el-menu-vertical-demo" @open="handleOpen" @select="handleSelect" @close="handleClose">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>商品管理</template>
@@ -31,6 +31,11 @@
 <script>
 export default {
   name: 'dashboard',
+  data () {
+    return {
+      defaultActive: '1'
+    }
+  },
   methods: {
     handleOpen (key, keyPath) {
       console.log(key, keyPath)
@@ -52,6 +57,10 @@ export default {
       }
       console.log(key, keyPath)
     }
+  },
+  mounted () {
+    this.defaultActive = this.$route.query.path
+    // console.log('preser___________', this.$route.query)
   }
 }
 </script>

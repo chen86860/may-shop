@@ -47,6 +47,15 @@ export default {
     },
     delGood: (state, getters) => {
       return HOST['DEV'] + '/admin/goods/del'
+    },
+    goodsCount: (state, getters) => {
+      return HOST['DEV'] + '/admin/goods/count'
+    },
+    editGood: (state, getters) => {
+      return HOST['DEV'] + '/admin/goods/update'
+    },
+    addGood: (state, getters) => {
+      return HOST['DEV'] + '/admin/goods/add'
     }
   }
 }
