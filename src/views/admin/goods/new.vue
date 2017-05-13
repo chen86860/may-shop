@@ -4,7 +4,7 @@
     <div class="new-good-wrap">
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="商品名称" required>
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name" ref="title"></el-input>
         </el-form-item>
         <el-form-item label="商品次名称" required>
           <el-input v-model="form.subName"></el-input>
@@ -80,6 +80,13 @@
     },
     methods: {
       onSubmit () {
+        if (this.form['name'] === undefined || this.form['name'].length === 0) {
+          this.$message({
+            type: 'error',
+            message: '请输入商品名称'
+          })
+          return
+        }
         var vm = this
         this.disableSubmit = true;
         [].forEach.call(this.fileList, (e) => {
@@ -87,21 +94,24 @@
         })
         this.$refs['form'].validate((valid) => {
           if (valid) {
-
+            this.$store.dispatch('addGood', this.form).then((res) => {
+              this.disableSubmit = false
+              this.$message({
+                type: 'success',
+                message: '添加成功!'
+              })
+              this.$router.push({name: 'goodsIndex', query: {path: 11}})
+            }).catch(_ => {
+              this.disableSubmit = false
+              this.$alert('something was wrong... ', ':(')
+            })
           } else {
-            
+            this.$message({
+              type: 'alert',
+              message: '请输入商品名称'
+            })
+            return false
           }
-        })
-        this.$store.dispatch('addGood', this.form).then((res) => {
-          this.disableSubmit = false
-          this.$message({
-            type: 'success',
-            message: '添加成功!'
-          })
-          this.$router.push({name: 'goodsIndex', query: {path: 11}})
-        }).catch(_ => {
-          this.disableSubmit = false
-          this.$alert('something was wrong... ', ':(')
         })
       },
       onCancle () {
