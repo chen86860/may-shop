@@ -2,24 +2,24 @@
   <div class="new-wrap">
     <h2>更新商品</h2>
     <div class="new-good-wrap">
-      <el-form ref="form" :model="form" label-width="90px">
-        <el-form-item label="商品名称">
+      <el-form ref="form" :model="form" label-width="100px">
+        <el-form-item label="商品名称" required>
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="商品次名称">
+        <el-form-item label="商品次名称" required>
           <el-input v-model="form.subName"></el-input>
         </el-form-item>
-        <el-form-item label="商品分类">
+        <el-form-item label="商品分类" required>
           <el-select v-model="form.group" placeholder="请选择商品类别">
             <el-option label="推荐热区" value="1"></el-option>
             <el-option label="分类区" value="2"></el-option>
             <el-option label="促销区" value="3"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品价格">
+        <el-form-item label="商品价格" required>
           <el-input v-model="form.price"></el-input>
         </el-form-item>
-        <el-form-item label="商品库存">
+        <el-form-item label="商品库存" required>
           <el-input v-model="form.count"></el-input>
         </el-form-item>
          <el-form-item label="商品图片" class="img-upload">
@@ -27,7 +27,7 @@
             <i class="el-icon-plus"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="商品描述">
+        <el-form-item label="商品描述" required>
           <el-input type="textarea" v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item>
@@ -115,7 +115,6 @@
     },
     activated () {
       this.fileList = this.$store.state.admin.good.fileList
-      // this.fileList = this.$store.state.admin.good.group
     }
   }
 </script>
