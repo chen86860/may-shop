@@ -8,13 +8,12 @@ export const types = {
 export default {
   state: {
     cart_goods: {},
-    goods: {},
-    // Goods
-    goods_1: {},
+    // goods: {},
+    goods_1: [],
+    goods_2: [],
+    goods_3: [],
     goods_2_1: {},
-    goods_2: {},
     goods_3_1: {},
-    goods_3: {},
     detail: {},
     userinfo: {
       log: false,
@@ -39,11 +38,26 @@ export default {
     },
     setGoods: (state, payload) => {
       if (payload === undefined) return
-      state.goods_1 = payload.msg.slice(0, 3)
-      state.goods_2_1 = payload.msg[3]
-      state.goods_2 = payload.msg.slice(4, 6)
-      state.goods_3_1 = payload.msg[6]
-      state.goods_3 = payload.msg.slice(7, 9)
+      state.goods_1.splice(0)
+      state.goods_2.splice(0)
+      state.goods_3.splice(0)
+      // 对商品结果进行分组，以类别group 分成三类
+      ;(payload.msg || []).forEach((e) => {
+        let group = parseInt(e.group, 10) || 0
+        switch (group) {
+          case 1:
+            state.goods_1.push(e)
+            break
+          case 2:
+            state.goods_2.push(e)
+            break
+          case 3:
+            state.goods_3.push(e)
+            break
+          default:
+            break
+        }
+      })
     },
     setDetails: (state, payload) => {
       if (payload === undefined) return

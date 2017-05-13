@@ -80,6 +80,7 @@
     },
     methods: {
       onSubmit () {
+        console.log(this.fileList)
         if (this.form['name'] === undefined || this.form['name'].length === 0) {
           this.$message({
             type: 'error',
@@ -92,6 +93,10 @@
         [].forEach.call(this.fileList, (e) => {
           vm.form.img.push(e.url)
         })
+        // 增加图片文件列表，方便编辑时直接读取
+        // 但愿不会拖慢网络速度。。。。
+        // :(
+        this.form.fileList = this.fileList
         this.$refs['form'].validate((valid) => {
           if (valid) {
             this.$store.dispatch('addGood', this.form).then((res) => {
@@ -151,7 +156,7 @@
       this.$store.state.admin.good = []
       this.fileList = []
       this.disableSubmit = false
-      this.form = {}
+      this.form['name'] = this.form['subName'] = this.form['price'] = this.form['count'] = this.form['desc'] = ''
     }
   }
 </script>

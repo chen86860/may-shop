@@ -46,10 +46,10 @@ export default {
     handleSelect (key, keyPath) {
       switch (parseInt(key, 10) || 0) {
         case 11:
-          this.$router.push({name: 'goodsIndex'})
+          this.$router.push({name: 'goodsIndex', query: {path: '11'}})
           break
         case 12:
-          this.$router.push({name: 'goodsNew'})
+          this.$router.push({name: 'goodsNew', query: {path: '12'}})
           break
         case 13:
           this.$router.push({name: 'goodsClass'})
@@ -60,7 +60,6 @@ export default {
   },
   mounted () {
     this.defaultActive = this.$route.query.path
-    // console.log('preser___________', this.$route.query)
   }
 }
 </script>

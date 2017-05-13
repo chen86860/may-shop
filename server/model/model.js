@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var md5 = require('md5');
+var uuid = require('uuid')
 mongoose.connect('mongodb://localhost/may_shop', { server: { poolSoze: 10 } });
 
 // ==============================
@@ -56,6 +57,9 @@ var userInfo = mongoose.model('userinfo', new mongoose.Schema({
  * 商品Model
  */
 var goodModel = mongoose.model('goods', new mongoose.Schema({
+    id: {
+        type: String
+    },
     name: {
         type: String
     },
@@ -80,6 +84,9 @@ var goodModel = mongoose.model('goods', new mongoose.Schema({
     },
     group: {
         type: Number
+    },
+    fileList: {
+        type: Object
     },
     initTime: {
         type: Date,
@@ -202,7 +209,7 @@ exports.userreg = function (regbody, callback) {
                             code: 0, msg: {
                                 username: result.username,
                                 address: result.address,
-                                id: result._id,
+                                id: result.id,
                                 lever: result.lever,
                                 email: result.email
                             }
@@ -249,7 +256,7 @@ exports.adminreg = function (regbody, callback) {
                         callback(false, {
                             code: 0, msg: {
                                 username: result.username,
-                                id: result._id,
+                                id: result.id,
                                 email: result.email
                             }
                         })
@@ -288,7 +295,7 @@ exports.userlog = function (logbody, callback) {
                     code: 0, msg: {
                         username: result[0].username,
                         address: result[0].address,
-                        id: result[0]._id,
+                        id: result[0].id,
                         lever: result[0].lever,
                         email: result[0].email
                     }
@@ -328,7 +335,7 @@ exports.adminlog = function (logbody, callback) {
                 callback(false, {
                     code: 0, msg: {
                         username: result.username,
-                        id: result._id,
+                        id: result.id,
                         email: result.email
                     }
                 })
@@ -367,10 +374,9 @@ exports.session = (username, callback) => {
  * 获取全部商品
  */
 exports.getGoods = (data, callback) => {
-    let limit = {}, skip = {}
     if (data) {
-        limit = data.count
-        skip = parseInt((data.page - 1) * data.count, 10)
+        let limit = data.count
+        let skip = parseInt((data.page - 1) * data.count, 10)
         goodModel.find().sort({ initTime: 1 }).limit(limit).skip(skip).exec((err, res) => {
             if (err) {
                 callback(true, {
@@ -428,7 +434,7 @@ exports.delGood = (id, callback) => {
             msg: 'id is must params'
         })
     }
-    goodModel.remove({ _id: id }, (err, res) => {
+    goodModel.remove({ id: id }, (err, res) => {
         if (err) {
             callback(true, {
                 code: 101,
@@ -453,8 +459,11 @@ exports.addGood = (data, callback) => {
         })
     }
     var newGood = {}
+    // 生成唯一id
+    newGood.id = uuid.v4()
     newGood.name = data.name
     newGood.subName = data.subName
+    newGood.fileList = data.fileList
     newGood.price = data.price
     newGood.count = data.count
     newGood.desc = data.desc
@@ -485,14 +494,18 @@ exports.updateGood = (data, callback) => {
             msg: 'id is must params'
         })
     }
-    goodModel.remove({ _id: data._id }, (err, res) => {
+    goodModel.remove({ id: data.id }, (err, res) => {
         var newGood = {}
+        // 保证物品不会消失
+        newGood.id = data.id
         newGood.name = data.name
         newGood.subName = data.subName
         newGood.price = data.price
         newGood.count = data.count
         newGood.desc = data.desc
         newGood.img = data.img
+        newGood.group = data.group
+        newGood.fileList = data.fileList
         newGood.initTime = data.initTime
         newGood = new goodModel(newGood)
         newGood.save((err, result) => {
@@ -523,7 +536,7 @@ exports.getDetail = (id, callback) => {
         })
         return
     }
-    goodModel.find({ _id: id }, (err, res) => {
+    goodModel.find({ id: id }, (err, res) => {
         if (err) {
             callback({
                 code: 100,
@@ -640,7 +653,7 @@ exports.addCart = (data, callback) => {
                 msg: 'network err'
             })
         } else if (res.length == 0) {
-            goodModel.findOne({ _id: data.goodId }, (err, ress) => {
+            goodModel.findOne({ id: data.goodId }, (err, ress) => {
                 if (err) {
                     callback(true, {
                         code: 100,

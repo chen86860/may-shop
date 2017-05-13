@@ -9,7 +9,7 @@
       <el-table :data="goods" stripe style="width: 100%" resizable="false">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="_id" label="商品ID" width="180">
+        <el-table-column prop="id" label="商品ID" width="180">
         </el-table-column>
         <el-table-column prop="name" label="商品名称">
         </el-table-column>
@@ -23,13 +23,13 @@
         </el-table-column>
         <el-table-column label="操作" width="200" header-align="center" align="center">
           <template scope="goods">
-            <el-button size="small" @click="handleEdit(goods.row,goods.row._id)">编辑</el-button>
+            <el-button size="small" @click="handleEdit(goods.row,goods.row.id)">编辑</el-button>
             <el-button size="small" type="danger" @click="handleDelete(null,goods.row,goods.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
+    <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
     </el-pagination>
   </div>
 </template>
@@ -39,7 +39,18 @@ export default {
   data () {
     return {
       msg: '',
-      search: ''
+      search: '',
+      currentPage: 1,
+      filters: [{
+        text: '热门商品', value: '1'
+      },
+      {
+        text: '促销商品', value: '2'
+      },
+      {
+        text: '普通商品', value: '3'
+      }
+      ]
     }
   },
   computed: {
@@ -50,7 +61,7 @@ export default {
       return this.$store.state.admin.total || 0
     }
   },
-  activated () {
+  mounted () {
     this.$store.dispatch('goodsIndex', {
       page: 1,
       count: 5
@@ -61,21 +72,21 @@ export default {
     }).catch((err) => {
       console.error(err)
     })
-    this.$store.dispatch('goodsCount').then((res) => {
-    }).catch((err) => {
-      console.error(err)
-    })
+  },
+  activated () {
+    this.currentPage = 1
+    this.$store.dispatch('goodsCount').then((res) => {}).catch((err) => { console.error(err) })
   },
   methods: {
     handleEdit (good, row) {
       this.$store.commit('setGood', good)
-      this.$router.push({ name: 'goodsEdit' })
+      this.$router.push({name: 'goodsEdit', query: {path: 11}})
     },
     handleDelete (done, goods, index) {
       this.$confirm('确定删除商品【' + goods.name + '】', '删除商品')
         .then(_ => {
           this.$store.dispatch('delGood', {
-            id: goods._id
+            id: goods.id
           }).then((res) => {
             this.$store.commit('delIndexGood', index)
             if (res.code === 0) {
@@ -137,6 +148,9 @@ export default {
       // }).catch((err) => {
       //   console.error(err)
       // })
+    },
+    filterTag (value, row) {
+      return row.group === value
     }
   },
   filters: {

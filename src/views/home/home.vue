@@ -16,7 +16,7 @@
     <!-- 热门商品 -->
     <div class="hot-goods">
     <div v-for="item in goods_1" :key="item.id">
-        <router-link :to="{name:'product',query:{id:item._id}}">
+        <router-link :to="{name:'product',query:{id:item.id}}">
             <p>{{item.name ? item.name.slice(0,6) :''}}</p>
             <p>{{item.subName ? item.subName.slice(0,6):''}}</p>
             <div>
@@ -42,7 +42,7 @@
       <p class="home-goods-title">每日推荐</p>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-          <router-link :to="{name:'product',query:{id:goods_2_1._id}}">
+          <router-link :to="{name:'product',query:{id:goods_2_1.id}}">
                 <p>{{goods_2_1.subName}}</p>
                 <p>{{goods_2_1.name?goods_2_1.name.slice(0,4):''}}</p>
                 <div><img :src="goods_2_1.img?goods_2_1.img[0]:''" alt=""></div>
@@ -50,7 +50,7 @@
           </div>
           <div class="daygoodslist">
             <div v-for="item in goods_2">
-             <router-link :to="{name:'product',query:{id:item._id}}">
+             <router-link :to="{name:'product',query:{id:item.id}}">
                 <div><p>{{item.subName}}</p>
                   <p>{{item.name?item.name.slice(0,4):''}}</p></div>
                   <div><img :src="item.img?item.img[0]:''" alt=""></div>
@@ -60,7 +60,7 @@
       </div>
       <div class="home-day-goods">
           <div class="daygoodslist_0">
-          <router-link :to="{name:'product',query:{id:goods_3_1._id}}">
+          <router-link :to="{name:'product',query:{id:goods_3_1.id}}">
                 <p>{{goods_3_1.subName}}</p>
                 <p>{{goods_3_1.name?goods_3_1.name.slice(0,4):''}}</p>
                 <div><img :src="goods_3_1.img?goods_3_1.img[0]:''" alt=""></div>
@@ -68,7 +68,7 @@
           </div>
           <div class="daygoodslist">
             <div v-for="item in goods_3">
-            <router-link :to="{name:'product',query:{id:item._id}}">
+            <router-link :to="{name:'product',query:{id:item.id}}">
                 <div><p>{{item.subName}}</p>
                   <p>{{item.name?item.name.slice(0,4):''}}</p></div>
                   <div><img :src="item.img?item.img[0]:''" alt=""></div>
@@ -142,19 +142,19 @@
     },
     computed: {
       goods_1 () {
-        return this.$store.state.page.goods_1
+        return this.$store.state.page.goods_1.slice(0, 3)
       },
       goods_2_1 () {
-        return this.$store.state.page.goods_2_1
+        return this.$store.state.page.goods_2[2]
       },
       goods_2 () {
-        return this.$store.state.page.goods_2
+        return this.$store.state.page.goods_2.slice(0, 2)
       },
       goods_3_1 () {
-        return this.$store.state.page.goods_3_1
+        return this.$store.state.page.goods_3[2]
       },
       goods_3 () {
-        return this.$store.state.page.goods_3
+        return this.$store.state.page.goods_3.slice(0, 2)
       }
     },
     mounted () {
