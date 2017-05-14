@@ -56,6 +56,9 @@ export default {
     },
     addGood: (state, getters) => {
       return HOST['DEV'] + '/admin/goods/add'
+    },
+    addAds: (state, getters) => {
+      return HOST['DEV'] + '/user/ads/add'
     }
   }
 }

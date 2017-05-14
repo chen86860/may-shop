@@ -133,6 +133,7 @@ const router = new VueRouter({
   },
   {
     path: '/addresslist', // 地址列表
+    name: 'addressList',
     meta: {
       auth: true
     },
@@ -140,6 +141,7 @@ const router = new VueRouter({
   },
   {
     path: '/addressEditor', // 地址编辑
+    name: 'addressEdit',
     meta: {
       auth: true
     },

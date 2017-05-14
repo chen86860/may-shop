@@ -705,10 +705,77 @@ exports.addCart = (data, callback) => {
     })
 }
 /**
+ * 新增地址
+ * @param{goodId,userId,count}
+ */
+exports.addAds = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    let address = {
+        id: uuid.v4(),
+        name: data.address.name,
+        mobile: data.address.mobile || '',
+        ads: data.address.ads || '',
+        detailAds: data.address.detailAds || ''
+    }
+    userInfo.update({ _id: data.userId }, { $push: { address: address } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: '100',
+                msg: 'network err'
+            })
+        } else {
+            userInfo.find({ _id: data.userId }, { address: 1 }, (err, result) => {
+                if (err) {
+                    callback(true, {
+                        code: '100',
+                        msg: 'network err'
+                    })
+                } else {
+                    callback(false, {
+                        code: 0,
+                        msg: result
+                    })
+                }
+            })
+
+        }
+    })
+}
+/**
+ * 删除地址
+ * @param{userId,addressId}
+ */
+exports.delAds = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    userInfo.update({ _id: data.userId }, { $pull: { 'address': { 'id': data.addressId } } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: '100',
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: 'del address succedd'
+            })
+        }
+    })
+}
+/**
  * 更新物品选中状态
  */
-
-
 exports.changeChecked = (data, callback) => {
     if (!data.userId) {
         callback(true, {

@@ -21,7 +21,8 @@ export default {
       username: '',
       lever: 1,
       email: '',
-      address: []
+      address: [],
+      defaultAds: []
     },
     order: {}
   },
@@ -41,23 +42,23 @@ export default {
       state.goods_1.splice(0)
       state.goods_2.splice(0)
       state.goods_3.splice(0)
-      // 对商品结果进行分组，以类别group 分成三类
-      ;(payload.msg || []).forEach((e) => {
-        let group = parseInt(e.group, 10) || 0
-        switch (group) {
-          case 1:
-            state.goods_1.push(e)
-            break
-          case 2:
-            state.goods_2.push(e)
-            break
-          case 3:
-            state.goods_3.push(e)
-            break
-          default:
-            break
-        }
-      })
+        // 对商品结果进行分组，以类别group 分成三类
+        ; (payload.msg || []).forEach((e) => {
+          let group = parseInt(e.group, 10) || 0
+          switch (group) {
+            case 1:
+              state.goods_1.push(e)
+              break
+            case 2:
+              state.goods_2.push(e)
+              break
+            case 3:
+              state.goods_3.push(e)
+              break
+            default:
+              break
+          }
+        })
     },
     setDetails: (state, payload) => {
       if (payload === undefined) return
@@ -71,6 +72,19 @@ export default {
       state.userinfo.lever = payload.msg.lever
       state.userinfo.email = payload.msg.email
       state.userinfo.address = payload.msg.address
+      if (payload.msg.address.length > 0) {
+        state.userinfo.defaultAds.push(payload.msg.address[0])
+      }
+    },
+    saveDefaultAds: (state, payload) => {
+      console.log('setDefault', payload)
+      if (payload === undefined) return
+      state.userinfo.defaultAds.splice(0)
+      state.userinfo.defaultAds.push(payload)
+    },
+    updateAds: (state, payload) => {
+      state.userinfo.address.splice(0)
+      state.userinfo.address = payload.msg[0].address
     }
   },
   actions: {
@@ -160,7 +174,7 @@ export default {
         })
       })
     },
-    changeChecked ({commit, state, getters}, payload) {
+    changeChecked ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['changeChecked'], payload).then((res) => {
           console.log('cart', res.data.code, res)
@@ -172,7 +186,7 @@ export default {
         })
       })
     },
-    cartGoodAdd ({commit, state, getters}, payload) {
+    cartGoodAdd ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['cartGoodAdd'], payload).then((res) => {
           console.log('cartGoodAdd', res.data.code, res)
@@ -184,11 +198,24 @@ export default {
         })
       })
     },
-    cartGoodSub ({commit, state, getters}, payload) {
+    cartGoodSub ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['cartGoodSub'], payload).then((res) => {
           console.log('cartGoodSub', res.data.code, res)
           if (res.data.code === 0) {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    addAds ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['addAds'], payload).then((res) => {
+          console.log('addAds', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('updateAds', res.data)
             resolve(res.data)
           } else {
             reject(res.data)

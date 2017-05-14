@@ -696,12 +696,12 @@ img {
 }
 
 .p-ads-btn {
-    width: 6rem;
-    height: .8rem;
+   width: 6rem;
+    height: .6rem;
     color: #ffffff;
     background: #ff1877;
     font-size: .22rem;
-    border: 1px solid #dfdfdf;
+    border: none;
 }
 
 .shopcar {

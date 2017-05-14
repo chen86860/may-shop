@@ -209,4 +209,52 @@ router.route('/cartGoodSub').post(function (req, res, next) {
     })
   }
 });
+router.route('/ads/add').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.addAds(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/ads/del').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.addAds(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
 module.exports = router;

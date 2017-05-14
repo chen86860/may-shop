@@ -5,13 +5,16 @@
     <div class="corder-way">
       <!--基本信息-->
       <div class="corder-fast">
-        <div class="none-address" v-if="userinfo.address.length==0">
-            <input type="button" value="添加收货地址" @click="toAddAddress">
+        <div class="none-address" v-if="userinfo.defaultAds.length==0">
+            <a @click="toAddAddress">
+              <i class="icon-add">+</i>
+              添加收货地址
+            </a>
         </div>
-                <div class="corder-info order-address" v-else="">
-                  <div><span>收件人</span><span>{{userinfo.username}}</span></div>
-                  <div class="corder-info-tel"><span>联系电话</span><span> {{userinfo.mobile || 18814182596}}</span></div>
-                  <div class="corder-address"><span>收货地址</span><span>{{'广东省江门市五邑大学'}}</span></div>
+                <div class="corder-info order-address" v-else @click="selectAds">
+                  <div><span>收件人</span><span>{{userinfo.defaultAds[0].name ? userinfo.defaultAds[0].name : ''}}</span></div>
+                  <div class="corder-info-tel"><span>联系电话</span><span> {{userinfo.defaultAds[0].mobile || '******'}}</span></div>
+                  <div class="corder-address"><span>收货地址</span><span>{{userinfo.defaultAds[0].ads ? userinfo.defaultAds[0].ads + userinfo.defaultAds[0].detailAds : ''}}</span></div>
                 </div>
                 <div class="border-location"></div>
               </div>
@@ -89,7 +92,10 @@ export default {
   },
   methods: {
     toAddAddress () {
-      this.$router.push({name: 'address'})
+      this.$router.push({name: 'addressEdit', query: {title: '编辑地址', del: false, save: true}})
+    },
+    selectAds () {
+      this.$router.push({name: 'addressList', query: {save: true}})
     }
   }
 }
@@ -239,5 +245,19 @@ margin-bottom: 10px;
 }
 .corder-info{
       padding: 10px;
+}
+.none-address{
+  text-align: center;
+        height: 1.3rem;
+    line-height: 1.3rem;
+}
+.none-address a{
+     text-decoration: none;
+    color: #fff;
+    background-color: #ff1877;
+    padding: 3px 12px;
+}
+.none-address i {
+  font-style: initial
 }
 </style>

@@ -2,25 +2,26 @@
   <div class="addressList container-wrap">
     <div class="header">
       <div class="nav">
-        <span class="nav-left iconfont icon-houtui"
-              @click="back"></span>
+        <span class="nav-left iconfont icon-houtui" @click="back"></span>
         <div class="header-title">我的地址</div>
-        <span class="nav-right iconfont icon-icon"
-              @click="add"></span>
       </div>
     </div>
   
     <div class="address-list p-size">
-      <div class="address-list1 p-border p-rel"
-           v-for='item in users'
-           :key='item in users'
-           >
-        <p> {{item.name}} </p>
-        <p> {{item.phone}} </p>
-        <p> {{item.address}} </p>
-        <span class="p-abs iconfont icon-icon07"
-              @click='edit'></span>
+      <div class="address-list1" v-for='item in address' :key='item in address'>
+        <div @click="selectAds(item)" class="address-content">
+          <p> {{item.name}} </p>
+          <p> {{item.mobile}} </p>
+          <p> {{item.ads ? item.ads + item.detailAds : ''}} </p>
+        </div>
+        <div class="iconfont icon-icon07 icon-edit" @click='edit(item.id)'></div>
       </div>
+    </div>
+    <div class="none-address p-full-btn">
+      <a @click="toAddAddress">
+        <i class="icon-add">+</i>
+        添加收货地址
+      </a>
     </div>
   </div>
 </template>
@@ -28,23 +29,15 @@
 export default {
   data () {
     return {
-      title: '新增地址',
-      users: [{
-        'name': '陈先生',
-        'phone': '188**3822',
-        'address': '广东省江门市五邑大学'
-      }, {
-        'name': '陈小姐',
-        'phone': '188**3822',
-        'address': '广东省江门市五邑大学'
-      }]
+      title: '新增地址'
     }
   },
   methods: {
     back () {
       this.$router.back()
     },
-    edit () {
+    edit (id) {
+      console.log(id)
       this.$router.push({
         path: '/addressEditor',
         query: {
@@ -53,7 +46,7 @@ export default {
         }
       })
     },
-    add () {
+    toAddAddress () {
       this.$router.push({
         path: '/addressEditor',
         query: {
@@ -61,37 +54,49 @@ export default {
           del: false
         }
       })
+    },
+    selectAds (item) {
+      if (!this.$route.query.save) return
+      let defaultAds = {
+        name: item.name,
+        mobile: item.mobile,
+        ads: item.ads,
+        detailAds: item.detailAds
+      }
+      console.log(item)
+      this.$store.commit('saveDefaultAds', defaultAds)
+      this.$router.back()
+    }
+  },
+  computed: {
+    address () {
+      return this.$store.state.page.userinfo.address
     }
   }
 }
 </script>
 <style scoped>
+.addressList {
+  min-height: 100%;
+  position: relative;
+}
+
 .address-list {
   margin-top: 10px;
   color: #3c3c3c;
 }
 
-.address-list div {
-        width: 6rem;
-    padding-left: .2rem;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 0 0.2rem 0;
-    border-bottom: 1px solid #ddd;
-        font-size: 0.2rem;
-        padding: 0.2rem;
-}
-
-.address-list div p {
-  height: .5rem;
-  line-height: .5rem;
-}
-.address-list div p:first-child{
-  font-size: 0.3rem;
-}
-
 .address-list1 {
-  margin:0
+  margin: 0;
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    padding: .2rem;
+    margin-bottom: .11rem;
+    font-size: .22rem;
+    border-bottom: 1px solid #e4e4e4;
 }
 
 .address-list1 span {
@@ -100,5 +105,35 @@ export default {
   width: .38rem;
   height: .38rem;
   color: #ff1877;
+}
+
+.none-address {
+  text-align: center;
+  font-size: .22rem;
+  background-color: #ff1877;
+  border-radius: 0;
+  position: absolute;
+  bottom: 0;
+  margin-top: .7rem;
+}
+
+.none-address a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.none-address i {
+  font-style: initial
+}
+.address-content p {
+  margin: .12rem 0;
+}
+.address-content p:first-child {
+  margin: .12rem 0;
+  font-size: .3rem;
+}
+.icon-edit{
+  color: #ff1877;
+  font-size: .3rem
 }
 </style>
