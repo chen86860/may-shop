@@ -35,9 +35,9 @@
     </div>
     <!--提交按钮-->
     <div class="corder-btn">
-      <router-link to="/orderpay">
+      <a  @click="createOrder">
         <button class="p-full-btn posss">提交订单</button>
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
@@ -47,13 +47,12 @@ import productOrder from '../components/productOrder.vue'
 export default {
   data () {
     return {
-      picked: 'fast',
-      ordergoods: [1, 2]
+      picked: 'fast'
     }
   },
   computed: {
     order () {
-      return this.$store.state.page.order
+      return this.$store.state.page.order.tmp
     },
     userinfo () {
       return this.$store.state.page.userinfo
@@ -82,6 +81,9 @@ export default {
     productOrder
   },
   mounted () {
+    if (this.order.length === 0) {
+      this.$router.push({name: 'homeMain'})
+    }
     this.$store.dispatch('prevCreateOrder', {
       username: this.$store.state.page.userinfo.id || ''
     }).then((res) => {
@@ -96,6 +98,20 @@ export default {
     },
     selectAds () {
       this.$router.push({name: 'addressList', query: {save: true}})
+    },
+    createOrder () {
+      this.$store.dispatch('createOrder', {
+        userId: this.$store.state.page.userinfo.id,
+        address: this.$store.state.page.userinfo.defaultAds
+      }).then((res) => {
+        if (res.code === 0) {
+          this.$store.commit('setTempOrder', {
+            orderId: res.msg.orderId,
+            price: res.msg.price
+          })
+          this.$router.push({name: 'orderpay', query: {save: true}})
+        }
+      })
     }
   }
 }

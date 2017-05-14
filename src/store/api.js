@@ -36,6 +36,9 @@ export default {
     prevCreateOrder: (state, getters) => {
       return HOST['DEV'] + '/user/prevCreateOrder'
     },
+    createOrder: (state, getters) => {
+      return HOST['DEV'] + '/user/createOrder'
+    },
     adminSignup: (state, getters) => {
       return HOST['DEV'] + '/admin/signup'
     },
@@ -59,6 +62,27 @@ export default {
     },
     addAds: (state, getters) => {
       return HOST['DEV'] + '/user/ads/add'
+    },
+    delAds: (state, getters) => {
+      return HOST['DEV'] + '/user/ads/del'
+    },
+    updateAds: (state, getters) => {
+      return HOST['DEV'] + '/user/ads/update'
+    },
+    orderAll: (state, getters) => {
+      return HOST['DEV'] + '/user/order/all'
+    },
+    orderPay: (state, getters) => {
+      return HOST['DEV'] + '/user/order/wait'
+    },
+    orderPaid: (state, getters) => {
+      return HOST['DEV'] + '/user/order/paid'
+    },
+    payNow: (state, getters) => {
+      return HOST['DEV'] + '/user/order/pay'
+    },
+    getOrder: (state, getters) => {
+      return HOST['DEV'] + '/user/order/detail'
     }
   }
 }

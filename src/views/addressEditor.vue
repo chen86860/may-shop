@@ -12,7 +12,7 @@
         <div><span>联系人</span></div>
         <div>
           <input type="text"
-          v-model="name"
+          v-model="address.name"
                  placeholder="请输入联系人">
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div><span>手机号</span></div>
         <div>
           <input type="text"
-          v-model="mobile"
+          v-model="address.mobile"
                  placeholder="请输入手机号">
         </div>
       </div>
@@ -39,19 +39,18 @@
         <div><span>详细地址</span></div>
         <div>
           <input type="text"
-          v-model="detailAds"
+          v-model="address.detailAds"
                  placeholder="请输入详细地址">
         </div>
       </div>
     </div>
   
     <div class=" adsEditor-btn">
-      <button class="btn p-border p-line p-ads-btn"
+              <button class="btn p-border p-line p-ads-btn"
+              @click='save'>{{$route.query.save?'保存并使用':'保存'}}</button>
+      <button class="btn p-border p-line p-ads-btn p-del"
               v-if="$route.query.del"
               @click='dele'>删除</button>
-              <button class="btn p-border p-line p-ads-btn"
-              v-else
-              @click='save'>{{$route.query.save?'保存并使用':'保存'}}</button>
     </div>
   
     <city v-if='show'></city>
@@ -60,17 +59,21 @@
 </template>
 <script>
 import city from '../components/city.vue'
-import { Toast } from 'mint-ui'
+import { Toast, MessageBox } from 'mint-ui'
 export default {
   components: {
     city
   },
   data () {
     return {
-      name: '',
-      mobile: '',
       value: '',
-      detailAds: '',
+      address: {
+        id: '',
+        name: '',
+        mobile: '',
+        ads: '',
+        detailAds: ''
+      },
       show: false
     }
   },
@@ -79,50 +82,101 @@ export default {
       this.show = true
     },
     dele () {
-      alert('删除成功')
+      MessageBox.confirm('确定删除此地址?').then(_ => {
+        this.$store.dispatch('delAds', {
+          userId: this.$store.state.page.userinfo.id,
+          id: this.address.id
+        })
+        this.$router.back()
+        Toast({
+          message: '删除地址成功！',
+          position: 'bottom'
+        })
+      })
     },
     back () {
       this.$router.back()
     },
     save () {
-      if (this.name === '') {
+      if (this.address.name === '') {
         Toast({
           message: '请输入联系人',
           position: 'bottom'
         })
         return
       }
-      this.$store.dispatch('addAds', {
-        userId: this.$store.state.page.userinfo.id,
-        address: {
-          name: this.name,
-          mobile: this.mobile,
-          ads: this.value,
-          detailAds: this.detailAds
-        }
-      }).then((res) => {
-        if (res.code === 0) {
-          Toast({
-            message: '地址保存成功！',
-            position: 'bottom'
-          })
-          if (this.$route.query.save) {
-            let defaultAds = {
-              name: this.name,
-              mobile: this.mobile,
-              ads: this.value,
-              detailAds: this.detailAds
+      if (!this.$route.query.del) {
+        this.$store.dispatch('addAds', {
+          userId: this.$store.state.page.userinfo.id,
+          address: {
+            name: this.address.name,
+            mobile: this.address.mobile,
+            ads: this.value,
+            detailAds: this.address.detailAds
+          }
+        }).then((res) => {
+          if (res.code === 0) {
+            Toast({
+              message: '地址保存成功！',
+              position: 'bottom'
+            })
+            if (this.$route.query.save) {
+              let defaultAds = {
+                name: this.name,
+                mobile: this.mobile,
+                ads: this.value,
+                detailAds: this.detailAds
+              }
+              this.$store.commit('saveDefaultAds', defaultAds)
             }
-            this.$store.commit('saveDefaultAds', defaultAds)
             this.$router.back()
           }
-        }
-      }).catch(_ => {
-        Toast({
-          message: 'something was wrong....',
-          position: 'bottom'
+        }).catch(_ => {
+          Toast({
+            message: 'something was wrong....',
+            position: 'bottom'
+          })
         })
-      })
+      } else {
+        this.$store.dispatch('updateAds', {
+          userId: this.$store.state.page.userinfo.id,
+          address: {
+            id: this.address.id,
+            name: this.address.name,
+            mobile: this.address.mobile,
+            ads: this.value,
+            detailAds: this.address.detailAds
+          }
+        }).then((res) => {
+          if (res.code === 0) {
+            Toast({
+              message: '地址保存成功！',
+              position: 'bottom'
+            })
+            if (this.$route.query.save) {
+              let defaultAds = {
+                name: this.name,
+                mobile: this.mobile,
+                ads: this.value,
+                detailAds: this.detailAds
+              }
+              this.$store.commit('saveDefaultAds', defaultAds)
+            }
+            this.$router.back()
+          }
+        }).catch(_ => {
+          Toast({
+            message: 'something was wrong....',
+            position: 'bottom'
+          })
+        })
+      }
+    }
+  },
+  mounted () {
+    if (this.$route.query.update) {
+      this.address = this.$store.state.page.tem.address || {}
+      this.value = this.$store.state.page.tem.address.ads || ''
     }
   }
 }
@@ -175,14 +229,20 @@ export default {
   margin: 0 .2rem;
 }
 .adsEditor-dv input[type="text"]{
-    padding: .1rem .1rem;
+       padding: .1rem .1rem;
     border: 1px solid #d4d4d4;
-    border-radius: 4px;
+    border-radius: 2px;
     font-size: .18rem;
     outline: none;
 }
 .adsEditor-dv>div:first-child{
   text-align: right;
   margin-right: 16px;
+}
+.p-del{
+     margin-top: 30px !important;
+    background-color: #fff;
+    color: #F44336;
+    box-sizing: border-box;
 }
 </style>

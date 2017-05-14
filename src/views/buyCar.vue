@@ -4,7 +4,7 @@
     <navheader :navleft="'common'" :title="'购物车'"></navheader>
     <!--购物车-->
     <div v-if="goods.length==0" class="empty-shop">
-      <p>购物车为空哟~</p>
+      <p>购物车空空如也ヽ(•̀ω•́ )ゝ~</p>
       <router-link :to="{name:'home'}">
         去逛逛
       </router-link>
@@ -234,15 +234,15 @@ export default {
 }
 
 .empty-shop {
-  text-align: center
+     text-align: center;
+    margin-top: 3rem;
 }
 
 .empty-shop>p,
 .empty-shop>a {
   font-size: 0.24em;
   text-align: center;
-  color: inter;
-  color: inherit;
+      color: #4e4e4e;
 }
 
 .empty-shop>a {

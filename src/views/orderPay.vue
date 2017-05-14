@@ -4,8 +4,8 @@
     <!--订单支付-->
     <div class="pay">
       <div class="order-info">
-        <div class="pay-num">订单编号：12333444444</div>
-        <div class="pay-num">订单金额：</div>
+        <div class="pay-num">订单编号： {{orderInfo.orderId || '253934043502' }}</div>
+        <div class="pay-num">订单金额： <span class="pay-red"> ￥{{orderInfo.price || 0}}</span></div>
       </div>
       <p class="p-select">选择支付方式</p>
       <div class="pay-methods-wrap">
@@ -21,9 +21,9 @@
         </div>
       </div>
       <div class="btn-wrap">
-        <router-link :to="{name:'orderpaysucceed'}" class="p-full-btn">
-          立即支付
-      </router-link>
+        <a class="p-full-btn" @click="payNow">
+立即支付
+        </a>
       </div>
     </div>
   </div>
@@ -148,6 +148,12 @@ input[type="checkbox"]:checked:after {
   left: 3px;
   color: #fff;
 }
+.pay-red{
+  font-size: .2rem;
+    color: #e23131;
+    font-weight: 700;
+
+}
 </style>
 <script>
 import navheader from '../components/navheader.vue'
@@ -175,7 +181,8 @@ export default {
         subName: '银联钱包，优惠省心',
         img: img3,
         checked: false
-      }]
+      }],
+      method: ''
     }
   },
   methods: {
@@ -187,10 +194,27 @@ export default {
         }
       }
       pay.checked = true
+      this.method = pay.name
+    },
+    payNow () {
+      this.$store.dispatch('paynow', {
+        userId: this.$store.state.page.userinfo.id,
+        orderId: this.$store.state.page.tmp.order.orderId,
+        method: this.method
+      }).then((res) => {
+        if (res.code === 0) {
+          this.$router.push({name: 'orderpaysucceed'})
+        }
+      })
     }
   },
   components: {
     navheader
+  },
+  computed: {
+    orderInfo () {
+      return this.$store.state.page.tmp.order || {}
+    }
   }
 }
 </script>

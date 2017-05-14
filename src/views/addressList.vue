@@ -6,7 +6,10 @@
         <div class="header-title">我的地址</div>
       </div>
     </div>
-  
+  <div class="none-address-pl" v-if="address.length===0">
+      <p>
+      还没收货地址，赶紧加一个吧~(●'◡'●)</p>
+  </div>
     <div class="address-list p-size">
       <div class="address-list1" v-for='item in address' :key='item in address'>
         <div @click="selectAds(item)" class="address-content">
@@ -14,12 +17,11 @@
           <p> {{item.mobile}} </p>
           <p> {{item.ads ? item.ads + item.detailAds : ''}} </p>
         </div>
-        <div class="iconfont icon-icon07 icon-edit" @click='edit(item.id)'></div>
+        <div class="iconfont icon-icon07 icon-edit" @click='edit(item)'></div>
       </div>
     </div>
     <div class="none-address p-full-btn">
       <a @click="toAddAddress">
-        <i class="icon-add">+</i>
         添加收货地址
       </a>
     </div>
@@ -36,13 +38,16 @@ export default {
     back () {
       this.$router.back()
     },
-    edit (id) {
-      console.log(id)
+    edit (item) {
+      this.$store.commit('setTmp', {
+        address: item
+      })
       this.$router.push({
         path: '/addressEditor',
         query: {
           title: '编辑地址',
-          del: true
+          del: true,
+          update: true
         }
       })
     },
@@ -63,7 +68,6 @@ export default {
         ads: item.ads,
         detailAds: item.detailAds
       }
-      console.log(item)
       this.$store.commit('saveDefaultAds', defaultAds)
       this.$router.back()
     }
@@ -84,6 +88,7 @@ export default {
 .address-list {
   margin-top: 10px;
   color: #3c3c3c;
+  padding-bottom: 1rem;
 }
 
 .address-list1 {
@@ -114,7 +119,7 @@ export default {
   border-radius: 0;
   position: absolute;
   bottom: 0;
-  margin-top: .7rem;
+      position: fixed;
 }
 
 .none-address a {
@@ -133,7 +138,15 @@ export default {
   font-size: .3rem;
 }
 .icon-edit{
-  color: #ff1877;
-  font-size: .3rem
+     color: #ff1877;
+    font-size: .3rem;
+    right: 10px;
+    position: relative;
+}
+.none-address-pl p{
+      text-align: center;
+    color: #9c9c9c;
+    font-size: .22rem;
+    margin-top: .6rem;
 }
 </style>

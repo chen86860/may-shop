@@ -131,6 +131,42 @@ var cartModel = mongoose.model('cart', new mongoose.Schema({
         collection: 'cart'
     }))
 
+/**
+ * 商品Model
+ */
+var orderModel = mongoose.model('orders', new mongoose.Schema({
+    userId: {
+        type: String
+    },
+    orderId: {
+        type: String
+    },
+    price: {
+        type: String
+    },
+    paid: {
+        type: Boolean,
+        default: false
+    },
+    payMethod: {
+        type: String,
+        default: '微信支付'
+    },
+    address: {
+        type: Object
+    },
+    initTime: {
+        type: Date,
+        default: Date.now
+    },
+    goods: {
+        type: Array
+    }
+}, {
+
+        collection: 'orders'
+    }))
+
 // ==============================
 // 管理员操作相关
 // ==============================
@@ -398,7 +434,6 @@ exports.getGoods = (data, callback) => {
                     msg: 'network err'
                 })
             } else {
-                console.log('!!!!!!!!sfind___________', res)
                 callback(false, {
                     code: 0,
                     msg: res
@@ -523,6 +558,126 @@ exports.updateGood = (data, callback) => {
         })
     })
 }
+/**
+ * 获取全部订单
+ */
+exports.orderAll = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.find({ userId: data.userId }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+/**
+ * 获取订单详情
+ */
+exports.orderDetail = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.find({ userId: data.userId, orderId: data.orderId }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+/**
+ * 获取全部订单
+ */
+exports.orderWait = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.find({ userId: data.userId, paid: false }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+/**
+ * 获取全部订单
+ */
+exports.orderPaid = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.find({ userId: data.userId, paid: true }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+/**
+ * 支付订单
+ */
+exports.orderPay = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.update({ orderId: data.orderId, userId: data.userId }, { $set: { paid: true, payMethod: data.method } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
 
 /**
  * 获取商品详情
@@ -607,24 +762,51 @@ exports.prevCreateOrder = (id, callback) => {
  * 创建订单
  * @param{userId}
  */
-exports.createOrder = (id, callback) => {
-    if (!id) {
-        callback({
+exports.createOrder = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
             code: 100,
             msg: 'goods not exist'
         })
         return
     }
-    cartModel.find({ userId: id, checked: true }, (err, res) => {
+    cartModel.find({ userId: data.userId, checked: true }, (err, res) => {
         if (err) {
             callback(true, {
                 code: 100,
                 msg: 'network err'
             })
         } else {
-            callback(false, {
-                code: 0,
-                msg: res
+            let price = 0
+            res.forEach((e) => {
+                price += parseInt(e.price, 10) * parseInt(e.count, 10)
+            })
+
+            let order = {}
+            order.userId = data.userId
+            order.address = data.address[0]
+            order.orderId = uuid.v4()
+            order.price = price
+            order.goods = res
+            order = new orderModel(order)
+            order.save((err, resu) => {
+                if (err) {
+                    callback(true, {
+                        code: 100
+                    })
+                } else {
+                    cartModel.remove({ userId: data.userId, checked: true }, (err, resss) => {
+                        callback(false, {
+                            code: 0,
+                            msg: {
+                                orderId: resu.orderId,
+                                price: resu.price
+
+                            }
+                        })
+                    })
+
+                }
             })
         }
     })
@@ -759,16 +941,77 @@ exports.delAds = (data, callback) => {
         })
         return
     }
-    userInfo.update({ _id: data.userId }, { $pull: { 'address': { 'id': data.addressId } } }, (err, res) => {
+    userInfo.update({ _id: data.userId }, { $pull: { 'address': { 'id': data.id } } }, (err, res) => {
         if (err) {
             callback(true, {
                 code: '100',
                 msg: 'network err'
             })
         } else {
-            callback(false, {
-                code: 0,
-                msg: 'del address succedd'
+            userInfo.find({ _id: data.userId }, { address: 1 }, (err, result) => {
+                if (err) {
+                    callback(true, {
+                        code: '100',
+                        msg: 'network err'
+                    })
+                } else {
+                    callback(false, {
+                        code: 0,
+                        msg: result
+                    })
+                }
+            })
+        }
+    })
+}
+/**
+ * 更新地址
+ * @param{userId,addressId}
+ */
+exports.updateAds = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 100,
+            msg: 'goods not exist'
+        })
+        return
+    }
+    userInfo.update({ _id: data.userId }, { $pull: { 'address': { 'id': data.address.id } } }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: '100',
+                msg: 'network err'
+            })
+        } else {
+            let address = {
+                id: data.address.id,
+                name: data.address.name,
+                mobile: data.address.mobile || '',
+                ads: data.address.ads || '',
+                detailAds: data.address.detailAds || ''
+            }
+            userInfo.update({ _id: data.userId }, { $push: { address: address } }, (err, res) => {
+                if (err) {
+                    callback(true, {
+                        code: '100',
+                        msg: 'network err'
+                    })
+                } else {
+                    userInfo.find({ _id: data.userId }, { address: 1 }, (err, result) => {
+                        if (err) {
+                            callback(true, {
+                                code: '100',
+                                msg: 'network err'
+                            })
+                        } else {
+                            callback(false, {
+                                code: 0,
+                                msg: result
+                            })
+                        }
+                    })
+
+                }
             })
         }
     })
@@ -864,4 +1107,16 @@ exports.cartGoodSub = (data, callback) => {
         }
     })
 
+}
+
+function copy(obj) {
+    var copy = Object.create(Object.getPrototypeOf(obj));
+    var propNames = Object.getOwnPropertyNames(obj);
+
+    propNames.forEach(function (name) {
+        var desc = Object.getOwnPropertyDescriptor(obj, name);
+        Object.defineProperty(copy, name, desc);
+    });
+
+    return copy;
 }

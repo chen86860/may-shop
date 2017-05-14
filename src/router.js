@@ -112,6 +112,7 @@ const router = new VueRouter({
   },
   {
     path: '/orderdetail', // 订单详情
+    name: 'orderDetail',
     meta: {
       auth: true
     },

@@ -65,7 +65,6 @@ router.route('/session').post((req, res, next) => {
     })
   }
 })
-
 router.route('/addCart').post((req, res, next) => {
   if (req.body && req.body.goodId) {
     Model.addCart(req.body, (err, result) => {
@@ -88,7 +87,6 @@ router.route('/addCart').post((req, res, next) => {
     })
   }
 })
-
 router.route('/cart').post(function (req, res, next) {
   if (req.body.username) {
     // 判断用户权限
@@ -141,6 +139,30 @@ router.route('/changeChecked').post(function (req, res, next) {
   if (req.body && req.body.goodId) {
     // 判断用户权限
     Model.changeChecked(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/createOrder').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.createOrder(req.body, (err, result) => {
       if (err) {
         res.json({
           code: 100,
@@ -236,7 +258,151 @@ router.route('/ads/add').post(function (req, res, next) {
 router.route('/ads/del').post(function (req, res, next) {
   if (req.body && req.body.userId) {
     // 判断用户权限
-    Model.addAds(req.body, (err, result) => {
+    Model.delAds(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/ads/update').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.updateAds(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/order/all').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.orderAll(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/order/wait').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.orderWait(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/order/paid').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.orderPaid(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/order/pay').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.orderPay(req.body, (err, result) => {
+      if (err) {
+        res.json({
+          code: 100,
+          msg: 'user no login'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: result.msg
+        })
+      }
+
+    })
+  } else {
+    res.json({
+      code: 100,
+      msg: 'user no login'
+    })
+  }
+});
+router.route('/order/detail').post(function (req, res, next) {
+  if (req.body && req.body.userId) {
+    // 判断用户权限
+    Model.orderDetail(req.body, (err, result) => {
       if (err) {
         res.json({
           code: 100,

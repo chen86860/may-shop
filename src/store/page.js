@@ -24,7 +24,14 @@ export default {
       address: [],
       defaultAds: []
     },
-    order: {}
+    order: {
+      tmp: {},
+      all: {},
+      paid: {},
+      wait: {},
+      detail: {}
+    },
+    tmp: {}
   },
   mutations: {
     setCart: (state, payload) => {
@@ -35,7 +42,7 @@ export default {
     setOrder: (state, payload) => {
       if (payload === undefined) return
       console.log('setOrder', payload)
-      state.order = payload
+      state.order.tmp = payload
     },
     setGoods: (state, payload) => {
       if (payload === undefined) return
@@ -84,7 +91,33 @@ export default {
     },
     updateAds: (state, payload) => {
       state.userinfo.address.splice(0)
+      console.log('set new address', payload.msg[0].address)
       state.userinfo.address = payload.msg[0].address
+    },
+    setTmp: (state, payload) => {
+      if (payload === undefined) return
+      state.tmp.address = payload.address
+    },
+    setTempOrder: (state, payload) => {
+      if (payload === undefined) return
+      state.tmp.order = payload
+    },
+    setOrderAll: (state, payload) => {
+      if (payload === undefined) return
+      state.order.all = payload
+    },
+    setOrderPay: (state, payload) => {
+      if (payload === undefined) return
+      state.order.wait = payload
+    },
+    setOrderPaid: (state, payload) => {
+      if (payload === undefined) return
+      state.order.paid = payload
+    },
+    setOrderDetail: (state, payload) => {
+      if (payload === undefined) return
+      console.log('order detail__________________', payload)
+      state.order.detail = payload[0]
     }
   },
   actions: {
@@ -152,9 +185,71 @@ export default {
     prevCreateOrder ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
         Vue.axios.post(getters['prevCreateOrder'], payload).then((res) => {
-          console.log('createOrder', res.data.code, res)
+          console.log('prevCreateOrder', res.data.code, res)
           if (res.data.code === 0) {
             commit('setOrder', res.data.msg)
+            resolve(res)
+          } else {
+            reject(res)
+          }
+        })
+      })
+    },
+    createOrder ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['createOrder'], payload).then((res) => {
+          console.log('createOrder', res.data.code, res)
+          if (res.data.code === 0) {
+            resolve(res.data)
+          } else {
+            reject(res)
+          }
+        })
+      })
+    },
+    getOrder ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['getOrder'], payload).then((res) => {
+          console.log('getOrder', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('setOrderDetail', res.data.msg)
+            resolve(res)
+          } else {
+            reject(res)
+          }
+        })
+      })
+    },
+    orderAll ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['orderAll'], payload).then((res) => {
+          console.log('orderAll', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('setOrderAll', res.data.msg)
+            resolve(res)
+          } else {
+            reject(res)
+          }
+        })
+      })
+    },
+    orderPay ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['orderPay'], payload).then((res) => {
+          if (res.data.code === 0) {
+            commit('setOrderPay', res.data.msg)
+            resolve(res)
+          } else {
+            reject(res)
+          }
+        })
+      })
+    },
+    orderPaid ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['orderPaid'], payload).then((res) => {
+          if (res.data.code === 0) {
+            commit('setOrderPaid', res.data.msg)
             resolve(res)
           } else {
             reject(res)
@@ -216,6 +311,45 @@ export default {
           console.log('addAds', res.data.code, res)
           if (res.data.code === 0) {
             commit('updateAds', res.data)
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    updateAds ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['updateAds'], payload).then((res) => {
+          console.log('updateAds', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('updateAds', res.data)
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    delAds ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['delAds'], payload).then((res) => {
+          console.log('delAds', res.data.code, res)
+          if (res.data.code === 0) {
+            commit('updateAds', res.data)
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+      })
+    },
+    paynow ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['payNow'], payload).then((res) => {
+          console.log('payNow', res.data.code, res)
+          if (res.data.code === 0) {
+            // commit('updateAds', res.data)
             resolve(res.data)
           } else {
             reject(res.data)
