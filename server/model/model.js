@@ -125,7 +125,7 @@ var cartModel = mongoose.model('cart', new mongoose.Schema({
     },
     checked: {
         type: Boolean,
-        default: false
+        default: true
     }
 }, {
         collection: 'cart'

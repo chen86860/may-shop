@@ -64,6 +64,7 @@
     methods: {
       onSubmit () {
         var vm = this
+        vm.form.img = []
         this.disableSubmit = true;
         [].forEach.call(this.fileList, (e) => {
           vm.form.img.push(e.url)

@@ -60,6 +60,9 @@ export default {
   },
   mounted () {
     this.defaultActive = this.$route.query.path
+  },
+  activated () {
+    this.defaultActive = this.$route.query.path
   }
 }
 </script>

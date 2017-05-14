@@ -4,6 +4,8 @@
     <div class="table-banner">
       <el-input placeholder="输入商品名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
       </el-input>
+      <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
+    </el-pagination>
     </div>
     <div class="goodslist-wrap">
       <el-table :data="goods" stripe style="width: 100%" resizable="false">
@@ -29,8 +31,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
-    </el-pagination>
+    
   </div>
 </template>
 <script>
@@ -169,6 +170,7 @@ export default {
   height: 70px;
   display: flex;
   align-items: center;
+      justify-content: space-between;
 }
 
 .goodsindex-wrap h2 {

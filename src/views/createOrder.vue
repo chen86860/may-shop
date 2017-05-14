@@ -4,16 +4,17 @@
     <!--快递-->
     <div class="corder-way">
       <!--基本信息-->
-      <div class="corder-fast p-flex" v-if="fastisshow">
-        <div class="corder-info p-flex-1">
-          <div><span>收件人</span><span>{{userinfo.username}}</span></div>
-          <div class="corder-info-tel"><span>联系电话</span><span> {{userinfo.mobile || 18814182596}}</span></div>
-          <div class="corder-address"><span>收货地址</span><span>{{'广东省江门市五邑大学'}}</span></div>
+      <div class="corder-fast">
+        <div class="none-address" v-if="userinfo.address.length==0">
+            <input type="button" value="添加收货地址" @click="toAddAddress">
         </div>
-        <div class="corder-select">
-          <div class="corder-change">修改地址</div>
-        </div>
-      </div>
+                <div class="corder-info order-address" v-else="">
+                  <div><span>收件人</span><span>{{userinfo.username}}</span></div>
+                  <div class="corder-info-tel"><span>联系电话</span><span> {{userinfo.mobile || 18814182596}}</span></div>
+                  <div class="corder-address"><span>收货地址</span><span>{{'广东省江门市五邑大学'}}</span></div>
+                </div>
+                <div class="border-location"></div>
+              </div>
     </div>
     <!--订单商品-->
     <div class="corder-list">
@@ -48,11 +49,6 @@ export default {
     }
   },
   computed: {
-    fastisshow () {
-      if (this.picked === 'fast') {
-        return true
-      }
-    },
     order () {
       return this.$store.state.page.order
     },
@@ -90,6 +86,11 @@ export default {
     }).catch((res) => {
       console.log(res)
     })
+  },
+  methods: {
+    toAddAddress () {
+      this.$router.push({name: 'address'})
+    }
   }
 }
 </script>
@@ -121,14 +122,17 @@ label {
 label[for="one"] {
   margin-right: .7rem;
 }
-
+.corder-way{
+  
+margin-bottom: 10px;  
+}
 #fast {
   margin-left: .7rem;
 }
 
 .corder-fast {
-  padding: .2rem .2rem .15rem .2rem;
-  border-bottom: 1px solid #DFDFDF;
+  padding:0;
+  border-bottom:none;
 }
 
 .corder-info span {
@@ -214,5 +218,26 @@ label[for="one"] {
 }
 .posss{
   border-radius: 0 !important;
+}
+.border-location{
+  width: 100%;
+  height: 6px;
+  background-image: url('../assets/img/location-border.png');
+  
+  background-repeat: repeat-x;
+      background-size: 100px;
+    background-position: 0 100%;
+}
+.order-address{
+     margin: 0;
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNDk0NzM3MjE1OTkwIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjI1MDMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNMzE4LjczMDI0IDgzNi4zMjEyOGMzLjk5MzYgMy45OTM2IDkuMjM2NDggNi4wMDA2NCAxNC40NzkzNiA2LjAwMDY0czEwLjQ4NTc2LTIuMDA3MDQgMTQuNDc5MzYtNi4wMDA2NGwzMDcuMi0zMDcuMmM4LjAwNzY4LTguMDA3NjggOC4wMDc2OC0yMC45NTEwNCAwLTI4Ljk1ODcybC0zMDcuMi0zMDcuMmMtOC4wMDc2OC04LjAwNzY4LTIwLjk1MTA0LTguMDA3NjgtMjguOTU4NzIgMHMtOC4wMDc2OCAyMC45NTEwNCAwIDI4Ljk1ODcybDI5Mi43MjA2NCAyOTIuNzIwNjRMMzE4LjczMDI0IDgwNy4zNjI1NkMzMTAuNzIyNTYgODE1LjM3MDI0IDMxMC43MjI1NiA4MjguMzM0MDggMzE4LjczMDI0IDgzNi4zMjEyOHoiIHAtaWQ9IjI1MDQiIGZpbGw9IiM3MDcwNzAiPjwvcGF0aD48L3N2Zz4=");
+    padding: 0;
+        border: none;
+              background-size: 26px;
+    background-repeat: no-repeat;
+    background-position: 96% 50%;
+}
+.corder-info{
+      padding: 10px;
 }
 </style>

@@ -34,7 +34,6 @@
   .home-b {
         position: fixed;
     z-index: 4;
-    /* height: 1.3rem; */
     width: 100%;
     left: 0;
     bottom: 0;
@@ -49,12 +48,8 @@
     -ms-flex-pack: center;
     justify-content: center;
     -ms-grid-column-align: inherit;
-    justify-items: inherit;
     justify-content: center;
-    /* border-top: 1px solid #ddd; */
     padding-top: 0.4em;
-    /* background-color: #fff; */
-    /* max-width: 640px; */
   }
   
   .home-select {
