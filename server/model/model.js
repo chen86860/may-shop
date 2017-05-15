@@ -104,6 +104,9 @@ var cartModel = mongoose.model('cart', new mongoose.Schema({
     userId: {
         type: String,
     },
+    username: {
+        type: String,
+    },
     goodId: {
         type: String,
     },
@@ -136,6 +139,9 @@ var cartModel = mongoose.model('cart', new mongoose.Schema({
  */
 var orderModel = mongoose.model('orders', new mongoose.Schema({
     userId: {
+        type: String
+    },
+    username: {
         type: String
     },
     orderId: {
@@ -778,8 +784,10 @@ exports.createOrder = (data, callback) => {
             })
         } else {
             let price = 0
+            let username = ''
             res.forEach((e) => {
                 price += parseInt(e.price, 10) * parseInt(e.count, 10)
+                username = e.username
             })
 
             let order = {}
@@ -787,6 +795,7 @@ exports.createOrder = (data, callback) => {
             order.address = data.address[0]
             order.orderId = uuid.v4()
             order.price = price
+            order.username = username
             order.goods = res
             order = new orderModel(order)
             order.save((err, resu) => {
@@ -845,6 +854,7 @@ exports.addCart = (data, callback) => {
                     let cart = {
                         goodId: data.goodId,
                         userId: data.userId,
+                        username: data.username,
                         count: data.count,
                         img: ress.img[0],
                         name: ress.name,
@@ -1109,6 +1119,203 @@ exports.cartGoodSub = (data, callback) => {
 
 }
 
+
+
+/**
+ * 获取订单数
+ */
+exports.getOrdersCount = (data, callback) => {
+    orderModel.find().count((err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+/**
+ * 删除订单
+ */
+exports.delOrder = (data, callback) => {
+    if (!data.orderId) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    orderModel.remove({ orderId: data.orderId }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+/**
+ * 获取全部商品
+ */
+exports.getOrders = (data, callback) => {
+    if (data) {
+        let limit = data.count
+        let skip = parseInt((data.page - 1) * data.count, 10)
+        orderModel.find().sort({ initTime: 1 }).limit(limit).skip(skip).exec((err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    } else {
+        orderModel.find({}, (err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    }
+
+}
+
+/**
+ * 获取全部商品
+ */
+exports.getUsers = (data, callback) => {
+    if (data) {
+        let limit = data.count
+        let skip = parseInt((data.page - 1) * data.count, 10)
+        userInfo.find().sort({ regTime: 1 }).limit(limit).skip(skip).exec((err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    } else {
+        userInfo.find({}, (err, res) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: res
+                })
+            }
+        })
+    }
+
+}
+/**
+ * 删除用户
+ */
+exports.delUser = (data, callback) => {
+    if (!data.userId) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    userInfo.remove({ _id: data.userId }, (err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+exports.getUsersCount = (data, callback) => {
+    userInfo.find().count((err, res) => {
+        if (err) {
+            callback(true, {
+                code: 101,
+                msg: 'network err'
+            })
+        } else {
+            callback(false, {
+                code: 0,
+                msg: res
+            })
+        }
+    })
+}
+
+/**
+ * 更新商品
+ */
+exports.updateUser = (data, callback) => {
+    if (!data) {
+        callback(true, {
+            code: 101,
+            msg: 'id is must params'
+        })
+    }
+    userInfo.remove({ _id: data.userId }, (err, res) => {
+        var newuser = {}
+        // 保证物品不会消失
+        newuser._id = data.userId || data._id
+        newuser.username = data.username
+        newuser.password = data.password
+        newuser.regTime = data.regTime
+        newuser.address = data.address
+        newuser.mobile = data.mobile
+        newuser = new userInfo(newuser)
+        newuser.save((err, result) => {
+            if (err) {
+                callback(true, {
+                    code: 101,
+                    msg: 'network err'
+                })
+            } else {
+                callback(false, {
+                    code: 0,
+                    msg: result
+                })
+            }
+        })
+    })
+}
 function copy(obj) {
     var copy = Object.create(Object.getPrototypeOf(obj));
     var propNames = Object.getOwnPropertyNames(obj);

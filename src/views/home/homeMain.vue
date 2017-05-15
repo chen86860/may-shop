@@ -1,6 +1,6 @@
 <template>
   <div class="home-bottom-pading container-wrap">
-    <transition name='fade' mode='out-in'>
+    <transition name='fade-out' mode='out-in'>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -127,6 +127,10 @@
     content: "";
     border-radius: 50% 50% 0 0;
   }
+  .fade-out-enter-active, .fade-out-leave-active {
+    transition: all .5s
+}
+.fade-out-enter, .fade-out-leave-active {
+    opacity: 0;
+}
 </style>
-<script>
-</script>

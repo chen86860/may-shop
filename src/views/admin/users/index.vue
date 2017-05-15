@@ -1,40 +1,40 @@
 <template>
-  <div class="goodsindex-wrap">
+  <div class="usersindex-wrap">
     <h2>商品列表</h2>
     <div class="table-banner">
-      <el-input placeholder="输入商品名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
+      <el-input placeholder="输入用户名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
       </el-input>
       <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
-    </el-pagination>
+      </el-pagination>
     </div>
-    <div class="goodslist-wrap">
-      <el-table :data="goods" stripe style="width: 100%" resizable="false">
+    <div class="userslist-wrap">
+      <el-table :data="users" stripe style="width: 100%" resizable="false">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="id" label="商品ID" width="180">
+        <el-table-column prop="_id" label="用户ID" width="280">
         </el-table-column>
-        <el-table-column prop="name" label="商品名称">
+        <el-table-column prop="username" label="用户名称">
         </el-table-column>
-        <el-table-column prop="price" label="价格" width="80">
+        <el-table-column prop="email" label="邮箱" width="280">
         </el-table-column>
-        <el-table-column prop="group" label="商品分类" width="100">
+        <el-table-column prop="mobile" label="手机号码" width="100">
         </el-table-column>
-        <el-table-column prop="count" label="库存量" width="80">
+        <el-table-column prop="lerver" label="等级信息" width="180">
         </el-table-column>
         <el-table-column label="操作" width="200" header-align="center" align="center">
-          <template scope="goods">
-            <el-button size="small" @click="handleEdit(goods.row,goods.row.id)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(null,goods.row,goods.$index)">删除</el-button>
+          <template scope="users">
+            <el-button size="small" @click="handleEdit(users.row,users.row._id)">编辑</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(null,users.row,users.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    
+  
   </div>
 </template>
 <script>
 export default {
-  name: 'goodsindex',
+  name: 'usersindex',
   data () {
     return {
       msg: '',
@@ -53,15 +53,15 @@ export default {
     }
   },
   computed: {
-    goods () {
-      return this.$store.state.admin.goods || ''
+    users () {
+      return this.$store.state.admin.users || ''
     },
     total () {
-      return this.$store.state.admin.total || 0
+      return this.$store.state.admin.usersTotal || 0
     }
   },
   mounted () {
-    this.$store.dispatch('goodsIndex', {
+    this.$store.dispatch('usersIndex', {
       page: 1,
       count: 5
     }).then((res) => {
@@ -74,20 +74,20 @@ export default {
   },
   activated () {
     this.currentPage = 1
-    this.$store.dispatch('goodsCount').then((res) => {}).catch((err) => { console.error(err) })
+    this.$store.dispatch('usersCount').then((res) => {}).catch((err) => { console.error(err) })
   },
   methods: {
-    handleEdit (good, row) {
-      this.$store.commit('setGood', good)
-      this.$router.push({name: 'goodsEdit', query: {path: 11}})
+    handleEdit (user, row) {
+      this.$store.commit('setTmpUser', user)
+      this.$router.push({name: 'userEdit', query: {path: 11}})
     },
-    handleDelete (done, goods, index) {
-      this.$confirm('确定删除商品【' + goods.name + '】', '删除商品')
+    handleDelete (done, users, index) {
+      this.$confirm('确定删除用户【' + users.username + '】', '删除用户')
         .then(_ => {
-          this.$store.dispatch('delGood', {
-            id: goods.id
+          this.$store.dispatch('delUser', {
+            userId: users._id
           }).then((res) => {
-            this.$store.commit('delIndexGood', index)
+            this.$store.commit('delIndexUser', index)
             if (res.code === 0) {
               this.$message({
                 type: 'success',
@@ -125,7 +125,7 @@ export default {
       this.$message('搜索按钮')
     },
     handleCurrentChange (val) {
-      this.$store.dispatch('goodsIndex', {
+      this.$store.dispatch('usersIndex', {
         page: val,
         count: 5
       }).then((res) => {
@@ -137,7 +137,7 @@ export default {
       })
     },
     handleSizeChange (val) {
-      // this.$store.dispatch('goodsIndex', {
+      // this.$store.dispatch('usersIndex', {
       //   page: val,
       //   count: 4
       // }).then((res) => {
@@ -151,11 +151,6 @@ export default {
     filterTag (value, row) {
       return row.group === value
     }
-  },
-  filters: {
-    groupBy (val) {
-      return val + '1111'
-    }
   }
 }
 </script>
@@ -168,10 +163,10 @@ export default {
   height: 70px;
   display: flex;
   align-items: center;
-      justify-content: space-between;
+  justify-content: space-between;
 }
 
-.goodsindex-wrap h2 {
+.usersindex-wrap h2 {
   font-size: 18px;
   font-weight: 400;
   margin: 0;

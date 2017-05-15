@@ -2,21 +2,21 @@
   <div class="admin-login">
     <div class="login-wrap">
       <h2>注册</h2>
-      <el-form :label-position="labelPosition" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="80px" class="ruleForm">
-        <el-form-item label="用户名" prop='username'>
-          <el-input v-model="ruleForm2.username" auto-complete="off"></el-input>
+      <el-form :label-position="labelPosition" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0" class="ruleForm">
+        <el-form-item prop='username'>
+          <el-input v-model="ruleForm2.username" auto-complete="off" placeholder="用户名" ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+        <el-form-item prop="pass">
+          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="密码"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+        <el-form-item prop="checkPass">
+          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model.email="ruleForm2.email"></el-input>
+        <el-form-item prop="email">
+          <el-input v-model.email="ruleForm2.email" placeholder="邮箱"></el-input>
         </el-form-item>
-        <el-form-item label="邀请码" prop="code">
-          <el-input v-model.code="ruleForm2.code"></el-input>
+        <el-form-item  prop="code">
+          <el-input v-model.code="ruleForm2.code"  placeholder="邀请码"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm2')">注册</el-button>
@@ -112,20 +112,18 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-.ruleForm{
+.ruleForm {
   margin: 0 auto;
 }
 h2 {
-     font-size: 24px;
-    margin: 30px 0 60px 0;
+     margin: 16px 0 16px 0;
     color: #3e3e3e;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 18px;
     border-bottom: 1px solid #e4e4e4;
-    padding-bottom: 30px;
-    color: #797979;
+    padding-bottom: 22px;
+    color: #545454;
 }
 
 .move-enter-active,
@@ -136,5 +134,24 @@ h2 {
 .move-enter,
 .move-leave-active {
   opacity: 0.1
+}
+
+.admin-login {
+  width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.login-wrap{
+      width: 400px;
+    margin: 230px auto;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    height: 460px;
 }
 </style>

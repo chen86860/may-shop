@@ -1,30 +1,32 @@
 <template>
-  <div class="goodsindex-wrap">
-    <h2>商品列表</h2>
+  <div class="ordersindex-wrap">
+    <h2>订单管理</h2>
     <div class="table-banner">
       <el-input placeholder="输入商品名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
       </el-input>
       <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
     </el-pagination>
     </div>
-    <div class="goodslist-wrap">
-      <el-table :data="goods" stripe style="width: 100%" resizable="false">
+    <div class="orderslist-wrap">
+      <el-table :data="orders" stripe style="width: 100%" resizable="false">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="id" label="商品ID" width="180">
+        <el-table-column prop="orderId" label="订单ID" width="180">
         </el-table-column>
-        <el-table-column prop="name" label="商品名称">
+        <el-table-column prop="username" label="用户名称">
         </el-table-column>
         <el-table-column prop="price" label="价格" width="80">
         </el-table-column>
-        <el-table-column prop="group" label="商品分类" width="100">
+        <el-table-column prop="goods" label="商品" width="100">
         </el-table-column>
-        <el-table-column prop="count" label="库存量" width="80">
+        <el-table-column prop="paid" label="支付状态" width="80">
+        </el-table-column>
+        <el-table-column prop="initTime" label="下单时间">
         </el-table-column>
         <el-table-column label="操作" width="200" header-align="center" align="center">
-          <template scope="goods">
-            <el-button size="small" @click="handleEdit(goods.row,goods.row.id)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(null,goods.row,goods.$index)">删除</el-button>
+          <template scope="orders">
+            <el-button size="small" @click="handleEdit(orders.row,orders.row.orderId)">详情</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(null,orders.row,orders.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -34,7 +36,7 @@
 </template>
 <script>
 export default {
-  name: 'goodsindex',
+  name: 'ordersindex',
   data () {
     return {
       msg: '',
@@ -53,15 +55,15 @@ export default {
     }
   },
   computed: {
-    goods () {
-      return this.$store.state.admin.goods || ''
+    orders () {
+      return this.$store.state.admin.orders || ''
     },
     total () {
-      return this.$store.state.admin.total || 0
+      return this.$store.state.admin.ordersTotal || 0
     }
   },
   mounted () {
-    this.$store.dispatch('goodsIndex', {
+    this.$store.dispatch('ordersIndex', {
       page: 1,
       count: 5
     }).then((res) => {
@@ -71,23 +73,25 @@ export default {
     }).catch((err) => {
       console.error(err)
     })
+    this.currentPage = 1
+    this.$store.dispatch('ordersCount').then((res) => {}).catch((err) => { console.error(err) })
   },
   activated () {
     this.currentPage = 1
-    this.$store.dispatch('goodsCount').then((res) => {}).catch((err) => { console.error(err) })
+    this.$store.dispatch('ordersCount').then((res) => {}).catch((err) => { console.error(err) })
   },
   methods: {
-    handleEdit (good, row) {
-      this.$store.commit('setGood', good)
-      this.$router.push({name: 'goodsEdit', query: {path: 11}})
+    handleEdit (order, row) {
+      this.$store.commit('setTmpOrder', order)
+      this.$router.push({name: 'ordersDetail', query: {path: 22}})
     },
-    handleDelete (done, goods, index) {
-      this.$confirm('确定删除商品【' + goods.name + '】', '删除商品')
+    handleDelete (done, orders, index) {
+      this.$confirm('确定删除此订单【' + orders.orderId + '】', '删除订单')
         .then(_ => {
-          this.$store.dispatch('delGood', {
-            id: goods.id
+          this.$store.dispatch('delOrder', {
+            orderId: orders.orderId
           }).then((res) => {
-            this.$store.commit('delIndexGood', index)
+            this.$store.commit('delIndexOrder', index)
             if (res.code === 0) {
               this.$message({
                 type: 'success',
@@ -125,7 +129,7 @@ export default {
       this.$message('搜索按钮')
     },
     handleCurrentChange (val) {
-      this.$store.dispatch('goodsIndex', {
+      this.$store.dispatch('ordersIndex', {
         page: val,
         count: 5
       }).then((res) => {
@@ -137,7 +141,7 @@ export default {
       })
     },
     handleSizeChange (val) {
-      // this.$store.dispatch('goodsIndex', {
+      // this.$store.dispatch('ordersIndex', {
       //   page: val,
       //   count: 4
       // }).then((res) => {
@@ -171,7 +175,7 @@ export default {
       justify-content: space-between;
 }
 
-.goodsindex-wrap h2 {
+.ordersindex-wrap h2 {
   font-size: 18px;
   font-weight: 400;
   margin: 0;

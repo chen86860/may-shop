@@ -1,6 +1,6 @@
 <template>
-  <div class="admin-login">
-    <div class="login-wrap">
+  <div class="admin-login" @click="cav">
+    <div class="login-wrap" @keyup.enter="submitForm" v-loading.body="loading" target="login-wrap" customClass="m-loading">
       <h2>登录</h2>
       <el-form label-position="right" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0" class="ruleForm">
         <el-form-item prop='username'>
@@ -13,10 +13,12 @@
           <span>
             <el-checkbox v-model="ruleForm2.checked">保存我的信息</el-checkbox>
           </span>
-          <el-button type="primary"  @keyup.enter="submitForm" @click="submitForm">登录</el-button>
+          <el-button type="primary" @click="submitForm">登录</el-button>
         </div>
       </el-form>
+        <canvas></canvas>
     </div>
+  
   </div>
 </template>
 
@@ -37,6 +39,7 @@ export default {
       callback()
     }
     return {
+      loading: false,
       labelPosition: 'right',
       ruleForm2: {
         pass: '',
@@ -62,69 +65,123 @@ export default {
             username: this.ruleForm2.username,
             password: this.ruleForm2.pass
           }).then((res) => {
-            console.log(res)
+            if (res.code === 0) {
+              this.$message({
+                message: '登录成功！',
+                type: 'success'
+              })
+              this.$router.push({ name: 'admindashboard' })
+            } else if (res.code === 202) {
+              this.$message({
+                message: 'username or passwords is not match',
+                type: 'error'
+              })
+            }
           }).catch((err) => {
             console.error(err)
+            this.$message({
+              message: 'username or passwords is not match',
+              type: 'error'
+            })
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    cav () {
+      let c = document.getElementsByTagName('canvas')[0]
+      let x = c.getContext('2d')
+      let pr = window.devicePixelRatio || 1
+      let w = window.innerWidth
+      let h = window.innerHeight
+      let f = 90
+      let q
+      let m = Math
+      let r = 0
+      let u = m.PI * 2
+      let v = m.cos
+      let z = m.random
+      c.width = w * pr
+      c.height = h * pr
+      x.scale(pr, pr)
+      x.globalAlpha = 0.6
+      function i () {
+        x.clearRect(0, 0, w, h)
+        q = [{ x: 0, y: h * 0.7 + f }, { x: 0, y: h * 0.7 - f }]
+        while (q[1].x < w + f) d(q[0], q[1])
+      }
+      function d (i, j) {
+        x.beginPath()
+        x.moveTo(i.x, i.y)
+        x.lineTo(j.x, j.y)
+        var k = j.x + (z() * 2 - 0.25) * f
+        var n = y(j.y)
+        x.lineTo(k, n)
+        x.closePath()
+        r -= u / -50
+        x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
+        x.fill()
+        q[0] = q[1]
+        q[1] = { x: k, y: n }
+      }
+      function y (p) {
+        var t = p + (z() * 2 - 1.1) * f
+        return (t > h || t < 0) ? y(p) : t
+      }
+      document.onclick = i
+      document.ontouchstart = i
+      i()
     }
+  },
+  activated () {
+    let c = document.getElementsByTagName('canvas')[0]
+    let x = c.getContext('2d')
+    let pr = window.devicePixelRatio || 1
+    let w = window.innerWidth
+    let h = window.innerHeight
+    let f = 90
+    let q
+    let m = Math
+    let r = 0
+    let u = m.PI * 2
+    let v = m.cos
+    let z = m.random
+    c.width = w * pr
+    c.height = h * pr
+    x.scale(pr, pr)
+    x.globalAlpha = 0.6
+    function i () {
+      x.clearRect(0, 0, w, h)
+      q = [{ x: 0, y: h * 0.7 + f }, { x: 0, y: h * 0.7 - f }]
+      while (q[1].x < w + f) d(q[0], q[1])
+    }
+    function d (i, j) {
+      x.beginPath()
+      x.moveTo(i.x, i.y)
+      x.lineTo(j.x, j.y)
+      var k = j.x + (z() * 2 - 0.25) * f
+      var n = y(j.y)
+      x.lineTo(k, n)
+      x.closePath()
+      r -= u / -50
+      x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
+      x.fill()
+      q[0] = q[1]
+      q[1] = { x: k, y: n }
+    }
+    function y (p) {
+      var t = p + (z() * 2 - 1.1) * f
+      return (t > h || t < 0) ? y(p) : t
+    }
+    document.onclick = i
+    document.ontouchstart = i
+    i()
   }
 }
-// ;(() => {
-//   document.addEventListener('touchmove', function (e) {
-//     e.preventDefault()
-//   })
-//   var c = document.querySelector('canvas')
-//   var x = c.getContext('2d')
-//   var pr = window.devicePixelRatio || 1
-//   var w = window.innerWidth
-//   var h = window.innerHeight
-//   var f = 90
-//   var q
-//   var m = Math
-//   var r = 0
-//   var u = m.PI * 2
-//   var v = m.cos
-//   var z = m.random
-//   c.width = w * pr
-//   c.height = h * pr
-//   x.scale(pr, pr)
-//   x.globalAlpha = 0.6
-//   function i () {
-//     x.clearRect(0, 0, w, h)
-//     q = [{ x: 0, y: h * 0.7 + f }, { x: 0, y: h * 0.7 - f }]
-//     while (q[1].x < w + f) d(q[0], q[1])
-//   }
-//   function d (i, j) {
-//     x.beginPath()
-//     x.moveTo(i.x, i.y)
-//     x.lineTo(j.x, j.y)
-//     let k = j.x + (z() * 2 - 0.25) * f
-//     let n = y(j.y)
-//     x.lineTo(k, n)
-//     x.closePath()
-//     r -= u / -50
-//     x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
-//     x.fill()
-//     q[0] = q[1]
-//     q[1] = { x: k, y: n }
-//   }
-//   function y (p) {
-//     var t = p + (z() * 2 - 1.1) * f
-//     return (t > h || t < 0) ? y(p) : t
-//   }
-//   document.onclick = i
-//   document.ontouchstart = i
-//   i()
-// })()
-
 </script>
 
 <style scoped>
@@ -134,7 +191,15 @@ export default {
   display: flex;
   justify-content: center
 }
-
+ canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+}
 .login-wrap {
   width: 400px;
   margin: 230px auto;
@@ -177,5 +242,22 @@ h2 {
 .move-enter,
 .move-leave-active {
   opacity: 0.1
+}
+
+.m-loading {
+  top: 0;
+  position: absolute;
+}/* vietnamese */
+</style>
+<style>
+.el-loading-mask {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important
+}
+
+.el-loading-spinner {
+  top: 0 !important;
+  position: inherit !important
 }
 </style>

@@ -61,9 +61,10 @@ export default {
       })
     },
     selectAds (item) {
+      console.log('default++++++++++++++', item)
       if (!this.$route.query.save) return
       let defaultAds = {
-        name: item.name,
+        name: item['name'],
         mobile: item.mobile,
         ads: item.ads,
         detailAds: item.detailAds

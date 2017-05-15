@@ -134,7 +134,8 @@ export default {
         this.$store.dispatch('addCart', {
           goodId: this.$route.query.id,
           count: this.count,
-          userId: this.$store.state.page.userinfo.id
+          userId: this.$store.state.page.userinfo.id,
+          username: this.$store.state.page.userinfo.username
         }).then((res) => {
           console.log(res)
           if (res.code === 0) {

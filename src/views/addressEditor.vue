@@ -122,10 +122,10 @@ export default {
             })
             if (this.$route.query.save) {
               let defaultAds = {
-                name: this.name,
-                mobile: this.mobile,
+                name: this.address.name,
+                mobile: this.address.mobile,
                 ads: this.value,
-                detailAds: this.detailAds
+                detailAds: this.address.detailAds
               }
               this.$store.commit('saveDefaultAds', defaultAds)
             }
@@ -155,10 +155,10 @@ export default {
             })
             if (this.$route.query.save) {
               let defaultAds = {
-                name: this.name,
-                mobile: this.mobile,
+                name: this.address.name,
+                mobile: this.address.mobile,
                 ads: this.value,
-                detailAds: this.detailAds
+                detailAds: this.address.detailAds
               }
               this.$store.commit('saveDefaultAds', defaultAds)
             }

@@ -44,6 +44,7 @@
 <script>
 import navheader from '../components/navheader.vue'
 import productOrder from '../components/productOrder.vue'
+import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
@@ -100,6 +101,13 @@ export default {
       this.$router.push({name: 'addressList', query: {save: true}})
     },
     createOrder () {
+      if (this.userinfo.defaultAds.length === 0) {
+        Toast({
+          message: '添加个收货地址再提交订单吧~~',
+          position: 'bottom'
+        })
+        return
+      }
       this.$store.dispatch('createOrder', {
         userId: this.$store.state.page.userinfo.id,
         address: this.$store.state.page.userinfo.defaultAds
@@ -222,6 +230,7 @@ margin-bottom: 10px;
     bottom: 0;
     width: 100%;
     padding: 0;
+    max-width: 640px;
 }
 .corder-info>div{
   display: flex;

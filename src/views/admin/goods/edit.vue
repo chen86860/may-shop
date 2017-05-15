@@ -119,7 +119,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
 .new-good-wrap {
   width: 400px;
 }

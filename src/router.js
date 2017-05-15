@@ -154,12 +154,19 @@ const router = new VueRouter({
   },
   {
     path: '/admin/login', // 管理员登录
+    name: 'adminLogin',
     component: () => System.import('./views/admin/login.vue')
   },
   {
     path: '/admin/index', // 管理后台首页
+    name: 'admindashboard',
     component: () => System.import('./views/admin/index.vue'),
     children: [
+      {
+        path: '/welcome',
+        name: 'welcome',
+        component: () => System.import('./views/admin/welcome.vue')
+      },
       {
         path: '/goods/index',
         name: 'goodsIndex',
@@ -174,18 +181,47 @@ const router = new VueRouter({
         path: '/goods/new',
         name: 'goodsNew',
         component: () => System.import('./views/admin/goods/new.vue')
+      },
+      {
+        path: '/orders/index',
+        name: 'ordersIndex',
+        component: () => System.import('./views/admin/orders/index.vue')
+      },
+      {
+        path: '/orders/detail',
+        name: 'ordersDetail',
+        component: () => System.import('./views/admin/orders/detail.vue')
+      },
+      {
+        path: '/users/index',
+        name: 'usersIndex',
+        component: () => System.import('./views/admin/users/index.vue')
+      },
+      {
+        path: '/users/edit',
+        name: 'userEdit',
+        component: () => System.import('./views/admin/users/edit.vue')
       }
     ]
   }]
 })
 router.beforeEach((to, from, next) => {
   document.documentElement.scrollTop = document.body.scrollTop = 0
+  let adminArr = ['admindashboard', 'welcome', 'goodsIndex', 'goodsEdit', 'goodsNew', 'ordersIndex', 'ordersDetail', 'usersIndex', 'userEdit']
+  if (adminArr.includes(to.name)) {
+    if (store.state.admin.userinfo.log) {
+      next()
+    }
+    else {
+      next({ name: 'adminLogin', query: { referrer: to.fullPath } })
+    }
+  }
   if (to.matched.some(m => m.meta.auth)) {
     // 对路由进行验证
     if (store.state.page.userinfo.log) { // 已经登陆
       next()
     } else {
-      // 未登录,跳转到登陆页面，并且带上 将要去的地址，方便登陆后跳转
+      // 未登录,跳转到登陆页面，并且带上将要去的地址，方便登陆后跳转
       next({ name: 'login', query: { referrer: to.fullPath } })
     }
   } else {
