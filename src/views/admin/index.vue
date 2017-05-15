@@ -204,6 +204,8 @@ export default {
     color: #fff;
     height: 70px;
 }
+
+
 </style>
 
 <style>

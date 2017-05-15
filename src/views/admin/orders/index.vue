@@ -2,7 +2,7 @@
   <div class="ordersindex-wrap">
     <h2>订单管理</h2>
     <div class="table-banner">
-      <el-input placeholder="输入商品名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
+      <el-input placeholder="输入订单名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
       </el-input>
       <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
     </el-pagination>
@@ -17,9 +17,7 @@
         </el-table-column>
         <el-table-column prop="price" label="价格" width="80">
         </el-table-column>
-        <el-table-column prop="goods" label="商品" width="100">
-        </el-table-column>
-        <el-table-column prop="paid" label="支付状态" width="80">
+        <el-table-column prop="paid ? '已支付' : '微支付'" label="支付状态" width="140">
         </el-table-column>
         <el-table-column prop="initTime" label="下单时间">
         </el-table-column>

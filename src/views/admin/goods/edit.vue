@@ -150,6 +150,10 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 20px;
 }
+
+
+</style>
+<style>
 .dialog .el-dialog__headerbtn  {
   font-size: 14px !important
 }

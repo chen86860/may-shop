@@ -176,6 +176,9 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 20px;
 }
+
+</style>
+<style>
 .dialog .el-dialog__headerbtn  {
   font-size: 14px !important
 }
@@ -188,5 +191,9 @@
 }
 .img-upload .el-form-item__content{
   width: 900px;
+}
+.el-upload-list--picture-card .el-upload-list__item-thumbnail {
+  width: 100%;
+  height: initial !important
 }
 </style>
