@@ -150,6 +150,7 @@ const router = new VueRouter({
   },
   {
     path: '/admin/signup', // 管理员注册
+    name: 'adminSignup', // 管理员注册
     component: () => System.import('./views/admin/signup.vue')
   },
   {

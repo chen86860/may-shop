@@ -50,9 +50,9 @@ export default {
     setAdminInfo: (state, payload) => {
       if (payload === undefined) return
       state.userinfo.log = true
-      state.userinfo.id = payload.msg.id
-      state.userinfo.username = payload.msg.username
-      state.userinfo.email = payload.msg.email
+      state.userinfo.id = payload.id || ''
+      state.userinfo.username = payload.username
+      state.userinfo.email = payload.email
     },
     setCount: (state, payload) => {
       if (payload === undefined) return
@@ -228,6 +228,7 @@ export default {
           console.log('adminSignup', res.data.code)
           if (res.data.code === 0) {
             resolve(res.data)
+            commit('setAdminInfo', payload)
           } else {
             reject(res.data)
           }
@@ -239,7 +240,7 @@ export default {
         Vue.axios.post(getters['adminLogin'], payload).then((res) => {
           console.log('adminLogin', res.data.code)
           if (res.data.code === 0) {
-            commit('setAdminInfo', res.data)
+            commit('setAdminInfo', res.data.msg)
             resolve(res.data)
           } else {
             reject(res.data)

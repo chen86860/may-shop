@@ -1,7 +1,13 @@
 <template>
   <div class="admin-login">
     <div class="login-wrap" @keyup.enter="submitForm" v-loading.body="loading" target="login-wrap" customClass="m-loading">
-      <h2>登录</h2>
+      <h2>
+<span>登录</span>
+      <span>
+        或
+          <router-link :to="{name:'adminSignup'}">注册</router-link>
+        </span>  
+      </h2>
       <el-form label-position="right" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0" class="ruleForm">
         <el-form-item prop='username'>
           <el-input v-model="ruleForm2.username" auto-complete="off" placeholder="用户名/邮箱"></el-input>
@@ -59,6 +65,9 @@ export default {
       this.$refs['ruleForm2'].validate((valid) => {
         console.log('enter')
         if (valid) {
+          if (this.ruleForm2.checked) {
+            localStorage.username = this.ruleForm2.username
+          }
           this.$store.dispatch('adminLogin', {
             username: this.ruleForm2.username,
             password: this.ruleForm2.pass
@@ -90,6 +99,9 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     }
+  },
+  mounted () {
+    this.ruleForm2.username = localStorage.username
   }
 }
 </script>
@@ -142,7 +154,18 @@ h2 {
   border-bottom: 1px solid #e4e4e4;
   padding-bottom: 22px;
   color: #545454;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
 }
+h2>span:last-child{
+  font-size: 14px;
+}
+h2>span>a{
+      font-size: 14px;
+    color: #ff1877;
+}
+
 
 .move-enter-active,
 .move-leave-active {

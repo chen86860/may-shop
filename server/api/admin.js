@@ -146,8 +146,6 @@ router.route('/orders/index')
     }
   });
 
-
-
 router.route('/users/del')
   .post(function (req, res, next) {
     if (req.body.userId) {

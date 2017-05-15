@@ -1,7 +1,14 @@
 <template>
   <div class="admin-login">
     <div class="login-wrap">
-      <h2>注册</h2>
+      <h2>
+<span>注册</span>
+      <span>
+        或
+          <router-link :to="{name:'adminLogin'}">登录</router-link>
+        </span> 
+
+      </h2>
       <el-form :label-position="labelPosition" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0" class="ruleForm">
         <el-form-item prop='username'>
           <el-input v-model="ruleForm2.username" auto-complete="off" placeholder="用户名" ></el-input>
@@ -18,9 +25,15 @@
         <el-form-item  prop="code">
           <el-input v-model.code="ruleForm2.code"  placeholder="邀请码"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm2')">注册</el-button>
-          <el-button @click="resetForm('ruleForm2')">重置</el-button>
+        <el-form-item class="m-sub-btn"> 
+          <span class="m-btn-aggrement">
+            <el-checkbox v-model="ruleForm2.checked">同意
+              <a>《协议》</a>
+            </el-checkbox>
+          </span>
+          <span class="m-btn-signup">
+          <el-button  type="primary" @click="submitForm('ruleForm2')">注册</el-button>
+          </span>
         </el-form-item>
       </el-form>
     </div>
@@ -71,7 +84,8 @@ export default {
         pass: '',
         checkPass: '',
         email: '',
-        code: ''
+        code: '',
+        checked: true
       },
       rules2: {
         pass: [
@@ -97,7 +111,23 @@ export default {
             code: this.ruleForm2.code
           }).then((res) => {
             console.log(res)
+            this.$message({
+              message: '注册成功！',
+              type: 'success'
+            })
+            this.$router.push({ name: 'admindashboard' })
           }).catch((err) => {
+            if (err.code === 202) {
+              this.$message({
+                message: '用户已存在',
+                type: 'error'
+              })
+            } else {
+              this.$message({
+                message: '网络错误',
+                type: 'error'
+              })
+            }
             console.error(err)
           })
         } else {
@@ -117,13 +147,27 @@ export default {
   margin: 0 auto;
 }
 h2 {
-     margin: 16px 0 16px 0;
-    color: #3e3e3e;
-    font-weight: 400;
-    font-size: 18px;
-    border-bottom: 1px solid #e4e4e4;
-    padding-bottom: 22px;
-    color: #545454;
+  margin: 16px 0 16px 0;
+  color: #3e3e3e;
+  font-weight: 400;
+  font-size: 18px;
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 22px;
+  color: #545454;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+h2>span:last-child{
+  font-size: 14px;
+}
+h2>span>a{
+      font-size: 14px;
+    color: #ff1877;
+}
+a:visited{
+    color: #ff1877;
+
 }
 
 .move-enter-active,
@@ -154,4 +198,26 @@ h2 {
     padding: 20px;
     height: 460px;
 }
+</style>
+<style>
+
+.m-sub-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.m-sub-btn .el-form-item__content {
+  width: 100%;
+    display: flex;
+  align-items: center;
+      justify-content: space-between;
+    width: 100%;
+    display: inline-block;
+}
+.m-btn-signup{
+  float: right
+}
+.m-btn-aggrement a {
+  color: #ff1877;
+  cursor: pointer}
 </style>
