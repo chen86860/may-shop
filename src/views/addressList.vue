@@ -113,6 +113,8 @@ export default {
 }
 
 .none-address {
+  width: 100%;
+  max-width: 640px;
   text-align: center;
   font-size: .22rem;
   background-color: #ff1877;

@@ -175,8 +175,8 @@ export default {
   },
   mounted () {
     if (this.$route.query.update) {
-      this.address = this.$store.state.page.tem.address || {}
-      this.value = this.$store.state.page.tem.address.ads || ''
+      this.address = this.$store.state.page.tmp.address || {}
+      this.value = this.$store.state.page.tmp.address.ads || ''
     }
   }
 }

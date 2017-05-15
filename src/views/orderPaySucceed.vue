@@ -25,6 +25,7 @@
 .btn-wrap {
   position: absolute;
     width: 100%;
+     max-width: 640px;
     bottom: 2rem;
     margin: 0 auto;
     overflow: hidden;

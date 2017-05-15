@@ -911,3 +911,8 @@ img {
     justify-content: center;
     transition: all 600ms;
 }
+.m-price{
+        font-size: .2rem;
+    color: #e23131;
+    font-weight: 700;
+}

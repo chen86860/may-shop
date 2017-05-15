@@ -155,6 +155,8 @@ export default {
   flex-wrap: nowrap;
   justify-content: space-between;
   border-bottom: 1px solid #eaeaea;
+  max-width: 640px;
+    position: relative;
 }
 
 .login-header p {

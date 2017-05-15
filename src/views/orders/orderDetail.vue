@@ -4,7 +4,7 @@
     <div class="header">
       <div class="nav">
         <span class="nav-left iconfont icon-houtui" @click="back"></span>
-        <div class="header-title">{{$route.query.title}}</div>
+        <div class="header-title">订单详情</div>
       </div>
     </div>
   
@@ -38,7 +38,7 @@
     <div class="order-info-wrap">
       <p>
         <span>商品金额:</span>
-        <span>{{orderitem.price}}</span>
+        <span class="m-price"> ¥{{orderitem.price}}</span>
       </p>
       <p>
         <span>收货地址:</span>
