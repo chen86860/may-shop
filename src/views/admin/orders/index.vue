@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="price" label="价格" width="80">
         </el-table-column>
-        <el-table-column prop="paid ? '已支付' : '微支付'" label="支付状态" width="140" formatter="formatter">
+        <el-table-column prop="paid" label="支付状态" width="140" :formatter="formatter">
         </el-table-column>
         <el-table-column prop="initTime" label="下单时间">
         </el-table-column>
@@ -80,8 +80,8 @@ export default {
   },
   methods: {
     formatter (row, column) {
-      // return row.paid ? '已支付' : '待付款'
-      return row.paid
+      return row.paid ? '已支付' : '待付款'
+      // return row.paid
     },
     handleEdit (order, row) {
       this.$store.commit('setTmpOrder', order)

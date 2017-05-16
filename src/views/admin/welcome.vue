@@ -3,7 +3,7 @@
     <p>
       欢迎来到商品管理后台！</p>
     <p class="i">
-      选择右侧菜单以开始</p>
+      选择左侧菜单以开始</p>
   </div>
 </template>
 <style scoped>
