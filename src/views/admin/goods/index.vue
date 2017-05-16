@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="price" label="价格" width="80">
         </el-table-column>
-        <el-table-column prop="group" label="商品分类" width="100">
+        <el-table-column prop="group" label="商品分类" width="100" :formatter="formatter">
         </el-table-column>
         <el-table-column prop="count" label="库存量" width="80">
         </el-table-column>
@@ -77,6 +77,21 @@ export default {
     this.$store.dispatch('goodsCount').then((res) => {}).catch((err) => { console.error(err) })
   },
   methods: {
+    formatter (row) {
+      let group = ''
+      switch (parseInt(row.group)) {
+        case 1:
+          group = '热门商品'
+          break
+        case 2:
+          group = '促销商品'
+          break
+        case 3:
+          group = '普通商品'
+          break
+      }
+      return group
+    },
     handleEdit (good, row) {
       this.$store.commit('setGood', good)
       this.$router.push({name: 'goodsEdit', query: {path: 11}})

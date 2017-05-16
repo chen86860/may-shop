@@ -183,7 +183,7 @@ export default {
         img: img3,
         checked: false
       }],
-      method: ''
+      method: '微信支付'
     }
   },
   methods: {
@@ -198,6 +198,7 @@ export default {
       this.method = pay.name
     },
     payNow () {
+      console.log('methos_________', this.method)
       this.$store.dispatch('paynow', {
         userId: this.$store.state.page.userinfo.id,
         orderId: this.$store.state.page.tmp.order.orderId,
