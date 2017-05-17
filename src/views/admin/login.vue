@@ -42,6 +42,15 @@ export default {
       }
       callback()
     }
+    var validateEmail = (rule, value, callback) => {
+      let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+      if (value === '') {
+        callback(new Error('请输入邮箱'))
+      } else if (!re.test(value)) {
+        callback(new Error('请输入正确的邮箱'))
+      }
+      callback()
+    }
     return {
       loading: false,
       labelPosition: 'right',
@@ -56,6 +65,9 @@ export default {
         ],
         username: [
           { validator: validateUser, trigger: 'blur' }
+        ],
+        email: [
+          { validator: validateEmail, trigger: 'blur' }
         ]
       }
     }

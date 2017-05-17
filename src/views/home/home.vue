@@ -32,10 +32,6 @@
       </swiper>
       <div class="home-first">HOT</div>
     </div>
-    <!--广告-->
-    <div class="home-ad p-align-justy">
-      <img class="p-imgloay" v-lazy="adpic" />
-    </div>
 
     <!--每日推荐-->
     <div class="home-goods">
@@ -166,10 +162,6 @@
 </script>
 
 <style scoped>
-
-  
-  
-  
   .home-msg,
   .title-swipe {
     position: relative;

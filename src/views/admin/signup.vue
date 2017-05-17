@@ -43,22 +43,6 @@
 <script>
 export default {
   data () {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('年龄不能为空'))
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
-        } else {
-          if (value < 18) {
-            callback(new Error('必须年满18岁'))
-          } else {
-            callback()
-          }
-        }
-      }, 1000)
-    }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
@@ -78,6 +62,15 @@ export default {
         callback()
       }
     }
+    var validateEmail = (rule, value, callback) => {
+      let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+      if (value === '') {
+        callback(new Error('请输入邮箱'))
+      } else if (!re.test(value)) {
+        callback(new Error('请输入正确的邮箱'))
+      }
+      callback()
+    }
     return {
       labelPosition: 'right',
       ruleForm2: {
@@ -94,8 +87,8 @@ export default {
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        age: [
-          { validator: checkAge, trigger: 'blur' }
+        email: [
+          { validator: validateEmail, trigger: 'blur' }
         ]
       }
     }
