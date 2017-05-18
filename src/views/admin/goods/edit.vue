@@ -69,7 +69,7 @@
         [].forEach.call(this.fileList, (e) => {
           vm.form.img.push(e.url)
         })
-        console.log(this.form)
+        // console.log(this.form)
         this.$store.dispatch('editGood', this.form).then((res) => {
           this.$message({
             type: 'success',

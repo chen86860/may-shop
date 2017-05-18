@@ -66,7 +66,7 @@ export default {
       let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
       if (value === '') {
         callback(new Error('请输入邮箱'))
-      } else if (!re.test(value)) {
+      } else if (re.test(value)) {
         callback(new Error('请输入正确的邮箱'))
       }
       callback()

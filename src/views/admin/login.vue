@@ -95,6 +95,7 @@ export default {
                 message: 'username or passwords is not match',
                 type: 'error'
               })
+              this.ruleForm2.pass = ''
             }
           }).catch((err) => {
             console.error(err)
@@ -102,6 +103,7 @@ export default {
               message: 'username or passwords is not match',
               type: 'error'
             })
+            this.ruleForm2.pass = ''
           })
         } else {
           return false
