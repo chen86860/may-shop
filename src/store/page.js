@@ -7,13 +7,13 @@ export const types = {
 
 export default {
   state: {
-    cart_goods: {},
-    // goods: {},
-    goods_1: [],
-    goods_2: [],
-    goods_3: [],
-    goods_2_1: {},
-    goods_3_1: {},
+    cart_doors: {},
+    // doors: {},
+    doors_1: [],
+    doors_2: [],
+    doors_3: [],
+    doors_2_1: {},
+    doors_3_1: {},
     detail: {},
     userinfo: {
       log: false,
@@ -37,30 +37,30 @@ export default {
     setCart: (state, payload) => {
       if (payload === undefined) return
       console.log('set cart', payload)
-      state.cart_goods = payload
+      state.cart_doors = payload
     },
     setOrder: (state, payload) => {
       if (payload === undefined) return
       console.log('setOrder', payload)
       state.order.tmp = payload
     },
-    setGoods: (state, payload) => {
+    setdoors: (state, payload) => {
       if (payload === undefined) return
-      state.goods_1.splice(0)
-      state.goods_2.splice(0)
-      state.goods_3.splice(0)
+      state.doors_1.splice(0)
+      state.doors_2.splice(0)
+      state.doors_3.splice(0)
         // 对商品结果进行分组，以类别group 分成三类
         ; (payload.msg || []).forEach((e) => {
           let group = parseInt(e.group, 10) || 0
           switch (group) {
             case 1:
-              state.goods_1.push(e)
+              state.doors_1.push(e)
               break
             case 2:
-              state.goods_2.push(e)
+              state.doors_2.push(e)
               break
             case 3:
-              state.goods_3.push(e)
+              state.doors_3.push(e)
               break
             default:
               break
@@ -121,12 +121,12 @@ export default {
     }
   },
   actions: {
-    goods ({ commit, state, getters }, payload) {
+    doors ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['goods'], payload).then((res) => {
-          console.log('goods', res.code, res)
+        Vue.axios.post(getters['doors'], payload).then((res) => {
+          console.log('doors', res.code, res)
           if (res.data.code === 0) {
-            commit('setGoods', res.data)
+            commit('setdoors', res.data)
           }
           resolve(res)
         })
@@ -293,10 +293,10 @@ export default {
         })
       })
     },
-    cartGoodSub ({ commit, state, getters }, payload) {
+    cartdoorsub ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['cartGoodSub'], payload).then((res) => {
-          console.log('cartGoodSub', res.data.code, res)
+        Vue.axios.post(getters['cartdoorsub'], payload).then((res) => {
+          console.log('cartdoorsub', res.data.code, res)
           if (res.data.code === 0) {
             resolve(res.data)
           } else {

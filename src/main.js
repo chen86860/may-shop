@@ -9,7 +9,7 @@ import AwesomeSwiper from 'vue-awesome-swiper'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-default/index.css'
 
 Vue.use(MintUI)
 Vue.use(ElementUI)
@@ -29,7 +29,6 @@ import {
 import Pageload from './components/pageLoad.vue'
 import store from './store/index'
 import './assets/css/app.css'
-import './assets/css/index.css'
 
 
 

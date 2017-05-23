@@ -298,7 +298,7 @@ html {
     user-select: none;
     outline: none;
     position: relative;
-    color: #ff1877;
+    color: #20a0ff;
     font-size: .22rem;
 }
 
@@ -336,7 +336,7 @@ html {
     border: none;
     border-radius: 5px;
     font-size: .22rem;
-    background: #ff1877;
+    background: #20a0ff;
     display: flex;
     line-height: .7rem;
     text-align: center;
@@ -432,7 +432,7 @@ img {
 /**搜索页导航菜单 公用   搜索，订单管理**/
 
 .search-swiper-active {
-    border-bottom: 2px solid #ff1877;
+    border-bottom: 2px solid #20a0ff;
 }
 
 .search-swiper-active:before {
@@ -442,7 +442,7 @@ img {
     margin-left: -4px;
     bottom: 0;
     border: 4px solid transparent;
-    border-bottom-color: #ff1877;
+    border-bottom-color: #20a0ff;
 }
 
 
@@ -691,7 +691,7 @@ img {
     width: 5.36rem;
     height: .8rem;
     color: #ffffff;
-    background: #ff1877;
+    background: #20a0ff;
     font-size: .22rem;
     border: 1px solid #dfdfdf;
 }
@@ -700,7 +700,7 @@ img {
    width: 6rem;
     height: .6rem;
     color: #ffffff;
-    background: #ff1877;
+    background: #20a0ff;
     font-size: .22rem;
     border: none;
 }
@@ -713,44 +713,44 @@ img {
     background-position: 34% 50%
 }
 
-.hot-goods {
+.hot-doors {
     display: flex;
     font-size: 0.3em;
     padding: 1em;
     background-color: #fff;
 }
 
-.hot-goods>div {
+.hot-doors>div {
     width: 33%;
     box-sizing: border-box;
     border-left: 1px solid #eaeaea;
 }
 
-.hot-goods>div:first-child {
+.hot-doors>div:first-child {
     border-left: none !important;
 }
 
-.hot-goods>div>a>p:first-child {
+.hot-doors>div>a>p:first-child {
     font-size: 0.22em;
     color: #5d5d5d;
 }
 
-.hot-goods>div>a>div {
+.hot-doors>div>a>div {
     padding: 0 1.6em 0
 }
 
-.hot-goods>div>a>p {
+.hot-doors>div>a>p {
     font-size: 0.22em;
     color: #a2a2a2;
     text-align: center;
     padding: 0 1.3em 0
 }
 
-.hot-goods>div>a>div>img {
+.hot-doors>div>a>div>img {
     width: 100%;
 }
 
-.home-day-goods {
+.home-day-doors {
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -759,57 +759,57 @@ img {
     border-top: 1px solid #e4e4e4;
 }
 
-.home-day-goods>div {
+.home-day-doors>div {
     width: 50% !important;
 }
 
-.home-day-goods>div {
+.home-day-doors>div {
     height: 4em;
 }
 
-.home-day-goods>div:first-child {
+.home-day-doors>div:first-child {
     height: 8em;
 }
 
-.home-day-goods>div>a {
+.home-day-doors>div>a {
     height: 4em;
     width: 100%;
     display: inline-block
 }
 
-.home-day-goods>div>a>div {
+.home-day-doors>div>a>div {
     padding: 0 1.4em 0;
 }
 
-.home-day-goods>div>a>p {
+.home-day-doors>div>a>p {
     font-size: 0.3em;
 }
 
-.daygoodslist>div {
+.daydoorslist>div {
     font-size: .23em;
     border-top: 1px solid #ddd;
 }
 
-.daygoodslist>div:first-child {
+.daydoorslist>div:first-child {
     border-top: none
 }
 
-.daygoodslist>div>a {
+.daydoorslist>div>a {
     display: flex;
     position: relative;
     height: 100%;
 }
 
-.daygoodslist>div>a>div {
+.daydoorslist>div>a>div {
     padding: 0.3em 1em 0px 8.5em;
 }
 
-.daygoodslist>div>a>div>p:first-child {
+.daydoorslist>div>a>div>p:first-child {
     font-size: 0.6em;
     font-weight: bold;
 }
 
-.daygoodslist>div>a>div:first-child {
+.daydoorslist>div>a>div:first-child {
     padding: 0;
     width: 6em;
     position: absolute;
@@ -818,7 +818,7 @@ img {
     height: 100%;
 }
 
-.daygoodslist>div>a>div:last-child {
+.daydoorslist>div>a>div:last-child {
     right: 0;
     position: absolute;
     width: 100%;
@@ -826,25 +826,25 @@ img {
     top: 0;
 }
 
-.daygoodslist>div>a>div img {
+.daydoorslist>div>a>div img {
     height: 80%;
     width: initial;
     position: absolute;
     right: .2rem;
 }
 
-.daygoodslist_0 {
+.daydoorslist_0 {
     border-right: 1px solid #eee;
     text-align: center;
     padding: 10px;
 }
 
-.daygoodslist_0>a>p:first-child {
+.daydoorslist_0>a>p:first-child {
     font-size: 0.6em;
     font-weight: bold
 }
 
-.daygoodslist_0>div {
+.daydoorslist_0>div {
     padding: 0 4em 0;
     text-align: center
 }

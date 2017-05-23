@@ -179,7 +179,7 @@ input {
 }
 
 .login-btn {
-  background-color: #ff1877;
+  background-color: #20a0ff;
   color: #fff;
   cursor: pointer;
   border: none;

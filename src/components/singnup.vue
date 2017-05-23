@@ -129,7 +129,7 @@ export default {
 }
 
 .login-wrap {
-  /*background-color: #ff1877;*/
+  /*background-color: #20a0ff;*/
   width: 100%;
   height: 100%;
   background-color: #fff;
@@ -221,7 +221,7 @@ input {
 }
 
 .login-btn {
-  background-color: #ff1877;
+  background-color: #20a0ff;
   color: #fff;
   cursor: pointer;
   border: none;

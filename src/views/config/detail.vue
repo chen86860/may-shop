@@ -43,8 +43,8 @@
       </div>
       <el-collapse v-model="activeNames">
         <el-collapse-item title="订单商品" name="1">
-          <div class="orders-wrap">
-            <div class="order-goods-desc" v-for="good in orderitem.goods">
+          <div class="configs-wrap">
+            <div class="order-doors-desc" v-for="good in orderitem.doors">
               <el-card :body-style="{ padding: '0' }" class="card-body">
                 <img :src="good.img" class="image">
                 <div class="bottom">
@@ -81,7 +81,7 @@
       back () {
         this.$router.back()
       },
-      handleDelete (done, orders, index) {
+      handleDelete (done, configs, index) {
         this.$confirm('确定删除此订单【' + this.orderitem.orderId + '】', '删除订单')
           .then(_ => {
             this.$store.dispatch('delOrder', {
@@ -158,7 +158,7 @@ p>span:first-child {
   font-size: .22rem;
 }
 
-.order-goods-desc {
+.order-doors-desc {
   /*padding: 0 .2rem;
   background-color: #fff;
   display: flex;*/
@@ -168,7 +168,7 @@ p>span:first-child {
 
 .order-status {
   width: 74%;
-  color: #ff1877;
+  color: #20a0ff;
   right: .2rem;
   font-size: .22rem;
 }
@@ -199,8 +199,8 @@ p>span:first-child {
 }
 
 .order-btn {
-  background: #ff1877;
-  border: 1px solid #ff1877;
+  background: #20a0ff;
+  border: 1px solid #20a0ff;
   padding: .08rem .25rem;
   border-radius: .06rem;
   color: #fff;
@@ -208,7 +208,7 @@ p>span:first-child {
 }
 
 .order-btn:active {
-  background: #ff1877;
+  background: #20a0ff;
   color: #fff;
 }
 
@@ -253,7 +253,7 @@ p>span:first-child {
   height: initial !important
 }
 
-.orders-wrap {
+.configs-wrap {
   display: flex;
 }
 

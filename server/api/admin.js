@@ -1,203 +1,194 @@
 var express = require('express');
 var router = express.Router();
+
+var credentials = require('../lib/credentials');
+var nodemailer = require('nodemailer');
+var md5 = require('md5');
+var uuid = require('uuid');
+var ip = require('ip');
 var Model = require('../model/model');
 
-router.route('/login')
+router.route('/doors/index')
   .post(function (req, res, next) {
-    if (req.body.username && req.body.password) {
-      Model.adminlog(req.body, function (err, result) {
+    if (req.body && req.body.page && req.body.count) {
+      Model.logIndex(req.body, (err, result) => {
         if (err) {
-          return res.json(result)
+          res.json({
+            code: 200,
+            msg: result.msg
+          })
         } else {
-          res.json(result)
+          res.json({
+            code: 0,
+            msg: result.msg
+          })
         }
       })
     } else {
       res.json({
-        code: 100,
-        result: 'bad',
+        code: 202,
+        msg: 'param is no fixed'
       })
     }
+  })
+router.route('/doors/user')
+  .post(function (req, res, next) {
+    if (req.body) {
+      Model.logUserIndex(req.body, (err, result) => {
+        if (err) {
+          res.json({
+            code: 200,
+            msg: result.msg
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: result.msg
+          })
+        }
+      })
+    } else {
+      res.json({
+        code: 202,
+        msg: 'param is no fixed'
+      })
+    }
+  })
+router.route('/users/index')
+  .post(function (req, res, next) {
+    if (req.body && req.body.page && req.body.count) {
+      Model.userIndex(req.body, (err, result) => {
+        if (err) {
+          res.json({
+            code: 200,
+            msg: result.msg
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: result.msg
+          })
+        }
+      })
+    } else {
+      res.json({
+        code: 202,
+        msg: 'param is no fixed'
+      })
+    }
+
+  })
+router.route('/doors/count')
+  .post(function (req, res, next) {
+    if (req.body && req.body.type) {
+      Model.logIndexCount(req.body, (err, result) => {
+        if (err) {
+          res.json({
+            code: 200,
+            msg: result.msg
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: result.msg
+          })
+        }
+      })
+    } else {
+      res.json({
+        code: 202,
+        msg: 'param is no fixed'
+      })
+    }
+  })
+router.route('/users/count')
+  .post(function (req, res, next) {
+    if (req.body && req.body.type) {
+      Model.userIndexCount(req.body, (err, result) => {
+        if (err) {
+          res.json({
+            code: 200,
+            msg: result.msg
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: result.msg
+          })
+        }
+      })
+    } else {
+      res.json({
+        code: 202,
+        msg: 'param is no fixed'
+      })
+    }
+  })
+router.route('/userinfo')
+  .get(function (req, res, next) {
+    Model.logIndex((err, result) => {
+      res.render('adminIndex', result)
+    })
   })
 
 router.route('/signup')
   .post(function (req, res, next) {
-    if (req.body.username && req.body.password && req.body.email) {
-      Model.adminreg(req.body, function (err, result) {
+    if (req.body && req.body.username) {
+      Model.adminReg(req.body, (err, result) => {
         if (err) {
-          return res.json(result)
+          res.json({
+            code: 201
+          })
+        } else if (result.code == 0) {
+          res.json({
+            code: 0,
+            msg: result
+          })
         } else {
-          req.session.username = req.body.username;
-          res.json(result)
+          res.json({
+            code: 201
+          })
         }
-      })
-    } else {
-      res.json({
-        code: -1
       })
     }
-  });
-router.route('/goods/index')
-  .post(function (req, res, next) {
-    if (req.body.page && req.body.count) {
-      Model.getGoods(req.body, function (err, result) {
-        if (err) {
-          return res.json(result)
-        } else {
-          res.json(result)
-        }
-      })
-    } else {
+    else {
       res.json({
-        code: -1
-      })
-    }
-  });
-router.route('/goods/del')
-  .post(function (req, res, next) {
-    if (req.body.id) {
-      Model.delGood(req.body.id, function (err, result) {
-        if (err) {
-          return res.json(result)
-        } else {
-          res.json(result)
-        }
-      })
-    } else {
-      res.json({
-        code: -1
-      })
-    }
-  });
-router.route('/goods/count')
-  .post(function (req, res, next) {
-    Model.getGoodsCount(null, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
-router.route('/goods/update')
-  .post(function (req, res, next) {
-    Model.updateGood(req.body, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
-router.route('/goods/add')
-  .post(function (req, res, next) {
-    Model.addGood(req.body, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
-
-
-router.route('/orders/del')
-  .post(function (req, res, next) {
-    if (req.body.orderId) {
-      Model.delOrder(req.body, function (err, result) {
-        if (err) {
-          return res.json(result)
-        } else {
-          res.json(result)
-        }
-      })
-    } else {
-      res.json({
-        code: -1
+        code: 201
       })
     }
   });
 
-router.route('/orders/count')
-  .post(function (req, res, next) {
-    Model.getOrdersCount(null, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
 
-router.route('/orders/index')
+router.route('/login')
   .post(function (req, res, next) {
-    if (req.body.page && req.body.count) {
-      Model.getOrders(req.body, function (err, result) {
+    if (req.body && req.body.username) {
+      //查询数据
+      Model.adminLogin(req.body, (err, result) => {
         if (err) {
-          return res.json(result)
+          res.json({
+            code: 201,
+            msg: 'net work err'
+          })
+        } else if (result.code == 0) {
+          res.json({
+            code: 0,
+            msg: result
+          })
         } else {
-          res.json(result)
+          res.json({
+            code: 202,
+            msg: 'username or password is not fixed'
+          })
         }
       })
     } else {
       res.json({
-        code: -1
+        code: 203,
+        msg: 'param no fixed'
       })
     }
   });
 
-router.route('/users/del')
-  .post(function (req, res, next) {
-    if (req.body.userId) {
-      Model.delUser(req.body, function (err, result) {
-        if (err) {
-          return res.json(result)
-        } else {
-          res.json(result)
-        }
-      })
-    } else {
-      res.json({
-        code: -1
-      })
-    }
-  });
 
-router.route('/users/count')
-  .post(function (req, res, next) {
-    Model.getUsersCount(null, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
 
-router.route('/users/index')
-  .post(function (req, res, next) {
-    if (req.body.page && req.body.count) {
-      Model.getUsers(req.body, function (err, result) {
-        if (err) {
-          return res.json(result)
-        } else {
-          res.json(result)
-        }
-      })
-    } else {
-      res.json({
-        code: -1
-      })
-    }
-  });
-router.route('/users/update')
-  .post(function (req, res, next) {
-    Model.updateUser(req.body, function (err, result) {
-      if (err) {
-        return res.json(result)
-      } else {
-        res.json(result)
-      }
-    })
-  });
 module.exports = router;

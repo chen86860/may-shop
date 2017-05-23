@@ -156,10 +156,10 @@ h2>span:last-child{
 }
 h2>span>a{
       font-size: 14px;
-    color: #ff1877;
+    color: #20a0ff;
 }
 a:visited{
-    color: #ff1877;
+    color: #20a0ff;
 
 }
 
@@ -211,6 +211,6 @@ a:visited{
   float: right
 }
 .m-btn-aggrement a {
-  color: #ff1877;
+  color: #20a0ff;
   cursor: pointer}
 </style>

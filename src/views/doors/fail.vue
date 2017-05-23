@@ -1,68 +1,72 @@
 <template>
-  <div class="usersindex-wrap">
-    <h2>商品列表</h2>
+  <div class="doorsindex-wrap">
+    <h2>
+    <span>
+    失败记录列表
+    </span>
+    </h2>
     <div class="table-banner">
-      <el-input placeholder="输入用户名称" icon="search" v-model="search" :on-icon-click="handleIconClick">
+      <el-input placeholder="输入查询条件" icon="search" v-model="search" :on-icon-click="handleIconClick">
       </el-input>
       <el-pagination :current-page.sync="currentPage" class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="5" layout="prev, pager, next" :total="total">
-      </el-pagination>
+    </el-pagination>
     </div>
-    <div class="userslist-wrap">
-      <el-table :data="users" stripe style="width: 100%" resizable="false">
+    <div class="doorslist-wrap">
+      <el-table :data="doors" stripe style="width: 100%" resizable="false">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="_id" label="用户ID" width="280">
+        <el-table-column prop="_id" label="事件ID" width="280">
         </el-table-column>
         <el-table-column prop="username" label="用户名称">
         </el-table-column>
-        <el-table-column prop="email" label="邮箱" width="280">
+        <el-table-column prop="date" label="开门时间" width="280">
         </el-table-column>
-        <el-table-column prop="mobile" label="手机号码" width="100">
-        </el-table-column>
-        <el-table-column prop="lerver" label="等级信息" width="180">
+        <el-table-column prop="count" label="备注信息" width="180">
         </el-table-column>
         <el-table-column label="操作" width="200" header-align="center" align="center">
-          <template scope="users">
-            <el-button size="small" @click="handleEdit(users.row,users.row._id)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(null,users.row,users.$index)">删除</el-button>
+          <template scope="doors">
+            <el-button size="small" @click="handleEdit(doors.row,doors.row.id)">查看</el-button>
+
+            <el-button size="small" type="danger" @click="handleDelete(null,doors.row,doors.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-  
+    
   </div>
 </template>
 <script>
 export default {
-  name: 'usersindex',
+  name: 'doorsindex',
   data () {
     return {
       msg: '',
       search: '',
       currentPage: 1,
       filters: [{
-        text: '热门商品', value: '1'
+        text: '正常开门', value: 'ok'
       },
       {
-        text: '促销商品', value: '2'
+        text: '开门失败', value: 'filer'
       },
       {
-        text: '普通商品', value: '3'
+        text: '警报信息', value: 'warn'
       }
       ]
     }
   },
   computed: {
-    users () {
-      return this.$store.state.admin.users || ''
+    doors () {
+      return this.$store.state.admin.doors || ''
     },
     total () {
-      return this.$store.state.admin.usersTotal || 0
+      return this.$store.state.admin.total || 0
     }
   },
   mounted () {
-    this.$store.dispatch('usersIndex', {
+    this.$store.dispatch('doorsIndex', {
       page: 1,
+      type: 'fail',
       count: 5
     }).then((res) => {
       if (res.code === 0) {
@@ -74,20 +78,35 @@ export default {
   },
   activated () {
     this.currentPage = 1
-    this.$store.dispatch('usersCount').then((res) => {}).catch((err) => { console.error(err) })
+    this.$store.dispatch('doorsCount', {type: 'fail'}).then((res) => {}).catch((err) => { console.error(err) })
   },
   methods: {
-    handleEdit (user, row) {
-      this.$store.commit('setTmpUser', user)
-      this.$router.push({name: 'userEdit', query: {path: 11}})
+    formatter (row) {
+      let group = ''
+      switch (parseInt(row.group)) {
+        case 1:
+          group = '热门商品'
+          break
+        case 2:
+          group = '促销商品'
+          break
+        case 3:
+          group = '普通商品'
+          break
+      }
+      return group
     },
-    handleDelete (done, users, index) {
-      this.$confirm('确定删除用户【' + users.username + '】', '删除用户')
+    handleEdit (good, row) {
+      this.$store.commit('setDoor', good)
+      this.$router.push({name: 'doorsDetail', query: {path: 11}})
+    },
+    handleDelete (done, doors, index) {
+      this.$confirm('确定删除商品【' + doors.name + '】', '删除商品')
         .then(_ => {
-          this.$store.dispatch('delUser', {
-            userId: users._id
+          this.$store.dispatch('delGood', {
+            id: doors.id
           }).then((res) => {
-            this.$store.commit('delIndexUser', index)
+            this.$store.commit('delIndexGood', index)
             if (res.code === 0) {
               this.$message({
                 type: 'success',
@@ -125,7 +144,7 @@ export default {
       this.$message('搜索按钮')
     },
     handleCurrentChange (val) {
-      this.$store.dispatch('usersIndex', {
+      this.$store.dispatch('doorsIndex', {
         page: val,
         count: 5
       }).then((res) => {
@@ -137,7 +156,7 @@ export default {
       })
     },
     handleSizeChange (val) {
-      // this.$store.dispatch('usersIndex', {
+      // this.$store.dispatch('doorsIndex', {
       //   page: val,
       //   count: 4
       // }).then((res) => {
@@ -151,6 +170,11 @@ export default {
     filterTag (value, row) {
       return row.group === value
     }
+  },
+  filters: {
+    groupBy (val) {
+      return val + '1111'
+    }
   }
 }
 </script>
@@ -163,10 +187,10 @@ export default {
   height: 70px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+      justify-content: space-between;
 }
 
-.usersindex-wrap h2 {
+.doorsindex-wrap h2 {
   font-size: 18px;
   font-weight: 400;
   margin: 0;
@@ -181,5 +205,14 @@ export default {
   padding-right: 0;
   justify-content: flex-start;
   padding-left: 0;
+}
+
+h2{
+  font-size: 16px;
+}
+h2 span{
+    padding: 3px 5px;
+    font-size: 16px;
+    border-left: 10px solid #f44336
 }
 </style>

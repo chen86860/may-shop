@@ -2,8 +2,8 @@ import Vue from 'vue'
 
 export default {
   state: {
-    goods: [],
-    orders: [],
+    doors: [],
+    configs: [],
     users: [],
     userinfo: {
       log: false,
@@ -11,21 +11,26 @@ export default {
       username: '',
       email: ''
     },
-    good: {},
+    door: {},
     order: {},
     user: {},
+    userDoors: [],
     total: 0,
-    ordersTotal: 0,
+    configsTotal: 0,
     usersTotal: 0
   },
   mutations: {
-    setGoodsIndex: (state, payload) => {
+    setdoorsIndex: (state, payload) => {
       if (payload === undefined) return
-      state.goods = payload.msg
+      state.doors = payload.msg
     },
-    setOrdersIndex: (state, payload) => {
+    setUserDoorsIndex: (state, payload) => {
       if (payload === undefined) return
-      state.orders = payload.msg
+      state.userDoors = payload.msg
+    },
+    setconfigsIndex: (state, payload) => {
+      if (payload === undefined) return
+      state.configs = payload.msg
     },
     setUsersIndex: (state, payload) => {
       if (payload === undefined) return
@@ -35,9 +40,9 @@ export default {
       if (payload === undefined) return
       state.detail = payload.msg[0]
     },
-    setGood: (state, payload) => {
+    setDoor: (state, payload) => {
       if (payload === undefined) return
-      state.good = payload
+      state.door = payload
     },
     setTmpOrder: (state, payload) => {
       if (payload === undefined) return
@@ -60,7 +65,7 @@ export default {
     },
     setOrderCount: (state, payload) => {
       if (payload === undefined) return
-      state.ordersTotal = payload.msg
+      state.configsTotal = payload.msg
     },
     setUserCount: (state, payload) => {
       if (payload === undefined) return
@@ -68,11 +73,11 @@ export default {
     },
     delIndexGood: (state, payload) => {
       if (payload === undefined) return
-      state.goods.splice(payload, 1)
+      state.doors.splice(payload, 1)
     },
     delIndexOrder: (state, payload) => {
       if (payload === undefined) return
-      state.orders.splice(payload, 1)
+      state.configs.splice(payload, 1)
     },
     delIndexUser: (state, payload) => {
       if (payload === undefined) return
@@ -80,13 +85,23 @@ export default {
     }
   },
   actions: {
-    // Goods 操作
-    goodsIndex ({ commit, state, getters }, payload) {
+    // doors 操作
+    doorsIndex ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['goodsIndex'], payload).then((res) => {
-          console.log('goodsIndex', res.code, res)
+        Vue.axios.post(getters['doorsIndex'], payload).then((res) => {
+          console.log('doorsIndex', res.code, res)
           if (res.data.code === 0) {
-            commit('setGoodsIndex', res.data)
+            commit('setdoorsIndex', res.data)
+          }
+          resolve(res)
+        })
+      })
+    },
+    doorsUserIndex ({ commit, state, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        Vue.axios.post(getters['doorsUserIndex'], payload).then((res) => {
+          if (res.data.code === 0) {
+            commit('setUserDoorsIndex', res.data)
           }
           resolve(res)
         })
@@ -126,9 +141,9 @@ export default {
         })
       })
     },
-    goodsCount ({commit, state, getters}, payload) {
+    doorsCount ({commit, state, getters}, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['goodsCount'], payload).then((res) => {
+        Vue.axios.post(getters['doorsCount'], payload).then((res) => {
           if (res.data.code === 0) {
             resolve(res.data)
             commit('setCount', res.data)
@@ -139,12 +154,12 @@ export default {
       })
     },
     // Order 操作
-    ordersIndex ({ commit, state, getters }, payload) {
+    configsIndex ({ commit, state, getters }, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['ordersIndex'], payload).then((res) => {
-          console.log('ordersIndex', res.code, res)
+        Vue.axios.post(getters['configsIndex'], payload).then((res) => {
+          console.log('configsIndex', res.code, res)
           if (res.data.code === 0) {
-            commit('setOrdersIndex', res.data)
+            commit('setconfigsIndex', res.data)
           }
           resolve(res)
         })
@@ -162,9 +177,9 @@ export default {
         })
       })
     },
-    ordersCount ({commit, state, getters}, payload) {
+    configsCount ({commit, state, getters}, payload) {
       return new Promise((resolve, reject) => {
-        Vue.axios.post(getters['ordersCount'], payload).then((res) => {
+        Vue.axios.post(getters['configsCount'], payload).then((res) => {
           if (res.data.code === 0) {
             resolve(res.data)
             commit('setOrderCount', res.data)
@@ -240,7 +255,7 @@ export default {
         Vue.axios.post(getters['adminLogin'], payload).then((res) => {
           console.log('adminLogin', res.data.code)
           if (res.data.code === 0) {
-            commit('setAdminInfo', res.data.msg)
+            commit('setAdminInfo', payload)
             resolve(res.data)
           } else {
             reject(res.data)

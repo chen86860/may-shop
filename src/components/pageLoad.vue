@@ -48,7 +48,7 @@
   }
   
   #object_one {
-    background: #ff1877;
+    background: #20a0ff;
     -webkit-animation: object_one 1.5s infinite;
     animation: object_one 1.5s infinite;
   }
@@ -64,7 +64,7 @@
   }
   
   #object_four {
-    background: #ff1877;
+    background: #20a0ff;
     -webkit-animation: object_four 1.5s infinite;
     animation: object_four 1.5s infinite;
   }

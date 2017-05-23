@@ -5464,7 +5464,7 @@ export default {
 .city-up-bottom>p {
   height: .6rem;
   margin-right: .2rem;
-  border-bottom: 2px solid #ff1877;
+  border-bottom: 2px solid #20a0ff;
 }
 
 .city-con-down {

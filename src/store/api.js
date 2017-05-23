@@ -3,8 +3,8 @@ export const HOST = {
 }
 export default {
   getters: {
-    goods: (state, getters) => {
-      return HOST['DEV'] + '/api/goods'
+    doors: (state, getters) => {
+      return HOST['DEV'] + '/api/doors'
     },
     detail: (state, getters) => {
       return HOST['DEV'] + '/api/detail'
@@ -30,8 +30,8 @@ export default {
     cartGoodAdd: (state, getters) => {
       return HOST['DEV'] + '/user/cartGoodAdd'
     },
-    cartGoodSub: (state, getters) => {
-      return HOST['DEV'] + '/user/cartGoodSub'
+    cartdoorsub: (state, getters) => {
+      return HOST['DEV'] + '/user/cartdoorsub'
     },
     prevCreateOrder: (state, getters) => {
       return HOST['DEV'] + '/user/prevCreateOrder'
@@ -45,41 +45,44 @@ export default {
     adminLogin: (state, getters) => {
       return HOST['DEV'] + '/admin/login'
     },
-    goodsIndex: (state, getters) => {
-      return HOST['DEV'] + '/admin/goods/index'
+    doorsIndex: (state, getters) => {
+      return HOST['DEV'] + '/admin/doors/index'
     },
-    ordersIndex: (state, getters) => {
-      return HOST['DEV'] + '/admin/orders/index'
+    doorsUserIndex: (state, getters) => {
+      return HOST['DEV'] + '/admin/doors/user'
+    },
+    configsIndex: (state, getters) => {
+      return HOST['DEV'] + '/admin/configs/index'
     },
     usersIndex: (state, getters) => {
       return HOST['DEV'] + '/admin/users/index'
     },
     delGood: (state, getters) => {
-      return HOST['DEV'] + '/admin/goods/del'
+      return HOST['DEV'] + '/admin/doors/del'
     },
     delOrder: (state, getters) => {
-      return HOST['DEV'] + '/admin/orders/del'
+      return HOST['DEV'] + '/admin/configs/del'
     },
     delUser: (state, getters) => {
       return HOST['DEV'] + '/admin/users/del'
     },
-    goodsCount: (state, getters) => {
-      return HOST['DEV'] + '/admin/goods/count'
+    doorsCount: (state, getters) => {
+      return HOST['DEV'] + '/admin/doors/count'
     },
     usersCount: (state, getters) => {
       return HOST['DEV'] + '/admin/users/count'
     },
-    ordersCount: (state, getters) => {
-      return HOST['DEV'] + '/admin/orders/count'
+    configsCount: (state, getters) => {
+      return HOST['DEV'] + '/admin/configs/count'
     },
     editGood: (state, getters) => {
-      return HOST['DEV'] + '/admin/goods/update'
+      return HOST['DEV'] + '/admin/doors/update'
     },
     editUser: (state, getters) => {
       return HOST['DEV'] + '/admin/users/update'
     },
     addGood: (state, getters) => {
-      return HOST['DEV'] + '/admin/goods/add'
+      return HOST['DEV'] + '/admin/doors/add'
     },
     addAds: (state, getters) => {
       return HOST['DEV'] + '/user/ads/add'

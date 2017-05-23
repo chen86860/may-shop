@@ -177,7 +177,7 @@ h2>span:last-child{
 }
 h2>span>a{
       font-size: 14px;
-    color: #ff1877;
+    color: #20a0ff;
 }
 
 

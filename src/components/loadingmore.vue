@@ -16,7 +16,7 @@
   .loadingmore div>span {
     width: .22rem;
     height: .22rem;
-    border: 2px solid #ff1877;
+    border: 2px solid #20a0ff;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     border-bottom-color: #DFDFDF;

@@ -22,7 +22,7 @@
       </div>
     </div>
   
-    <div class="order-goods-desc p-border-b" v-for="good in orderitem.goods" @click="enter(good.goodId)">
+    <div class="order-doors-desc p-border-b" v-for="good in orderitem.doors" @click="enter(good.goodId)">
       <span>
         <img :src="good.img" alt="">
       </span>
@@ -83,7 +83,7 @@ export default {
   font-size: .22rem;
 }
 
-.order-goods-desc {
+.order-doors-desc {
   padding: 0 .2rem;
   display: flex;
 }
@@ -105,7 +105,7 @@ export default {
 
 .order-status {
   width: 200px;
-  color: #ff1877;
+  color: #20a0ff;
   right: .2rem;
   font-size: .22rem;
 }
@@ -115,14 +115,14 @@ export default {
   color: #545454;
 }
 
-.order-goods-desc span:first-child {
+.order-doors-desc span:first-child {
   width: 1.3rem;
   height: 1.3rem;
   margin: .1rem .1rem .1rem 0;
   background: #fff;
 }
 
-.order-goods-desc span:first-child>img {
+.order-doors-desc span:first-child>img {
   width: 100%;
   height: 100%;
 }
@@ -144,8 +144,8 @@ export default {
 }
 
 .order-btn {
-  background: #ff1877;
-  border: 1px solid #ff1877;
+  background: #20a0ff;
+  border: 1px solid #20a0ff;
   padding: .08rem .25rem;
   border-radius: .06rem;
   color: #fff;
@@ -153,7 +153,7 @@ export default {
 }
 
 .order-btn:active {
-  background: #ff1877;
+  background: #20a0ff;
   color: #fff;
 }
 
