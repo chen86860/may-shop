@@ -16,22 +16,20 @@ npm run build
 
 ```
 ## ScreenShot
-1. home page
-
+##### 1. home page
 ![](http://i4.piimg.com/585075/6d7bd362edefcd95.png 'Home Page')
 
-2. Details Page
-
+##### 2. Details Page
 ![](http://i4.piimg.com/585075/3bf9d31aaad724ae.png 'Details')
 
-3. Cart
+##### 3. Cart
 ![](http://i4.piimg.com/585075/c5f922758299f7dd.png 'Cart')
 
-4. Order
+##### 4. Order
 ![](http://i4.piimg.com/585075/08ac7839d8b31ef8.png 'Order')
 
-5. Pay
+##### 5. Pay
 ![](http://i4.piimg.com/585075/a42e8f757af213d5.png 'Pay')
 
-6. Dashboard
+##### 6. Dashboard
 ![](http://i4.piimg.com/585075/1750a9eeb2447fb4.png 'Dashboard')
