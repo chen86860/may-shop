@@ -5,7 +5,7 @@ exports.credentials = {
     cookieSecret: 'bowl aboard somehow baby',
     mongo: { development: { connectString: "mongodb://localhost/door" }, production: { connectString: "Connect String" } },
     stmp: {
-        stmpSecert: "smtps://chen86860%40yeah.net:8008208820LONG@smtp.yeah.net"
+        stmpSecert: ""
     }
 };
 
