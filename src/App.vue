@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <transition name="move">
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -12,12 +15,14 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container-wrap{
+  max-width: 640px;
+  margin: 0 auto
+}
+.move-enter-active, .move-leave-active {
+    transition: opacity .5s
+}
+.move-enter, .move-leave-active {
+     opacity: 0.1
 }
 </style>
